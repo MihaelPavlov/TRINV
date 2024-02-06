@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 using TRINV.Application.Common;
-using TRINV.Domain.Common.Mapping;
 using TRINV.Domain.Common.Repositories;
 using TRINV.Infrastructure.Common.Persistance;
 using TRINV.Infrastructure.Investements;
@@ -16,7 +16,6 @@ public static class InfrastructureConfiguration
             IConfiguration configuration)
             => services
                 .AddDatabase(configuration)
-                .AddInitialMapping()
                 .AddRepositories();
 
     private static IServiceCollection AddDatabase(
@@ -40,13 +39,4 @@ public static class InfrastructureConfiguration
                 )
                 .AsImplementedInterfaces()
                 .WithTransientLifetime());
-
-    private static IServiceCollection AddInitialMapping(this IServiceCollection services)
-   => services
-       .Scan(scan => scan
-           .FromCallingAssembly()
-           .AddClasses(classes => classes
-               .AssignableTo(typeof(IInitialMapping)))
-           .AsImplementedInterfaces()
-           .WithTransientLifetime());
 }

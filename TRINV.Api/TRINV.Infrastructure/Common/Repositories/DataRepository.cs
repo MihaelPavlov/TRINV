@@ -1,4 +1,4 @@
-﻿using Mapster;
+﻿using AutoMapper;
 using TRINV.Domain.Common;
 using TRINV.Domain.Common.Repositories;
 using TRINV.Infrastructure.Common.Persistance;
@@ -10,7 +10,11 @@ internal abstract class DataRepository<TDbContext, TEntity, TDomain> : IDomainRe
     where TDomain : class, IAggregateRoot
     where TEntity : class
 {
-    protected DataRepository(TDbContext db) => this.Data = db;
+    readonly IMapper mapper;
+    protected DataRepository(TDbContext db, IMapper mapper)
+    {
+        this.Data = db; this.mapper = mapper;
+    }
 
     protected TDbContext Data { get; }
 
@@ -20,9 +24,12 @@ internal abstract class DataRepository<TDbContext, TEntity, TDomain> : IDomainRe
         TDomain entity,
         CancellationToken cancellationToken = default)
     {
+        var mappedObject = this.mapper.Map<TEntity>(entity);
+        //TODO: Provide better exception 
+        if (mappedObject is null)
+            throw new ArgumentException("Infrastructure exception: Mapping problem in data repository");
 
-        this.Data.Update(entity.Adapt<TEntity>());
-
+        this.Data.Update(mappedObject);
         await this.Data.SaveChangesAsync(cancellationToken);
     }
 }

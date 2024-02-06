@@ -18,22 +18,6 @@ public class Investment : Entity<int>, IAggregateRoot
         this.PurchasePricePerUnit = purchasePricePerUnit;
     }
 
-    internal Investment(
-       int id,
-       int accountId,
-       string assetId,
-       decimal quantity,
-       decimal purchasePrice,
-       decimal purchasePricePerUnit)
-    {
-        this.Id = id;
-        this.AccountId = accountId;
-        this.AssetId = assetId;
-        this.Quantity = quantity;
-        this.PurchasePrice = purchasePrice;
-        this.PurchasePricePerUnit = purchasePricePerUnit;
-    }
-
     private Investment(string assetId, int accountId,
         decimal quantity,
         decimal purchasePrice,

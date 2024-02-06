@@ -14,8 +14,6 @@ public interface IInvestmentFactory : IFactory<Investment>
     IInvestmentFactory WithPurchasePrice(decimal purchasePrice);
 
     IInvestmentFactory WithPurchasePricePerUnit(decimal purchasePricePerUnit);
-
-    IInvestmentFactory WithId(int id);
 }
 
 internal class InvestmentFactory : IInvestmentFactory
@@ -25,7 +23,6 @@ internal class InvestmentFactory : IInvestmentFactory
     private decimal quantity = default!;
     private decimal purchasePrice = default!;
     private decimal purchasePricePerUnit = default!;
-    private int id = default!;
 
     public IInvestmentFactory WithAcountId(int acountId)
     {
@@ -54,24 +51,9 @@ internal class InvestmentFactory : IInvestmentFactory
         this.purchasePricePerUnit = purchasePricePerUnit;
         return this;
     }
-    public IInvestmentFactory WithId(int id)
-    {
-        this.id = id;
-        return this;
-    }
 
     public Investment Build()
     {
-        if (this.id != default)
-        {
-            return new Investment(
-            this.id,
-            this.acountId,
-            this.assetId,
-            this.quantity,
-            this.purchasePrice,
-            this.purchasePricePerUnit);
-        }
         return new Investment(
             this.acountId,
             this.assetId,

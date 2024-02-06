@@ -1,4 +1,7 @@
-﻿namespace TRINV.Infrastructure.Entities;
+﻿using AutoMapper;
+using TRINV.Domain.Common.Mapping;
+
+namespace TRINV.Infrastructure.Entities;
 
 public class Investment
 {
@@ -21,4 +24,19 @@ public class Investment
     public DateTime CreatedOn { get; set; }
 
     public bool IsFromOutsideProvider { get; set; }
+}
+
+// TODO: Investigate it..! This approach is working 
+
+public class InvestmentMappingProfile : Profile
+{
+    public InvestmentMappingProfile()
+    {
+        CreateMap<Domain.ExternalAssetIntegration.Dashboard.Models.Investment, Investment>()
+            .PreserveReferences()
+            .IncludeAllDerived()
+            .ReverseMap()
+            .PreserveReferences()
+            .IncludeAllDerived();
+    }
 }

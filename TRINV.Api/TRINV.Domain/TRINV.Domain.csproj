@@ -7,12 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="ExternalAssetIntegration\Dashboard\Mappings\" />
+    <Folder Include="Investments\Models\" />
     <Folder Include="Investments\Services\" />
     <Folder Include="UserManagement\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mapster" Version="7.4.0" />
+    <PackageReference Include="AutoMapper" Version="13.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
     <PackageReference Include="Scrutor" Version="4.2.2" />
   </ItemGroup>

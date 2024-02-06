@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using TRINV.Application.ExternalAssetIntegration.Queries;
 
 namespace TRINV.Application
@@ -10,7 +9,5 @@ namespace TRINV.Application
                  this IServiceCollection services)
                  => services
                      .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(TestQuery).Assembly));
-
-
     }
 }

@@ -4,18 +4,21 @@ using TRINV.Infrastructure.Common.Repositories;
 using TRINV.Infrastructure.Investements;
 using Microsoft.EntityFrameworkCore;
 using TRINV.Domain.ExternalAssetIntegration.Dashboard.Models;
-using Mapster;
 using TRINV.Domain.ExternalAssetIntegration.Dashboard.Factories;
 using TRINV.Application.ExternalAssetIntegration.Repositories;
+using AutoMapper.QueryableExtensions;
+using AutoMapper;
 
 namespace TRINV.Infrastructure.ExternalAssetIntegration.Repositories;
 
 internal class InvestmentRepository : DataRepository<IInvestmentDbContext, Entities.Investment, DomainModels.Investment>, IInvestmentDomainRepository, ITestQueryRepository
 {
+    readonly IMapper mapper;
     readonly IInvestmentFactory investmentFactory;
-    public InvestmentRepository(IInvestmentDbContext db, IInvestmentFactory investmentFactory)
-        : base(db)
+    public InvestmentRepository(IInvestmentDbContext db, IInvestmentFactory investmentFactory, IMapper mapper)
+        : base(db, mapper)
     {
+        this.mapper = mapper;
         this.investmentFactory = investmentFactory;
     }
 
@@ -25,17 +28,17 @@ internal class InvestmentRepository : DataRepository<IInvestmentDbContext, Entit
     }
 
     public async Task<DomainModels.Investment?> Find(int id, CancellationToken cancellationToken)
-        => (await this
-         .All().FirstOrDefaultAsync(c => c.Id == id, cancellationToken)).Adapt<Investment>();
+        => await this
+         .All().ProjectTo<Investment>(this.mapper.ConfigurationProvider).FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
 
     public async Task<IEnumerable<Investment>> GetAll()
     {
-        return (await this.All().ToListAsync()).Adapt<IEnumerable<Investment>>();
+        return await this.All().ProjectTo<Investment>(this.mapper.ConfigurationProvider).ToListAsync();
     }
 
     public async Task<IEnumerable<Investment>> GetAllByAccount(int accountId, CancellationToken cancellationToken)
     {
-        var res = await this.All().Where(x => x.AccountId == accountId).ToListAsync(cancellationToken);
+        var res = await this.All().Where(x => x.AccountId == accountId).ProjectTo<Investment>(this.mapper.ConfigurationProvider).ToListAsync(cancellationToken);
         //var config = new TypeAdapterConfig();
         //config.NewConfig<TRINV.Infrastructure.Entities.Investment, TRINV.Domain.ExternalAssetIntegration.Dashboard.Models.Investment>()
         //    .ConstructUsing(source => this.investmentFactory
@@ -62,9 +65,9 @@ internal class InvestmentRepository : DataRepository<IInvestmentDbContext, Entit
         //      .Build());
 
         // Perform the mapping
-        var destinationList =
-             res.Adapt<List<Investment>>();
-        return destinationList;
+        //var destinationList =
+        //     res.Adapt<List<Investment>>();
+        return res;
     }
 
 }

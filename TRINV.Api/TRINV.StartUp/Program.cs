@@ -1,7 +1,6 @@
 using TRINV.Application;
 using TRINV.Domain;
 using TRINV.Infrastructure;
-using TRINV.StartUp.AppInitializations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,5 +25,4 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-app.InitializeMappings();
 app.Run();
