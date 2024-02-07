@@ -2,7 +2,7 @@
 
 namespace TRINV.Domain.Common.Mapping;
 
-public interface IMapFrom<T>
+public interface IMapFrom<TSource>
 {
-    void Mapping(Profile mapper) => mapper.CreateMap(typeof(T), GetType());
+    void Mapping(Profile mapper) => mapper.CreateMap(typeof(TSource), GetType());
 }

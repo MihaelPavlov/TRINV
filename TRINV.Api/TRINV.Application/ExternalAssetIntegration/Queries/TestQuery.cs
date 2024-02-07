@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using System.Runtime.CompilerServices;
+using System.Xml.Serialization;
 using TRINV.Application.ExternalAssetIntegration.Repositories;
 using TRINV.Domain.Common.Mapping;
 using TRINV.Domain.ExternalAssetIntegration.Dashboard.Models;
@@ -30,13 +31,14 @@ internal class TestQueryHandler : IRequestHandler<TestQuery, IEnumerable<AssetIn
 
     public async Task<IEnumerable<AssetInfo>> Handle(TestQuery request, CancellationToken cancellationToken)
     {
-        var test2 = new Test2
-        {
-            Id = 1,
-            Name = "da",
-        };
+        //var test2 = new TestSource
+        //{
+        //    Id = 1,
+        //    FirstName = "da",
+        //    LastName = "last-da",
+        //};
 
-        var res = this.mapper.Map<Test>(test2);
+        //var res = this.mapper.Map<TestDestination>(test2);
 
         //var test = await this.testQueryRepository.GetAll();
         //var tes =await  this.investmentDomainRepository.GetAllByAccount(1,cancellationToken);
@@ -44,27 +46,21 @@ internal class TestQueryHandler : IRequestHandler<TestQuery, IEnumerable<AssetIn
     }
 }
 
-public class Test : IMapFrom<Test2>
+public class TestSource : IMapFrom<TestDestination>
 {
     public int Id { get; set; }
-    public string Name { get; set; }
-    public string SecondName { get; set; }
-
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
     public virtual void Mapping(Profile mapper)
-      => mapper.CreateMap<Test2, Test>()
-        .ReverseMap();
+      => mapper.CreateMap<TestSource, TestDestination>()
+        .ForMember(dest=>dest.lastName , opt=>opt.MapFrom(src=> "Custom LastName"));
 }
 
-public class Tes3 : IMapFrom<Test2>
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string SecondName { get; set; }
-}
 
-public class Test2
+public class TestDestination
 {
     public int Id { get; set; }
-    public string Name { get; set; }
+    public string FirstName { get; set; }
+    public string lastName { get; set; }
 
 }

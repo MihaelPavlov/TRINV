@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using TRINV.Domain.Common.Mapping;
+using DomainModels = TRINV.Domain.ExternalAssetIntegration.Dashboard.Models;
 
 namespace TRINV.Infrastructure.Entities;
 
@@ -32,7 +32,8 @@ public class InvestmentMappingProfile : Profile
 {
     public InvestmentMappingProfile()
     {
-        CreateMap<Domain.ExternalAssetIntegration.Dashboard.Models.Investment, Investment>()
+        // mapping domain model to database entity
+        CreateMap< DomainModels.Investment, Investment>()
             .PreserveReferences()
             .IncludeAllDerived()
             .ReverseMap()
