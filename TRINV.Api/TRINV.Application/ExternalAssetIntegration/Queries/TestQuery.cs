@@ -19,7 +19,9 @@ internal class TestQueryHandler : IRequestHandler<TestQuery, IEnumerable<AssetIn
     readonly IExternalAssetsService externalAssetsService;
     readonly ITestQueryRepository testQueryRepository;
     readonly IInvestmentDomainRepository investmentDomainRepository;
+    
     readonly IMapper mapper;
+
     public TestQueryHandler(IExternalAssetsService externalAssetsService,
         ITestQueryRepository testQueryRepository, IInvestmentDomainRepository investmentDomainRepository, IMapper mapper)
     {

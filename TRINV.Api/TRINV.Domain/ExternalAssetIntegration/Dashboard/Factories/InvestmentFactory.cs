@@ -1,20 +1,7 @@
-﻿using TRINV.Domain.Common;
+﻿using TRINV.Domain.ExternalAssetIntegration.Dashboard.Factories.Interfaces;
 using TRINV.Domain.ExternalAssetIntegration.Dashboard.Models;
 
 namespace TRINV.Domain.ExternalAssetIntegration.Dashboard.Factories;
-
-public interface IInvestmentFactory : IFactory<Investment>
-{
-    IInvestmentFactory WithAcountId(int acountId);
-
-    IInvestmentFactory WithAssetId(string assetId);
-
-    IInvestmentFactory WithQuantity(decimal quantity);
-
-    IInvestmentFactory WithPurchasePrice(decimal purchasePrice);
-
-    IInvestmentFactory WithPurchasePricePerUnit(decimal purchasePricePerUnit);
-}
 
 internal class InvestmentFactory : IInvestmentFactory
 {
@@ -55,10 +42,10 @@ internal class InvestmentFactory : IInvestmentFactory
     public Investment Build()
     {
         return new Investment(
-            this.acountId,
-            this.assetId,
-            this.quantity,
-            this.purchasePrice,
-            this.purchasePricePerUnit);
+            acountId,
+            assetId,
+            quantity,
+            purchasePrice,
+            purchasePricePerUnit);
     }
 }

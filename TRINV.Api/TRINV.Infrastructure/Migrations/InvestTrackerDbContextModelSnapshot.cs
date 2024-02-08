@@ -22,6 +22,65 @@ namespace TRINV.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("TRINV.Infrastructure.Entities.IntegrationModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ApiKey")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BaseUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Category")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IntegrationModels");
+                });
+
+            modelBuilder.Entity("TRINV.Infrastructure.Entities.IntegrationModelEndpoint", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("HttpRequestType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IntegrationModelId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("QueryUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IntegrationModelId");
+
+                    b.ToTable("IntegrationModelEndpoints");
+                });
+
             modelBuilder.Entity("TRINV.Infrastructure.Entities.Investment", b =>
                 {
                     b.Property<int>("Id")
@@ -62,6 +121,17 @@ namespace TRINV.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Investments");
+                });
+
+            modelBuilder.Entity("TRINV.Infrastructure.Entities.IntegrationModelEndpoint", b =>
+                {
+                    b.HasOne("TRINV.Infrastructure.Entities.IntegrationModel", "IntegrationModel")
+                        .WithMany()
+                        .HasForeignKey("IntegrationModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("IntegrationModel");
                 });
 #pragma warning restore 612, 618
         }

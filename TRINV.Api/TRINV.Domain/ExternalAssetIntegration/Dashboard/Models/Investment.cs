@@ -11,11 +11,11 @@ public class Investment : Entity<int>, IAggregateRoot
         decimal purchasePrice,
         decimal purchasePricePerUnit)
     {
-        this.AccountId = accountId;
-        this.AssetId = assetId;
-        this.Quantity = quantity;
-        this.PurchasePrice = purchasePrice;
-        this.PurchasePricePerUnit = purchasePricePerUnit;
+        AccountId = accountId;
+        AssetId = assetId;
+        Quantity = quantity;
+        PurchasePrice = purchasePrice;
+        PurchasePricePerUnit = purchasePricePerUnit;
     }
 
     private Investment(string assetId, int accountId,
@@ -23,11 +23,11 @@ public class Investment : Entity<int>, IAggregateRoot
         decimal purchasePrice,
         decimal purchasePricePerUnit)
     {
-        this.AccountId = accountId;
-        this.AssetId = assetId;
-        this.Quantity = quantity;
-        this.PurchasePrice = purchasePrice;
-        this.PurchasePricePerUnit = purchasePricePerUnit;
+        AccountId = accountId;
+        AssetId = assetId;
+        Quantity = quantity;
+        PurchasePrice = purchasePrice;
+        PurchasePricePerUnit = purchasePricePerUnit;
     }
 
     public int AccountId { get; private set; }

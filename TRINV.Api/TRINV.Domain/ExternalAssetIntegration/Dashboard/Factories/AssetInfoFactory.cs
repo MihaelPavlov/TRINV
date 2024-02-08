@@ -1,15 +1,7 @@
-﻿using TRINV.Domain.Common;
+﻿using TRINV.Domain.ExternalAssetIntegration.Dashboard.Factories.Interfaces;
 using TRINV.Domain.ExternalAssetIntegration.Dashboard.Models;
 
 namespace TRINV.Domain.ExternalAssetIntegration.Dashboard.Factories;
-
-public interface IAssetInfoFactory : IFactory<AssetInfo>
-{
-    IAssetInfoFactory WithPurchasePrice(decimal purchasePrice);
-
-    IAssetInfoFactory WithAssetId(string assetId);
-}
-
 
 internal class AssetInfoFactory : IAssetInfoFactory
 {
@@ -33,7 +25,7 @@ internal class AssetInfoFactory : IAssetInfoFactory
         // validations
 
         return new AssetInfo(
-            this.assetId,
-            this.purchasePrice);
+            assetId,
+            purchasePrice);
     }
 }

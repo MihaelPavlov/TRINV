@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ExternalAssetIntegration\Dashboard\Mappings\" />
+    <Folder Include="ExternalAssetIntegration\Dashboard\Exceptions\" />
+    <Folder Include="ExternalAssetIntegration\Dashboard\Enums\" />
     <Folder Include="Investments\Models\" />
     <Folder Include="Investments\Services\" />
     <Folder Include="UserManagement\" />

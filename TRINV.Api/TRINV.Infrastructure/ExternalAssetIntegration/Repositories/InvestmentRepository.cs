@@ -1,17 +1,16 @@
-﻿using DomainModels = TRINV.Domain.ExternalAssetIntegration.Dashboard.Models;
-using TRINV.Domain.ExternalAssetIntegration.Dashboard.Repositories;
+﻿using TRINV.Domain.ExternalAssetIntegration.Dashboard.Repositories;
 using TRINV.Infrastructure.Common.Repositories;
 using TRINV.Infrastructure.Investements;
 using Microsoft.EntityFrameworkCore;
-using TRINV.Domain.ExternalAssetIntegration.Dashboard.Models;
-using TRINV.Domain.ExternalAssetIntegration.Dashboard.Factories;
 using TRINV.Application.ExternalAssetIntegration.Repositories;
 using AutoMapper.QueryableExtensions;
 using AutoMapper;
+using TRINV.Domain.ExternalAssetIntegration.Dashboard.Models;
+using TRINV.Domain.ExternalAssetIntegration.Dashboard.Factories.Interfaces;
 
 namespace TRINV.Infrastructure.ExternalAssetIntegration.Repositories;
 
-internal class InvestmentRepository : DataRepository<IInvestmentDbContext, Entities.Investment, DomainModels.Investment>, IInvestmentDomainRepository, ITestQueryRepository
+internal class InvestmentRepository : DataRepository<IInvestmentDbContext, Entities.Investment, Investment>, IInvestmentDomainRepository, ITestQueryRepository
 {
     readonly IMapper mapper;
     readonly IInvestmentFactory investmentFactory;
@@ -22,12 +21,12 @@ internal class InvestmentRepository : DataRepository<IInvestmentDbContext, Entit
         this.investmentFactory = investmentFactory;
     }
 
-    public Task<DomainModels.Investment> Delete(int id, CancellationToken cancellationToken)
+    public Task<Investment> Delete(int id, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<DomainModels.Investment?> Find(int id, CancellationToken cancellationToken)
+    public async Task<Investment?> Find(int id, CancellationToken cancellationToken)
         => await this
          .All().ProjectTo<Investment>(this.mapper.ConfigurationProvider).FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
 

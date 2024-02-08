@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TRINV.Domain\TRINV.Domain.csproj" />
+    <ProjectReference Include="..\TRINV.Shared.Business\TRINV.Shared.Business.csproj" />
   </ItemGroup>
 
 </Project>

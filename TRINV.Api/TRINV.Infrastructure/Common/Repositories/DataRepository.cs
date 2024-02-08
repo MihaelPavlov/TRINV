@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using TRINV.Domain.Common;
 using TRINV.Domain.Common.Repositories;
 using TRINV.Infrastructure.Common.Persistance;
@@ -17,7 +18,6 @@ internal abstract class DataRepository<TDbContext, TEntity, TDomain> : IDomainRe
     }
 
     protected TDbContext Data { get; }
-
     protected IQueryable<TEntity> All() => this.Data.Set<TEntity>();
 
     public async Task Save(
@@ -28,7 +28,7 @@ internal abstract class DataRepository<TDbContext, TEntity, TDomain> : IDomainRe
         //TODO: Provide better exception 
         if (mappedObject is null)
             throw new ArgumentException("Infrastructure exception: Mapping problem in data repository");
-
+        
         this.Data.Update(mappedObject);
         await this.Data.SaveChangesAsync(cancellationToken);
     }
