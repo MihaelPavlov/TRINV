@@ -16,18 +16,11 @@ public class ExternalAssetIntegrationMappingProfile : Profile
           .PreserveReferences()
           .IncludeAllDerived();
 
-        CreateMap<IntegrationModel, DbEntities.IntegrationModel>()
+        CreateMap<RequestExternalResource, DbEntities.RequestExternalResource>()
          .PreserveReferences()
          .IncludeAllDerived()
          .ReverseMap()
          .PreserveReferences()
          .IncludeAllDerived();
-
-        CreateMap<IntegrationModelEndpoint, DbEntities.IntegrationModelEndpoint>()
-        .PreserveReferences()
-        .IncludeAllDerived()
-        .ReverseMap()
-        .PreserveReferences()
-        .IncludeAllDerived();
     }
 }

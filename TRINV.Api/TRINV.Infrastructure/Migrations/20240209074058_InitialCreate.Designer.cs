@@ -12,7 +12,7 @@ using TRINV.Infrastructure.Common.Persistance;
 namespace TRINV.Infrastructure.Migrations
 {
     [DbContext(typeof(InvestTrackerDbContext))]
-    [Migration("20240204211517_InitialCreate")]
+    [Migration("20240209074058_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,6 +64,40 @@ namespace TRINV.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Investments");
+                });
+
+            modelBuilder.Entity("TRINV.Infrastructure.Entities.RequestExternalResource", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ApiKey")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BaseUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Category")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RequestExternalResources");
                 });
 #pragma warning restore 612, 618
         }

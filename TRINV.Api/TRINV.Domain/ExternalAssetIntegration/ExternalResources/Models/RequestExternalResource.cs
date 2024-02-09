@@ -4,11 +4,9 @@ using TRINV.Domain.ExternalAssetIntegration.ExternalResources.Exceptions;
 
 namespace TRINV.Domain.ExternalAssetIntegration.ExternalResources.Models;
 
-public class IntegrationModel : Entity<int>, IAggregateRoot
+public class RequestExternalResource : Entity<int>, IAggregateRoot
 {
-    readonly HashSet<IntegrationModelEndpoint> endpoints;
-
-    internal IntegrationModel(int userId, string name, string baseUrl, string apiKey, ExternalResourceStatus status, ExternalResourceCategory category, List<IntegrationModelEndpoint> endpoints)
+    internal RequestExternalResource(int userId, string name, string baseUrl, string apiKey, ExternalResourceStatus status, ExternalResourceCategory category)
     {
         this.Validate(name, baseUrl, apiKey, status, category);
 
@@ -18,8 +16,6 @@ public class IntegrationModel : Entity<int>, IAggregateRoot
         this.ApiKey = apiKey;
         this.Status = status;
         this.Category = category;
-
-        this.endpoints = endpoints.ToHashSet();
     }
 
     public int UserId { get; private set; }
@@ -29,42 +25,37 @@ public class IntegrationModel : Entity<int>, IAggregateRoot
     public ExternalResourceStatus Status { get; private set; }
     public ExternalResourceCategory Category { get; private set; }
 
-    public IReadOnlyCollection<IntegrationModelEndpoint> Endpoints => endpoints.ToList().AsReadOnly();
-
-    public IntegrationModel UpdateName(string name)
+    public RequestExternalResource UpdateName(string name)
     {
-        Name = name;
+        this.Name = name;
         return this;
     }
 
-    public IntegrationModel UpdateBaseUrl(string baseUrl)
+    public RequestExternalResource UpdateBaseUrl(string baseUrl)
     {
-        BaseUrl = baseUrl;
+        this.BaseUrl = baseUrl;
         return this;
     }
 
-    public IntegrationModel UpdateApiKey(string apiKey)
+    public RequestExternalResource UpdateApiKey(string apiKey)
     {
-        ApiKey = apiKey;
+        this.ApiKey = apiKey;
         return this;
     }
 
-    public IntegrationModel UpdateStatus(ExternalResourceStatus status)
+    public RequestExternalResource UpdateStatus(ExternalResourceStatus status)
     {
         ValidateStatus(status);
-        Status = status;
+        this.Status = status;
         return this;
     }
 
-    public IntegrationModel UpdateCategory(ExternalResourceCategory category)
+    public RequestExternalResource UpdateCategory(ExternalResourceCategory category)
     {
         ValidateCategory(category);
-        Category = category;
+        this.Category = category;
         return this;
     }
-
-    public void AddEndpoint(IntegrationModelEndpoint endpoint)
-       => endpoints.Add(endpoint);
 
     private void Validate(string name, string baseUrl, string apiKey, ExternalResourceStatus status, ExternalResourceCategory category)
     {
@@ -76,12 +67,12 @@ public class IntegrationModel : Entity<int>, IAggregateRoot
     private void ValidateStatus(ExternalResourceStatus status)
     {
         if (!Enum.IsDefined(status))
-            throw new InvalidIntegrationModelException($"Status is not a valid");
+            throw new InvalidRequestExternalResourceException($"Status is not a valid");
     }
 
     private void ValidateCategory(ExternalResourceCategory category)
     {
         if (!Enum.IsDefined(category))
-            throw new InvalidIntegrationModelException($"Category is not a valid");
+            throw new InvalidRequestExternalResourceException($"Category is not a valid");
     }
 }

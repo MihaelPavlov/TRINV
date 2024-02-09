@@ -29,12 +29,33 @@ namespace TRINV.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Investments", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "RequestExternalResources",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BaseUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ApiKey = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    Category = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RequestExternalResources", x => x.Id);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Investments");
+
+            migrationBuilder.DropTable(
+                name: "RequestExternalResources");
         }
     }
 }

@@ -16,8 +16,7 @@ public class InvestTrackerDbContext : DbContext, IInvestmentDbContext, IExternal
     }
 
     public DbSet<Investment> Investments { get; set; } = default!;
-    public DbSet<IntegrationModel> IntegrationModels { get; set; } = default!;
-    public DbSet<IntegrationModelEndpoint> IntegrationModelEndpoints { get; set; } = default!;
+    public DbSet<RequestExternalResource> RequestExternalResources { get; set; } = default!;
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

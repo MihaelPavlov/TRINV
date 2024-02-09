@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using TRINV.Domain.Common;
 using TRINV.Domain.Common.Repositories;
 using TRINV.Infrastructure.Common.Persistance;
@@ -20,16 +19,40 @@ internal abstract class DataRepository<TDbContext, TEntity, TDomain> : IDomainRe
     protected TDbContext Data { get; }
     protected IQueryable<TEntity> All() => this.Data.Set<TEntity>();
 
-    public async Task Save(
-        TDomain entity,
+    public async Task SaveChangesAsync(
         CancellationToken cancellationToken = default)
+    {
+        await this.Data.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task AddAsync(TDomain entity, CancellationToken cancellationToken = default)
+    {
+        var mappedObject = this.mapper.Map<TEntity>(entity);
+
+        //TODO: Provide better exception 
+        if (mappedObject is null)
+            throw new ArgumentException("Infrastructure exception: Mapping problem in data repository");
+
+        await this.Data.Set<TEntity>().AddAsync(mappedObject);
+    }
+
+    public void Update(TDomain entity)
     {
         var mappedObject = this.mapper.Map<TEntity>(entity);
         //TODO: Provide better exception 
         if (mappedObject is null)
             throw new ArgumentException("Infrastructure exception: Mapping problem in data repository");
-        
+
         this.Data.Update(mappedObject);
-        await this.Data.SaveChangesAsync(cancellationToken);
+    }
+
+    public void Delete(TDomain entity)
+    {
+        var mappedObject = this.mapper.Map<TEntity>(entity);
+        //TODO: Provide better exception 
+        if (mappedObject is null)
+            throw new ArgumentException("Infrastructure exception: Mapping problem in data repository");
+
+        this.Data.Set<TEntity>().Remove(mappedObject);
     }
 }

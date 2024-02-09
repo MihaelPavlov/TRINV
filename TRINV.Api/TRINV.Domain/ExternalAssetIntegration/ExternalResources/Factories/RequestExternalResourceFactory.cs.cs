@@ -5,7 +5,7 @@ using TRINV.Domain.ExternalAssetIntegration.ExternalResources.Models;
 
 namespace TRINV.Domain.ExternalAssetIntegration.ExternalResources.Factories;
 
-internal class IntegrationModelFactory : IIntegrationModelFactory
+internal class RequestExternalResourceFactory : IRequestExternalResourceFactory
 {
     int userId = default!;
     string name = default!;
@@ -14,61 +14,56 @@ internal class IntegrationModelFactory : IIntegrationModelFactory
     ExternalResourceStatus status = default!;
     ExternalResourceCategory category = default!;
 
-    List<IntegrationModelEndpoint> endpoints = new List<IntegrationModelEndpoint>();
-
-    public IIntegrationModelFactory WithApiKey(string apiKey)
+    public IRequestExternalResourceFactory WithApiKey(string apiKey)
     {
         this.apiKey = apiKey;
         return this;
     }
 
-    public IIntegrationModelFactory WithBaseUrl(string baseUrl)
+    public IRequestExternalResourceFactory WithBaseUrl(string baseUrl)
     {
         this.baseUrl = baseUrl;
         return this;
     }
 
-    public IIntegrationModelFactory WithCategory(ExternalResourceCategory category)
+    public IRequestExternalResourceFactory WithCategory(ExternalResourceCategory category)
     {
         this.category = category;
         return this;
     }
 
-    public IIntegrationModelFactory WithEndpoints(List<IntegrationModelEndpoint> endpoints)
-    {
-        this.endpoints.AddRange(endpoints);
-        return this;
-    }
-
-    public IIntegrationModelFactory WithName(string name)
+    public IRequestExternalResourceFactory WithName(string name)
     {
         this.name = name;
         return this;
     }
 
-    public IIntegrationModelFactory WithStatus(ExternalResourceStatus status)
+    public IRequestExternalResourceFactory WithStatus(ExternalResourceStatus status)
     {
         this.status = status;
         return this;
     }
 
-    public IIntegrationModelFactory WithUserId(int userId)
+    public IRequestExternalResourceFactory WithUserId(int userId)
     {
         this.userId = userId;
         return this;
     }
 
-    public IntegrationModel Build()
+    public RequestExternalResource Build()
     {
-        if (!this.endpoints.Any())
-            throw new InvalidIntegrationModelException("There should be atleast one endpoint to be integration model valid");
+        if (string.IsNullOrEmpty(this.name)
+            || string.IsNullOrEmpty(this.apiKey)
+            || string.IsNullOrEmpty(this.baseUrl)
+            || this.userId == 0)
+            throw new InvalidRequestExternalResourceException("Requested External Resource is invalid");
 
-        return new IntegrationModel(
+        return new RequestExternalResource(
             this.userId,
             this.name,
             this.baseUrl,
             this.apiKey,
             this.status,
-            this.category,this.endpoints);
+            this.category);
     }
 }
