@@ -22,6 +22,6 @@ public class TestController : ControllerBase
     public async Task<IActionResult> GetList(CancellationToken cancellationToken)
     {
         var res = await this.mediator.Send(new TestQuery(), cancellationToken);
-        return Ok(res);
+        return Ok();
     }
 }

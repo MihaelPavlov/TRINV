@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading;
+using TRINV.Application.ExternalAssetIntegration.ExternalResources.Builders.Cache;
 using TRINV.Application.ExternalAssetIntegration.ExternalResources.Builders.Interfaces;
 using TRINV.Application.ExternalAssetIntegration.ExternalResources.Models;
 using TRINV.Domain.ExternalAssetIntegration.ExternalResources.Enums;
@@ -18,38 +18,44 @@ public class FinancialModelingPrepIntegrationResourceBuilder : IExternalIntegrat
     public int Id => ExternalIntegrationResource.FinancialModelingPrep.Id;
     public ExternalResourceCategory Category => ExternalIntegrationResource.FinancialModelingPrep.Category;
 
-    readonly IMemoryCache _cache;
-    readonly ILoggerService _loggerService;
+    const string CACHE_KEY = CacheConstants.KEY_FINANCIAL_MODELELING_PERP;
+
+    readonly IMemoryCache cache;
+    readonly ILoggerService loggerService;
 
     public FinancialModelingPrepIntegrationResourceBuilder(IMemoryCache cache, ILoggerService loggerService)
     {
-        this._cache = cache;
-        this._loggerService = loggerService;
+        this.cache = cache;
+        this.loggerService = loggerService;
     }
 
-    public async Task<OperationResult<IEnumerable<ExternalIntegrationResourceResultModel>>> IExternalIntegrationResourceBuilder.Build()
+    public async Task<OperationResult<IEnumerable<ExternalIntegrationResourceResultModel>>> Build(CancellationToken cancellationToken)
     {
-        var cacheKey = CacheConstants.KEY_STOCK;
-
-        if (this._cache.TryGetValue(cacheKey, out StockCache? result) && result is not null)
-            return new OperationResult<IStockCache>(result);
-
-        using (var entry = this._cache.CreateEntry(cacheKey))
+        var operationResult = new OperationResult<IEnumerable<ExternalIntegrationResourceResultModel>>();
+        if (this.cache.TryGetValue(CACHE_KEY, out ExternalResourceCache<ExternalIntegrationResourceResultModel>? result) && result is not null)
         {
-            entry.SetSlidingExpiration(TimeSpan.FromHours(10));
-            var operationResult = await this.GetStocks(cancellationToken);
+            operationResult.RelatedObject = result.GetDictionary().Values;
+            return operationResult;
+        }
 
-            if (!operationResult.Success)
-                return operationResult;
+        using (var entry = this.cache.CreateEntry(CACHE_KEY))
+        {
+            entry.SetSlidingExpiration(TimeSpan.FromMinutes(30));
+            var stockOperationResult = await this.GetStocks(cancellationToken);
 
-            entry.Value = operationResult.RelatedObject;
+            if (!stockOperationResult.Success || stockOperationResult.RelatedObject is null)
+                return operationResult.ReturnWithErrorMessage(new InfrastructureException("Financial Modeling Prep currently is not working"));
+
+            entry.Value = stockOperationResult.RelatedObject;
+            operationResult.RelatedObject = stockOperationResult.RelatedObject.GetDictionary().Values;
+
             return operationResult;
         }
     }
 
-    private async Task<OperationResult<IStockCache>> GetStocks(CancellationToken cancellationToken)
+    private async Task<OperationResult<IExternalResourceCache<ExternalIntegrationResourceResultModel>>> GetStocks(CancellationToken cancellationToken)
     {
-        var operatioResult = new OperationResult<IStockCache>();
+        var operatioResult = new OperationResult<IExternalResourceCache<ExternalIntegrationResourceResultModel>>();
 
         var httpClient = new HttpClient();
         httpClient.Timeout = new TimeSpan(0, 5, 0);
@@ -62,7 +68,7 @@ public class FinancialModelingPrepIntegrationResourceBuilder : IExternalIntegrat
         int pageNumber = 1;
         var splittedRecords = content.Split("},");
         int stockCount = splittedRecords.Count();
-        Dictionary<string, Stock> allStocks = new Dictionary<string, Stock>();
+        Dictionary<string, ExternalIntegrationResourceResultModel> allStocks = new Dictionary<string, ExternalIntegrationResourceResultModel>();
 
         while (stockCount != 0)
         {
@@ -90,26 +96,24 @@ public class FinancialModelingPrepIntegrationResourceBuilder : IExternalIntegrat
                 if (result is not null)
                 {
                     stockCount -= pageSize;
-                    allStocks = allStocks.Union(result.ToDictionary(x => x.Symbol, x => x)).GroupBy(x => x.Key).ToDictionary(x => x.Key, x => x.First().Value);
+                    allStocks = allStocks.Union(result
+                        .Select(x => new ExternalIntegrationResourceResultModel { AssetId = x.Symbol, Price = x.Price ?? 0, Name = x.Name })
+                        .ToDictionary(x => x.AssetId, x => x)).GroupBy(x => x.Key)
+                        .ToDictionary(x => x.Key, x => x.First().Value);
                     pageNumber++;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                this._loggerService.Log(LogEventLevel.Error, "The process of getting the stocks from the external api failled.");
+                this.loggerService.Log(LogEventLevel.Error, "The process of getting the stocks from the external api failled.");
                 return operatioResult.ReturnWithErrorMessage(new InfrastructureException("The process of parsing the stock failled."));
             }
         }
 
-        operatioResult.RelatedObject = new StockCache(allStocks);
+        operatioResult.RelatedObject = new ExternalResourceCache<ExternalIntegrationResourceResultModel>(allStocks);
 
         return operatioResult;
     }
-}
-
-public static class CacheConstants
-{
-    public const string KEY_STOCK = "Stocks_Key";
 }
 
 public class Stock
@@ -131,82 +135,4 @@ public class Stock
 
     [JsonPropertyName("type")]
     public string Type { get; set; } = string.Empty;
-}
-
-/// <summary>
-/// Custom Implementation of <see cref="IStockCache"/>
-/// </summary>
-public class StockCache : IStockCache
-{
-    /// <summary>
-    ///  Dictionary that stores stock symbols as keys and corresponding Stock objects as values.
-    /// </summary>
-    readonly Dictionary<string, Stock> _keyValuePair;
-
-    /// <summary>
-    /// The constructor initializes the cache with a provided dictionary of stock symbols and their corresponding Stock objects.
-    /// </summary>
-    /// <param name="keyValuePair"></param>
-    public StockCache(Dictionary<string, Stock> keyValuePair)
-    {
-        _keyValuePair = keyValuePair;
-    }
-
-    /// <inheritdoc/>
-    public Stock? this[string symbol]
-    {
-        get
-        {
-            if (_keyValuePair.TryGetValue(symbol, out var value))
-                return value;
-
-            return null;
-        }
-    }
-
-    /// <inheritdoc/>
-    public IEnumerable<Stock> GetAllByType(string type) => this._keyValuePair
-        .Where(x => x.Value.Type == type)
-        .Select(x => x.Value)
-        .ToList();
-
-    /// <inheritdoc/>
-    public Dictionary<string, Stock> GetDictionary() => this._keyValuePair;
-
-
-    /// <inheritdoc/>
-    public string[] GetNames() => this._keyValuePair.Select(id => id.Value.Name).ToArray();
-}
-
-
-/// <summary>
-/// The interface serve as a cache for storing and retrieving stock information. 
-/// </summary>
-public interface IStockCache
-{
-    /// <summary>
-    /// The indexer (this[string symbol]) allows for quick retrieval of a Stock object based on its symbol.
-    /// </summary>
-    /// <param name="symbol">Symbol representing the key of the stock.</param>
-    /// <returns>A <see cref="Stock"/></returns>
-    Stock? this[string symbol] { get; }
-
-    /// <summary>
-    /// Use this method to get all stock names.
-    /// </summary>
-    /// <returns>Collection of all stock names.</returns>
-    string[] GetNames();
-
-    /// <summary>
-    /// Use this method to get stock list with specific type.
-    /// </summary>
-    /// <returns>A stock list.</returns>
-    IEnumerable<Stock> GetAllByType(string type);
-
-    /// <summary>
-    /// This method specifically returns a  key-id pair represents a stock symbol and its corresponding object.
-    /// </summary>
-    /// <returns>A key-id pair</returns>
-    Dictionary<string, Stock> GetDictionary();
-
 }

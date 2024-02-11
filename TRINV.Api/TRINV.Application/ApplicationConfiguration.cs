@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using TRINV.Application.ExternalAssetIntegration.ExternalResources.Builders.Interfaces;
 using TRINV.Application.ExternalAssetIntegration.ExternalResources.Commands;
+using TRINV.Shared.Business.Helpers.OutputHelper;
+using TRINV.Shared.Business.Logger;
 
 namespace TRINV.Application;
 
@@ -11,6 +12,8 @@ public static class ApplicationConfiguration
     public static IServiceCollection AddApplication(
              this IServiceCollection services)
              => services
+                 .AddScoped<IOutputHelper, OutpuHelper>()
+                 .AddScoped<ILoggerService, LoggerService>()
                  .RegisterAllTypes<IExternalIntegrationResourceBuilder>(new[] { typeof(ApplicationConfiguration).Assembly })
                  .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateRequestExternalResourceCommand).Assembly));
 
