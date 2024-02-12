@@ -5,8 +5,8 @@ namespace TRINV.Domain.ExternalAssetIntegration.ExternalResources.Models;
 
 public class ExternalIntegrationResource : EnumerationHelper
 {
-    public static ExternalIntegrationResource Coincap = new(1, "Coincap", ExternalResourceCategory.Crpyto);
-    public static ExternalIntegrationResource Binance = new(2, "Binance", ExternalResourceCategory.Crpyto);
+    public static ExternalIntegrationResource Coincap = new(1, "Coincap", ExternalResourceCategory.Crypto);
+    public static ExternalIntegrationResource Binance = new(2, "Binance", ExternalResourceCategory.Crypto);
     public static ExternalIntegrationResource FinancialModelingPrep = new(3, "FinancialModelingPrep", ExternalResourceCategory.Stock);
 
     public ExternalIntegrationResource(int id, string name, ExternalResourceCategory category) 
@@ -28,4 +28,5 @@ public class ExternalIntegrationResource : EnumerationHelper
                 throw new ArgumentException($"There is no external resource with id {id}");
         }
     }
+
 }

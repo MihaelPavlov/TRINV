@@ -2,6 +2,6 @@
 
 public enum ExternalResourceCategory
 {
-    Crpyto = 0,
+    Crypto = 0,
     Stock = 1,
 }

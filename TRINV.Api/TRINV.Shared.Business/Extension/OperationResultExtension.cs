@@ -1,4 +1,5 @@
-﻿using TRINV.Shared.Business.Exceptions.Interfaces;
+﻿using System.Runtime.CompilerServices;
+using TRINV.Shared.Business.Exceptions.Interfaces;
 using TRINV.Shared.Business.Utilities;
 
 namespace TRINV.Shared.Business.Extension;
@@ -31,6 +32,40 @@ public static class OperationResultExtension
     }
 
     /// <summary>
+    /// Appends error messages from one <typeparamref name="TOriginal"/> to another <typeparamref name="TOther"/>.
+    /// </summary>
+    /// <param name="originalOperationResult">The <see cref="OperationResult"/> to append to.</param>
+    /// <param name="otherOperationResult">The <see cref="OperationResult"/> to append from.</param>
+    /// <typeparam name="TOriginal">A type that inherits from <see cref="OperationResult"/>.</typeparam>
+    /// <typeparam name="TOther">A type that inherits from <see cref="OperationResult"/>.</typeparam>
+    /// <returns>The original <see cref="OperationResult"/> with the appended messages from the other <typeparamref name="TOther"/>.</returns>
+    public static TOriginal MergeErrors<TOriginal, TOther>(this TOriginal originalOperationResult, TOther otherOperationResult)
+    where TOriginal : OperationResult
+    where TOther : OperationResult
+    {
+        if (originalOperationResult is null)
+            throw new ArgumentNullException(nameof(originalOperationResult));
+
+        if (otherOperationResult is null)
+            return originalOperationResult;
+
+        // Adding the error message without logging (presuming that there is already a log message).
+        if (otherOperationResult.ValidationErrors.Any())
+        {
+            foreach (var (key, value) in otherOperationResult.ValidationErrors)
+            {
+                //TODO: Additional Validation if the key already exist
+                originalOperationResult.ValidationErrors.Add(key, value);
+            }
+        }
+
+        if (otherOperationResult.InitialException != null)
+            originalOperationResult.InitialException = otherOperationResult.InitialException;
+
+        return originalOperationResult;
+    }
+
+    /// <summary>
     /// Use this method in the case when we want to stop the request flow.
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -38,7 +73,7 @@ public static class OperationResultExtension
     /// <param name="error"></param>
     /// <returns></returns>
     public static T ReturnWithErrorMessage<T>(this T operationResult, IError error)
-        where T : OperationResult
+    where T : OperationResult
     {
         operationResult.Success = false;
         operationResult.InitialException = error;
@@ -52,7 +87,7 @@ public static class OperationResultExtension
     /// </summary>
     /// <param name="error">Optional error which is initializing the InitialException in the current instance.</param>
     public static OperationResult<T> ReturnWithErrorMessage<T>(this OperationResult<T> operationResult, IError? error = null)
-        where T : class
+    where T : class
     {
         if (error != null)
         {

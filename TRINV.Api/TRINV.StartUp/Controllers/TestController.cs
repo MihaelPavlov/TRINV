@@ -18,10 +18,10 @@ public class TestController : ControllerBase
         this.repository = repository;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetList(CancellationToken cancellationToken)
-    {
-        var res = await this.mediator.Send(new TestQuery(), cancellationToken);
-        return Ok();
-    }
+    //[HttpGet]
+    //public async Task<IActionResult> GetList(CancellationToken cancellationToken)
+    //{
+    //    var res = await this.mediator.Send(new TestQuery(), cancellationToken);
+    //    return Ok();
+    //}
 }

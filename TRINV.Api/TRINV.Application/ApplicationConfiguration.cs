@@ -1,7 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using TRINV.Application.Common.Events;
 using TRINV.Application.ExternalAssetIntegration.ExternalResources.Builders.Interfaces;
 using TRINV.Application.ExternalAssetIntegration.ExternalResources.Commands;
+using TRINV.Application.ExternalAssetIntegration.ExternalResources.Services.ExtenalIntegrationResouces;
+using TRINV.Application.ExternalAssetIntegration.ExternalResources.Services.ExtenalIntegrationResouces.Interfaces;
 using TRINV.Shared.Business.Helpers.OutputHelper;
 using TRINV.Shared.Business.Logger;
 
@@ -14,6 +17,8 @@ public static class ApplicationConfiguration
              => services
                  .AddScoped<IOutputHelper, OutpuHelper>()
                  .AddScoped<ILoggerService, LoggerService>()
+                 .AddScoped<IExternalIntegrationResourceService, ExternalIntegrationResourceService>()
+                 .AddEventHandlers()
                  .RegisterAllTypes<IExternalIntegrationResourceBuilder>(new[] { typeof(ApplicationConfiguration).Assembly })
                  .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateRequestExternalResourceCommand).Assembly));
 
@@ -26,4 +31,13 @@ public static class ApplicationConfiguration
 
         return services;
     }
+
+    private static IServiceCollection AddEventHandlers(this IServiceCollection services)
+          => services
+              .Scan(scan => scan
+                  .FromCallingAssembly()
+                  .AddClasses(classes => classes
+                      .AssignableTo(typeof(IEventHandler<>)))
+                  .AsImplementedInterfaces()
+                  .WithTransientLifetime());
 }

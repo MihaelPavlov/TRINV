@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TRINV.Application.Common;
 using TRINV.Domain.Common.Repositories;
+using TRINV.Infrastructure.Common.Events;
 using TRINV.Infrastructure.Common.Persistance;
 using TRINV.Infrastructure.ExternalAssetIntegration;
 using TRINV.Infrastructure.Investements;
@@ -16,6 +17,7 @@ public static class InfrastructureConfiguration
             IConfiguration configuration)
             => services
                 .AddDatabase(configuration)
+                .AddTransient<IEventDispatcher, EventDispatcher>()
                 .AddQueryRepository()
                 .AddDomainRepository();
 
