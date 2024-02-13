@@ -5,5 +5,6 @@ import { Component } from "@angular/core";
     templateUrl:"./test.component.html"
 })
 export class TestComponent {
+    value = 'Clear me';
 
 }

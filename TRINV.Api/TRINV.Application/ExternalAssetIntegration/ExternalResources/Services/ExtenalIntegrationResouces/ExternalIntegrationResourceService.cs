@@ -53,10 +53,9 @@ internal class ExternalIntegrationResourceService : IExternalIntegrationResource
         return new OperationResult<IEnumerable<ExternalIntegrationResourceResultModel>>(collection);
     }
 
-    // Maybe we would use this to execute it when the user logged in and use all the cached information about resources, in this case we will increase the user loading. Intead of user waithing for the resource to load the first time.se6x3svi zc
+    // Maybe we would use this to execute it when the user logged in and use all the cached information about resources, in this case we will increase the user loading. Intead of user waithing for the resource to load the first time.
     public async Task<OperationResult<IEnumerable<ExternalIntegrationResourceResultModel>>> ExecuteAllByUserId(int userId, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
-
 }
