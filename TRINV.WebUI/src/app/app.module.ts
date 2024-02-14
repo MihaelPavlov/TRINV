@@ -8,11 +8,12 @@ import { TestModule } from '../features/test.module';
 import { FormsModule } from '@angular/forms';
 import { MenuComponent } from '../pages/menu/menu.component';
 import { MatIconModule } from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [AppComponent,MenuComponent],
   imports: [AppRoutingModule,
-     CommonModule, RouterOutlet,BrowserModule,TestModule,FormsModule,MatIconModule],
+     CommonModule, RouterOutlet,BrowserModule,TestModule,FormsModule,MatIconModule,MatTooltipModule],
   exports: [],
   providers: [],
   bootstrap: [AppComponent],
