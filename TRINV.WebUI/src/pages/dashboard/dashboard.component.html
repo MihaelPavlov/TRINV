@@ -1,0 +1,175 @@
+<mat-tab-group dynamicHeight class="index">
+  <mat-tab label="( Account - Crypto) Performance Preview">
+    <ng-container *matTabContent>
+      <div class="flex flex-col bg-gray-100">
+       
+        <app-dashboard-info></app-dashboard-info>
+
+        <div class="flex-1 flex">
+          <div class="flex-1 p-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2 p-2">
+              <!-- <dashboard-chart
+                class="bg-white p-4 rounded-md"
+              ></dashboard-chart> -->
+              <app-dashboard-investments-in-percent class="bg-white p-4 rounded-md"/>
+              <app-dashboard-investment-performance-list  class="bg-white p-4 rounded-md"/>
+
+              <!-- Last Investments -->
+              <app-dashboard-last-investments
+              class="bg-white p-4 rounded-md"
+            ></app-dashboard-last-investments>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--      <div class="max-w-full">-->
+
+      <!--        <div class="flex m-10 xl:justify-around md:justify-between">-->
+      <!--          <div-->
+      <!--            class="-->
+      <!--     xl:w-96 md:w-60-->
+      <!--     px-5 pt-5-->
+      <!--     bg-white border border-gray-200 rounded-t-lg shadow hover:bg-gray-100 border-b-pink-400 border-b-4">-->
+      <!--            <img src="assets/images/dollar.png" alt="dollar icon"-->
+      <!--                 class="inline w-12 h-12 rounded-full object-cover bg-pink-400">-->
+
+      <!--            <h5 class=" inline pl-3 mb-1 text-2xl font-bold tracking-tight text-gray-400 dark:text-white">Total Invested-->
+      <!--              Amount</h5>-->
+      <!--            <p class="text-center text-lg font-normal text-gray-700 dark:text-gray-400">$23321.21M</p>-->
+      <!--          </div>-->
+
+      <!--          <div-->
+      <!--            class="xl:w-96 md:w-60 px-5 pt-5 bg-white border border-gray-200 rounded-t-lg shadow hover:bg-gray-100  border-b-purple-400 border-b-4">-->
+      <!--            <img src="assets/images/graph-64.png" alt="chart up"-->
+      <!--                 class="inline w-12 h-12 rounded-full object-cover bg-purple-400">-->
+
+      <!--            <h5 class="inline pl-3 mb-1 text-2xl font-bold tracking-tight text-gray-400 dark:text-white">Number of-->
+      <!--              Investments</h5>-->
+      <!--            <p class="text-center text-lg font-normal text-gray-700 dark:text-gray-400">154</p>-->
+      <!--          </div>-->
+
+      <!--          <div-->
+      <!--            class="xl:w-96 md:w-60 px-5 pt-5 bg-white border border-gray-200 rounded-t-lg shadow hover:bg-gray-100  border-b-blue-400 border-b-4">-->
+      <!--            <img src='assets/images/return-icon.png' alt="rate of return icon"-->
+      <!--                 class="inline w-12 h-12 rounded-full object-cover color bg-blue-400">-->
+      <!--            <h5 class="inline pl-3 mb-1 text-2xl font-bold tracking-tight text-gray-400 dark:text-white">-->
+      <!--              Rate of Return</h5>-->
+      <!--            <p class="text-center text-lg font-normal font text-gray-700 dark:text-gray-400">23.41%</p>-->
+      <!--          </div>-->
+      <!--        </div>-->
+
+      <!--        <div class="flex m-10 xl:justify-around md:justify-between" *ngIf="!(this.isLoading$ | async)">-->
+
+      <!--          <div-->
+      <!--            class="flex w-2/5 my-5 mx-11 justify-center bg-white border border-gray-200 rounded-md shadow hover:bg-gray-50">-->
+      <!--            <div>-->
+      <!--              <p class="text-center text-lg font-normal font text-gray-400 ml-2 mt-2">Sum Price Chart</p>-->
+      <!--              <crypto-doughnut-chart *ngIf="this.chartData != null"-->
+      <!--                                     [data]="this.chartData">-->
+
+      <!--              </crypto-doughnut-chart>-->
+      <!--            </div>-->
+      <!--          </div>-->
+
+      <!--          <div-->
+      <!--            class="flex w-2/5 my-5 mx-11 justify-center bg-white border border-gray-200 rounded-md shadow hover:bg-gray-50">-->
+
+      <!--            <crypto-doughnut-chart *ngIf="this.chartData != null"-->
+      <!--                                   [data]="this.chartData"></crypto-doughnut-chart>-->
+      <!--          </div>-->
+
+      <!--        </div>-->
+
+      <!--      </div>-->
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="Account Crypto In Details">
+    <ng-container *matTabContent>
+      <div class="max-w-full">
+        <div></div>
+
+        <div class="flex m-10 xl:justify-around md:justify-between">
+          <div
+            class="xl:w-96 md:w-60 px-5 pt-5 bg-white border border-gray-200 rounded-t-lg shadow hover:bg-gray-100 border-b-pink-400 border-b-4"
+          >
+            <img
+              src="assets/images/dollar.png"
+              alt="dollar icon"
+              class="inline w-12 h-12 rounded-full object-cover bg-pink-400"
+            />
+
+            <h5
+              class="inline pl-3 mb-1 text-2xl font-bold tracking-tight text-gray-400 dark:text-white"
+            >
+              Total Invested Amount
+            </h5>
+            <p
+              class="text-center text-lg font-normal text-gray-700 dark:text-gray-400"
+            >
+              $23321.21M
+            </p>
+          </div>
+
+          <div
+            class="xl:w-96 md:w-60 px-5 pt-5 bg-white border border-gray-200 rounded-t-lg shadow hover:bg-gray-100 border-b-purple-400 border-b-4"
+          >
+            <img
+              src="assets/images/graph-64.png"
+              alt="chart up"
+              class="inline w-12 h-12 rounded-full object-cover bg-purple-400"
+            />
+
+            <h5
+              class="inline pl-3 mb-1 text-2xl font-bold tracking-tight text-gray-400 dark:text-white"
+            >
+              Number of Investments
+            </h5>
+            <p
+              class="text-center text-lg font-normal text-gray-700 dark:text-gray-400"
+            >
+              154
+            </p>
+          </div>
+
+          <div
+            class="xl:w-96 md:w-60 px-5 pt-5 bg-white border border-gray-200 rounded-t-lg shadow hover:bg-gray-100 border-b-blue-400 border-b-4"
+          >
+            <img
+              src="assets/images/return-icon.png"
+              alt="rate of return icon"
+              class="inline w-12 h-12 rounded-full object-cover color bg-blue-400"
+            />
+            <h5
+              class="inline pl-3 mb-1 text-2xl font-bold tracking-tight text-gray-400 dark:text-white"
+            >
+              Rate of Return
+            </h5>
+            <p
+              class="text-center text-lg font-normal font text-gray-700 dark:text-gray-400"
+            >
+              23.41%
+            </p>
+          </div>
+        </div>
+
+        <div class="flex justify-center">
+          <div
+            class="flex w-2/5 mx-11 justify-center bg-white border border-gray-200 rounded-md shadow hover:bg-gray-50"
+          >
+            <div>
+              <p
+                class="text-center text-lg font-normal font text-gray-400 ml-2 mt-2"
+              >
+                Sum Price Chart
+              </p>
+            </div>
+          </div>
+          <div
+            class="flex w-2/5 mx-11 justify-center bg-white border border-gray-200 rounded-md shadow hover:bg-gray-50"
+          ></div>
+        </div>
+      </div>
+    </ng-container>
+  </mat-tab>
+</mat-tab-group>

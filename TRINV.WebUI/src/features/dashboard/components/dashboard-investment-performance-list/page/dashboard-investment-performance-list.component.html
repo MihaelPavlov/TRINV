@@ -1,0 +1,75 @@
+<div>
+  <div class="flex">
+    <h2 class="text-gray-500 text-lg pb-1">
+      Best Performers In Your Portfolio
+    </h2>
+    <div
+      class="relative w-full px-2 py-2 max-w-full flex-grow flex-1 text-right"
+    >
+      <button
+        type="button"
+        class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+      >
+        See all
+      </button>
+    </div>
+  </div>
+  <div class="bg-gradient-to-r from-cyan-300 to-cyan-700 h-px"></div>
+
+  <div class="block w-full overflow-x-auto">
+    <table class="items-center w-full bg-transparent border-collapse">
+      <thead class="thead-light">
+        <tr>
+          <th
+            class="px-6 align-middle border-b border-b-solid border-blue-300 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-left"
+          >
+            Asset
+          </th>
+          <th
+            matTooltip="Total Initial Investment"
+            class="px-6 align-middle border-b border-b-solid border-blue-300 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-left"
+          >
+            TII
+          </th>
+          <th
+            matTooltip="Total Current Investment"
+            class="px-6 align-middle border-b border-b-solid border-blue-300 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-left min-w-140-px"
+          >
+            TCI
+          </th>
+          <th
+            class="px-6 align-middle border-b border-b-solid border-blue-300 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap text-left min-w-140-px"
+          >
+            Rate
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container>
+          <tr>
+            <th
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+            >
+              Bitcoin(btc)
+            </th>
+            <td
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+            >
+              202K
+            </td>
+            <td
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+            >
+              2012
+            </td>
+            <td
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+            >
+              201.2%
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>

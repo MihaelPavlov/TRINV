@@ -1,0 +1,87 @@
+@use "../../shared/assets/styles/colors";
+
+.mat-accordion .mat-header-row {
+  padding-left: 1.5rem;
+  padding-right: 2rem;
+  border-bottom: none;
+}
+
+.mat-expansion-panel-header.mat-row {
+  border-bottom: none;
+}
+
+$mat-header-row-height: 56px;
+$mat-row-height: 48px;
+$mat-row-horizontal-padding: 24px;
+
+.background-color {
+  background-color: colors.$black1;
+  color: colors.$white1;
+}
+.border{
+  border : 2px solid colors.$gray2;
+}
+.border-left{
+  border-left: 3px solid colors.$gray2;
+}
+
+mat-table {
+  background-color: colors.$gray2;
+  color: colors.$white1;
+  border-radius: 8px;
+  overflow:hidden ;
+}
+
+mat-header-cell,
+mat-cell {
+  color: colors.$white1;
+}
+
+mat-expansion-panel{
+  margin: 5px 15px;
+  border-radius: 20px !important;
+}
+
+mat-expansion-panel:hover {
+  background: colors.$grayOnHover;
+}
+
+.mat-expanded {
+  background: colors.$grayOnHover;
+}
+
+.mat-header-row {
+  min-height: $mat-header-row-height;
+}
+
+.mat-row {
+  min-height: $mat-row-height;
+}
+.mat-row:hover {
+  background: colors.$grayOnHover;
+}
+.mat-row,
+.mat-header-row {
+  display: flex;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  align-items: center;
+  padding: 0 $mat-row-horizontal-padding;
+  box-sizing: border-box;
+
+  // Workaround for https://goo.gl/pFmjJD in IE 11. Adds a pseudo
+  // element that will stretch the row the correct height. See:
+  // https://connect.microsoft.com/IE/feedback/details/802625
+  &::after {
+    display: inline;
+    min-height: inherit;
+    content: "";
+  }
+}
+
+.mat-cell,
+.mat-header-cell {
+  flex: 1;
+  overflow: hidden;
+  word-wrap: break-word;
+}

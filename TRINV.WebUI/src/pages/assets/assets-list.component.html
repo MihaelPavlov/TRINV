@@ -1,0 +1,97 @@
+<!-- Example https://stackblitz.com/edit/table-like-mat-accordion?file=app%2Fapp.component.ts,app%2Fapp.component.html -->
+
+<div class="flex w-full lg:h-screen 2xl:max-h-full">
+  <div class="w-2/5 background-color">
+    <div class="p-5 pt-7 flex justify-between">
+      <h2 class="">ASSETS</h2>
+      <a href="#" class="mt-1">
+        <mat-icon>add</mat-icon>
+      </a>
+    </div>
+    <mat-accordion displayMode="flat">
+      <section matSort class="mat-elevation-z2 mat-header-row border">
+        <span class="mat-header-cell">No</span>
+        <span class="mat-header-cell" mat-sort-header="assetId">AssetId</span>
+        <span class="mat-header-cell" mat-sort-header="name">Name</span>
+        <span class="mat-header-cell" mat-sort-header="totalQuantity"
+          >Total Quantity</span
+        >
+        <span class="mat-header-cell" mat-sort-header="totalPrice"
+          >Total Price</span
+        >
+      </section>
+
+      <mat-expansion-panel
+        class="background-color border"
+        *ngFor="let item of displayedRows$ | async; index as i"
+      >
+        <mat-expansion-panel-header class="mat-row">
+          <span class="mat-cell">{{ i }}</span>
+          <span class="mat-cell">{{ item.assetId }}</span>
+          <span class="mat-cell">{{ item.name }}</span>
+          <span class="mat-cell">{{ item.totalQuantity }}</span>
+          <span class="mat-cell">{{ item.totalPrice }}</span>
+        </mat-expansion-panel-header>
+        <div class="w-full mt-2">
+          <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <!-- Position Column -->
+            <ng-container matColumnDef="dateAdded" class="table-column-color">
+              <mat-header-cell *matHeaderCellDef> dateAdded </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.dateAdded }}
+              </mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="quantity">
+              <mat-header-cell *matHeaderCellDef> quantity </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.quantity }}
+              </mat-cell>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="price">
+              <mat-header-cell *matHeaderCellDef> price </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.price }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <mat-header-cell *matHeaderCellDef></mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item>Details</button>
+                  <button mat-menu-item>Edit</button>
+                  <button mat-menu-item>Delete</button>
+                </mat-menu>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row
+              *matHeaderRowDef="displayedColumns"
+            ></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+          </mat-table>
+          <!-- <mat-selection-list #shoes [multiple]="false">
+            @for (shoe of typesOfShoes; track shoe) {
+            <div class="flex">
+              <mat-list-item class="inline" role="listitem"
+                >Item 1
+              </mat-list-item>
+            
+            </div>
+
+            }
+          </mat-selection-list> -->
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <div class="w-3/5">charts for the current expanded asset</div>
+</div>

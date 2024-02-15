@@ -1,2 +1,9 @@
-<app-menu/>
-<router-outlet></router-outlet>
+<div class="flex flex-row">
+  <app-menu />
+  <div
+    class="flex-grow lg:h-screen 2xl:max-h-full overflow-y-auto overflow-x-auto"
+  >
+    <!-- <app-dashboard /> -->
+    <router-outlet></router-outlet>
+  </div>
+</div>

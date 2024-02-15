@@ -1,23 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
 import { AppComponent } from './app-component/app.component';
 import { AppRoutingModule } from './app.config';
 import { BrowserModule } from '@angular/platform-browser';
-import { TestModule } from '../features/test.module';
-import { FormsModule } from '@angular/forms';
-import { MenuComponent } from '../pages/menu/menu.component';
-import { MatIconModule } from '@angular/material/icon';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MenuModule } from '../widgets/menu/menu.module';
 
 @NgModule({
-  declarations: [AppComponent,MenuComponent],
-  imports: [AppRoutingModule,
-     CommonModule, RouterOutlet,BrowserModule,TestModule,FormsModule,MatIconModule,MatTooltipModule],
-  exports: [],
+  declarations: [AppComponent],
+  imports: [AppRoutingModule, BrowserModule, BrowserAnimationsModule,MenuModule],
+  exports: [BrowserModule, BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-  
-}
+export class AppModule {}
