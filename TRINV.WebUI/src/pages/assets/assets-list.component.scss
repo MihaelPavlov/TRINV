@@ -18,10 +18,14 @@ $mat-row-horizontal-padding: 24px;
   background-color: colors.$black1;
   color: colors.$white1;
 }
-.border{
-  border : 2px solid colors.$gray2;
+.plus-btn:hover {
+  background: colors.$grayOnHover;
+  border-radius: 20px;
 }
-.border-left{
+.border {
+  border: 2px solid colors.$gray2;
+}
+.border-left {
   border-left: 3px solid colors.$gray2;
 }
 
@@ -29,7 +33,7 @@ mat-table {
   background-color: colors.$gray2;
   color: colors.$white1;
   border-radius: 8px;
-  overflow:hidden ;
+  overflow: hidden;
 }
 
 mat-header-cell,
@@ -37,7 +41,7 @@ mat-cell {
   color: colors.$white1;
 }
 
-mat-expansion-panel{
+mat-expansion-panel {
   margin: 5px 15px;
   border-radius: 20px !important;
 }
@@ -85,3 +89,22 @@ mat-expansion-panel:hover {
   overflow: hidden;
   word-wrap: break-word;
 }
+
+.card-background {
+  background-color: colors.$gray2;
+}
+
+.color-gray {
+  color: colors.$gray3;
+}
+.my-class {
+  background-color: red;
+}
+.mat-column-actions mat-cell {
+  flex: 0 0 20%;
+}
+.menu-icon:hover {
+  background: colors.$grayOnHover;
+  border-radius: 20px;
+}
+// chart styling

@@ -1,14 +1,92 @@
 <!-- Example https://stackblitz.com/edit/table-like-mat-accordion?file=app%2Fapp.component.ts,app%2Fapp.component.html -->
-
+<!-- Chart example -> https://codepen.io/Ruddy/pen/yyqZqX -->
 <div class="flex w-full lg:h-screen 2xl:max-h-full">
   <div class="w-2/5 background-color">
     <div class="p-5 pt-7 flex justify-between">
-      <h2 class="">ASSETS</h2>
-      <a href="#" class="mt-1">
-        <mat-icon>add</mat-icon>
+      <h2>ASSETS</h2>
+      <a href="#" class="mt-1 rounded-full">
+        <mat-icon class="plus-btn">add</mat-icon>
       </a>
     </div>
-    <mat-accordion displayMode="flat">
+    <mat-accordion displayMode="flat" class="m-10">
+      <div class="flex m-2">
+        <div class="flex rounded-lg bg-[#0d1829] px-2 card-background">
+          <button
+            matTooltip="Filters"
+            matTooltipPosition="above"
+            class="self-center flex p-1 cursor-pointer"
+          >
+            <svg
+              width="30px"
+              height="30px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M11.567 9.8895C12.2495 8.90124 12.114 7.5637 11.247 6.7325C10.3679 5.88806 9.02339 5.75928 7.99998 6.4215C7.57983 6.69308 7.25013 7.0837 7.05298 7.5435C6.85867 7.99881 6.80774 8.50252 6.90698 8.9875C7.00665 9.47472 7.25054 9.92071 7.60698 10.2675C7.97021 10.6186 8.42786 10.8563 8.92398 10.9515C9.42353 11.049 9.94062 11.0001 10.413 10.8105C10.8798 10.6237 11.2812 10.3033 11.567 9.8895Z"
+                  stroke="#ff5c5c"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M12.433 17.8895C11.7504 16.9012 11.886 15.5637 12.753 14.7325C13.6321 13.8881 14.9766 13.7593 16 14.4215C16.4202 14.6931 16.7498 15.0837 16.947 15.5435C17.1413 15.9988 17.1922 16.5025 17.093 16.9875C16.9933 17.4747 16.7494 17.9207 16.393 18.2675C16.0298 18.6186 15.5721 18.8563 15.076 18.9515C14.5773 19.0481 14.0614 18.9988 13.59 18.8095C13.1222 18.6234 12.7197 18.3034 12.433 17.8895V17.8895Z"
+                  stroke="#ff5c5c"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M12 7.75049C11.5858 7.75049 11.25 8.08627 11.25 8.50049C11.25 8.9147 11.5858 9.25049 12 9.25049V7.75049ZM19 9.25049C19.4142 9.25049 19.75 8.9147 19.75 8.50049C19.75 8.08627 19.4142 7.75049 19 7.75049V9.25049ZM6.857 9.25049C7.27121 9.25049 7.607 8.9147 7.607 8.50049C7.607 8.08627 7.27121 7.75049 6.857 7.75049V9.25049ZM5 7.75049C4.58579 7.75049 4.25 8.08627 4.25 8.50049C4.25 8.9147 4.58579 9.25049 5 9.25049V7.75049ZM12 17.2505C12.4142 17.2505 12.75 16.9147 12.75 16.5005C12.75 16.0863 12.4142 15.7505 12 15.7505V17.2505ZM5 15.7505C4.58579 15.7505 4.25 16.0863 4.25 16.5005C4.25 16.9147 4.58579 17.2505 5 17.2505V15.7505ZM17.143 15.7505C16.7288 15.7505 16.393 16.0863 16.393 16.5005C16.393 16.9147 16.7288 17.2505 17.143 17.2505V15.7505ZM19 17.2505C19.4142 17.2505 19.75 16.9147 19.75 16.5005C19.75 16.0863 19.4142 15.7505 19 15.7505V17.2505ZM12 9.25049H19V7.75049H12V9.25049ZM6.857 7.75049H5V9.25049H6.857V7.75049ZM12 15.7505H5V17.2505H12V15.7505ZM17.143 17.2505H19V15.7505H17.143V17.2505Z"
+                  fill="#ff5c5c"
+                />
+              </g>
+            </svg>
+          </button>
+
+          <input
+            type="text"
+            class="w-full flex bg-transparent pl-2 outline-0"
+            placeholder="Search name movie or select options"
+          />
+          <button type="submit" class="relative p-2 rounded-full">
+            <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none">
+              <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  d="M14.9536 14.9458L21 21M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                  stroke="#999"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+            </svg>
+          </button>
+        </div>
+      </div>
+
       <section matSort class="mat-elevation-z2 mat-header-row border">
         <span class="mat-header-cell">No</span>
         <span class="mat-header-cell" mat-sort-header="assetId">AssetId</span>
@@ -35,8 +113,8 @@
         <div class="w-full mt-2">
           <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <!-- Position Column -->
-            <ng-container matColumnDef="dateAdded" class="table-column-color">
-              <mat-header-cell *matHeaderCellDef> dateAdded </mat-header-cell>
+            <ng-container matColumnDef="dateAdded">
+              <mat-header-cell *matHeaderCellDef> DateAdded </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 {{ element.dateAdded }}
               </mat-cell>
@@ -44,7 +122,7 @@
 
             <!-- Name Column -->
             <ng-container matColumnDef="quantity">
-              <mat-header-cell *matHeaderCellDef> quantity </mat-header-cell>
+              <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 {{ element.quantity }}
               </mat-cell>
@@ -52,22 +130,27 @@
 
             <!-- Weight Column -->
             <ng-container matColumnDef="price">
-              <mat-header-cell *matHeaderCellDef> price </mat-header-cell>
+              <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 {{ element.price }}
               </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="actions">
-              <mat-header-cell *matHeaderCellDef></mat-header-cell>
+              <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
               <mat-cell *matCellDef="let element">
-                <button mat-icon-button [matMenuTriggerFor]="menu">
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-icon">
                   <mat-icon>more_vert</mat-icon>
                 </button>
-                <mat-menu #menu="matMenu">
-                  <button mat-menu-item>Details</button>
-                  <button mat-menu-item>Edit</button>
-                  <button mat-menu-item>Delete</button>
+                <!-- create separate component for menu -->
+                <!-- example : https://tailwindcomponents.com/component/dropdown-theme-with-tailwind-css -->
+                <mat-menu #menu="matMenu" backdropClass="my-class">
+                  <div class="color-gray">
+                    <button mat-menu-item>Details</button>
+                    <button mat-menu-item>Edit</button>
+                    <button mat-menu-item>Delete</button>
+
+                  </div>
                 </mat-menu>
               </mat-cell>
             </ng-container>
@@ -76,22 +159,146 @@
               *matHeaderRowDef="displayedColumns"
             ></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-          </mat-table>
-          <!-- <mat-selection-list #shoes [multiple]="false">
-            @for (shoe of typesOfShoes; track shoe) {
-            <div class="flex">
-              <mat-list-item class="inline" role="listitem"
-                >Item 1
-              </mat-list-item>
-            
-            </div>
 
-            }
-          </mat-selection-list> -->
+          </mat-table>
         </div>
       </mat-expansion-panel>
     </mat-accordion>
   </div>
 
-  <div class="w-3/5">charts for the current expanded asset</div>
+  <div class="w-3/5 background-color">
+    <div class="m-6">
+      <h2 class="font-bold">NET WORTH</h2>
+      <h1 class="font-bold">$ 105.23K</h1>
+    </div>
+
+    <div class="chart-container lg:h-full 2xl:h-screen m-5">
+      <canvas id="MyChart">{{ chart }}</canvas>
+      <div class="py-5">
+        <main class="h-full">
+          <div class="container mx-auto grid">
+            <!-- Cards -->
+            <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-2">
+              <!-- Card -->
+              <div
+                class="flex items-center p-4 rounded-lg shadow-xs dark:bg-gray-800 card-background"
+              >
+                <div
+                  class="p-3 mr-4 text-yellow-500 bg-yellow-100 rounded-full dark:text-yellow-100 dark:bg-yellow-500"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  <p class="mb-2 text-sm font-medium color-gray">Total Sell</p>
+                  <p class="text-lg">402.2K</p>
+                </div>
+              </div>
+              <!-- Card -->
+              <div
+                class="flex items-center p-4 rounded-lg shadow-xs dark:bg-gray-800 card-background"
+              >
+                <div
+                  class="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fill-rule="evenodd"
+                      d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  <p class="mb-2 text-sm font-medium color-gray">
+                    Sales Profit
+                  </p>
+                  <p class="text-lg">204.32K</p>
+                </div>
+              </div>
+              <!-- Card -->
+              <div
+                class="flex items-center p-4 rounded-lg shadow-xs dark:bg-gray-800 card-background"
+              >
+                <div
+                  class="p-3 mr-4 text-red-500 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-500"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fill-rule="evenodd"
+                      d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  <p class="mb-2 text-sm font-medium color-gray">My Goals</p>
+                  <p class="text-lg">Collect 500BTC</p>
+                </div>
+              </div>
+              <!-- Card -->
+              <div
+                class="flex items-center p-4 rounded-lg shadow-xs dark:bg-gray-800 card-background"
+              >
+                <div
+                  class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  <p class="mb-2 text-sm font-medium color-gray">
+                    My Purchases
+                  </p>
+                  <p class="text-lg">35</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+      <!-- <div class="flex m-5 justify-between">
+        <mat-card class="w-5/12 card-background">
+          <mat-card-header>
+            <mat-card-title-group>
+              <mat-card-title>Shiba Inu</mat-card-title>
+              <mat-card-subtitle>Small</mat-card-subtitle>
+              <img
+                mat-card-sm-image
+                src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+              />
+            </mat-card-title-group>
+          </mat-card-header>
+          <mat-card-content>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
+            similique odit velit beatae ducimus dolore tenetur facere deleniti,
+            cupiditate nesciunt.
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="w-5/12 card-background">
+          <mat-card-header>
+            <mat-card-title-group>
+              <mat-card-title>Shiba Inu</mat-card-title>
+              <mat-card-subtitle>Small</mat-card-subtitle>
+              <img
+                mat-card-sm-image
+                src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+              />
+            </mat-card-title-group>
+          </mat-card-header>
+          <mat-card-content>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
+            similique odit velit beatae ducimus dolore tenetur facere deleniti,
+            cupiditate nesciunt.
+          </mat-card-content>
+        </mat-card>
+      </div> -->
+    </div>
+  </div>
 </div>
