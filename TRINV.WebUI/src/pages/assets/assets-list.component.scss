@@ -1,4 +1,9 @@
 @use "../../shared/assets/styles/colors";
+@use "../../shared/assets/styles/utils";
+
+$mat-header-row-height: 56px;
+$mat-row-height: 48px;
+$mat-row-horizontal-padding: 24px;
 
 .mat-accordion .mat-header-row {
   padding-left: 1.5rem;
@@ -10,35 +15,16 @@
   border-bottom: none;
 }
 
-$mat-header-row-height: 56px;
-$mat-row-height: 48px;
-$mat-row-horizontal-padding: 24px;
-
-.background-color {
-  background-color: colors.$black1;
-  color: colors.$white1;
-}
-.plus-btn:hover {
-  background: colors.$grayOnHover;
-  border-radius: 20px;
-}
-.border {
-  border: 2px solid colors.$gray2;
-}
-.border-left {
-  border-left: 3px solid colors.$gray2;
-}
-
 mat-table {
-  background-color: colors.$gray2;
-  color: colors.$white1;
+  background-color: colors.$color-black-50-percent;
+  color: colors.$color-white-main;
   border-radius: 8px;
   overflow: hidden;
 }
 
 mat-header-cell,
 mat-cell {
-  color: colors.$white1;
+  color: colors.$color-white-main;
 }
 
 mat-expansion-panel {
@@ -47,11 +33,11 @@ mat-expansion-panel {
 }
 
 mat-expansion-panel:hover {
-  background: colors.$grayOnHover;
+  background: colors.$color-black-40-percent;
 }
 
 .mat-expanded {
-  background: colors.$grayOnHover;
+  background: colors.$color-black-40-percent;
 }
 
 .mat-header-row {
@@ -61,9 +47,11 @@ mat-expansion-panel:hover {
 .mat-row {
   min-height: $mat-row-height;
 }
+
 .mat-row:hover {
-  background: colors.$grayOnHover;
+  background-color: colors.$color-black-40-percent;
 }
+
 .mat-row,
 .mat-header-row {
   display: flex;
@@ -90,21 +78,25 @@ mat-expansion-panel:hover {
   word-wrap: break-word;
 }
 
-.card-background {
-  background-color: colors.$gray2;
+.plus-btn:hover {
+  background: colors.$color-black-40-percent;
+  border-radius: 20px;
 }
 
-.color-gray {
-  color: colors.$gray3;
-}
-.my-class {
-  background-color: red;
-}
 .mat-column-actions mat-cell {
   flex: 0 0 20%;
 }
 .menu-icon:hover {
-  background: colors.$grayOnHover;
+  background: colors.$color-black-40-percent;
   border-radius: 20px;
 }
-// chart styling
+
+.transaction-view:hover {
+  border-radius: 20px;
+  background-color: colors.$color-black-30-percent;
+}
+
+.table-max-height{
+  max-height: 25rem;
+  overflow-y: auto;
+}

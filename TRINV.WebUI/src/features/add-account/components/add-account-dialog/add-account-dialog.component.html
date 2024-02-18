@@ -1,0 +1,143 @@
+<div class="app-main-background-color-darker-gray account-dialog-border">
+  <div class="flex justify-between">
+    <span mat-dialog-title>
+      <span class="app-main-color-white text-xl">Add account</span>
+    </span>
+
+    <div class="mt-6 mr-4 cursor-pointer" (click)="closeDialog()">
+      <svg
+        width="15"
+        height="15"
+        viewBox="0 0 15 15"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M14.7078 1.99496L13.2978 0.584961L7.70776 6.17496L2.11776 0.584961L0.707764 1.99496L6.29776 7.58496L0.707764 13.175L2.11776 14.585L7.70776 8.99496L13.2978 14.585L14.7078 13.175L9.11776 7.58496L14.7078 1.99496Z"
+          fill="#666666"
+        />
+      </svg>
+    </div>
+  </div>
+  <mat-dialog-content class="w-auto">
+    <div class="container grid">
+      <!-- Cards -->
+      <div
+        class="grid gap-4 mb-8 md:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2"
+      >
+        <!-- Card -->
+        <div
+          class="account-button app-main-color-btn flex flex-col w-40 p-4 items-center rounded-lg app-main-background-color-40-black"
+        >
+          <div class="p-3 text-yellow-500 bg-yellow-100 rounded-lg">
+            <img
+              src="../../../../shared/assets/images/bitcoin.png"
+              width="30"
+              height="30"
+            />
+          </div>
+          <div>
+            <p class="pt-5 text-sm font-medium">Crypto</p>
+          </div>
+        </div>
+        <!-- Card -->
+        <div
+          class="account-button flex flex-col w-40 p-4 items-center rounded-lg app-main-background-color-40-black"
+        >
+          <div class="p-3 text-blue-500 bg-blue-100 rounded-lg">
+            <img
+              src="../../../../shared/assets/images/stock.png"
+              width="30"
+              height="30"
+            />
+          </div>
+          <div>
+            <p class="pt-5 text-sm font-medium app-main-color-white">Stocks</p>
+          </div>
+        </div>
+        <!-- Card -->
+        <div
+          class="account-button flex flex-col w-40 p-4 items-center rounded-lg app-main-background-color-40-black"
+        >
+          <div class="p-3 text-red-500 bg-red-100 rounded-lg">
+            <img
+              src="../../../../shared/assets/images/expenses.png"
+              width="30"
+              height="30"
+            />
+          </div>
+          <div>
+            <p class="pt-5 text-sm font-medium app-main-color-white">
+              Expenses
+            </p>
+          </div>
+        </div>
+        <!-- Card -->
+        <div
+          class="account-disabled flex flex-col items-center w-40 p-4 rounded-lg app-main-background-color-40-black"
+        >
+          <div
+            matTooltip="Comming soon..."
+            class="p-3 text-green-500 bg-green-100 rounded-lg"
+          >
+            <img
+              src="../../../../shared/assets/images/bank.png"
+              width="30"
+              height="30"
+            />
+          </div>
+          <div>
+            <p class="pt-5 text-sm font-medium app-main-color-white">Bank</p>
+          </div>
+        </div>
+        <div
+          class="account-disabled flex flex-col items-center w-40 p-4 rounded-lg app-main-background-color-40-black"
+        >
+          <div
+            matTooltip="Comming soon..."
+            class="p-3 text-purple-500 bg-purple-100 rounded-lg"
+          >
+            <img
+              src="../../../../shared/assets/images/home.png"
+              width="30"
+              height="30"
+            />
+          </div>
+          <div>
+            <p class="pt-5 text-sm font-medium app-main-color-white">
+              Real Estate
+            </p>
+          </div>
+        </div>
+        <div
+          class="account-disabled flex flex-col items-center w-40 p-4 rounded-lg app-main-background-color-40-black"
+        >
+          <div
+            matTooltip="Comming soon..."
+            class="p-3 text-orange-500 bg-orange-100 rounded-lg"
+          >
+            <img
+              src="../../../../shared/assets/images/car.png"
+              width="30"
+              height="30"
+            />
+          </div>
+          <div>
+            <p class="pt-5 text-sm font-medium app-main-color-white">Vehicle</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-row justify-between w-80">
+      <div class="pr-3">
+        <mat-icon class="inline app-main-color-lighter-gray">lock</mat-icon>
+      </div>
+      <p class="text-xs app-main-color-lighter-gray">
+        Adding your account is a big step. That's why we take this action
+        seriously. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Rerum, placeat!
+      </p>
+    </div>
+  </mat-dialog-content>
+</div>

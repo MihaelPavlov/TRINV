@@ -1,0 +1,15 @@
+@use "../../../../shared/assets/styles/colors";
+
+.account-button:hover {
+  background-color: colors.$color-black-30-percent;
+  cursor: pointer;
+}
+
+.account-dialog-border {
+  border: 3px solid colors.$color-black-70-percent;
+}
+
+.account-disabled {
+  background-color: colors.$color-black-40-percent;
+  cursor: not-allowed;
+}

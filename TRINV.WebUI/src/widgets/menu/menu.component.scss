@@ -1,17 +1,10 @@
 @use "../../shared/assets/styles/colors";
+@use "../../shared/assets/styles/utils";
 
-.background-color{
-  background-color: colors.$black1;
-}
-
-.right-line:hover{
+.highlight-button-left-side:hover{
   border-color:  colors.$main-color-yellow;
 }
 
-.left-border{
-border-right: 3px solid colors.$gray2;
-}
-
-.color-gray{
-  color: colors.$gray3
+.right-divider{
+border-right: 3px solid colors.$color-black-50-percent;
 }

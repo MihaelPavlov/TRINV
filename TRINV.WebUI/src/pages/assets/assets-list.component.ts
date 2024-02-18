@@ -1,19 +1,20 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import {
-  Animation,
+  Component,
+} from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {
   CategoryScale,
   Chart,
-  ChartOptions,
   Filler,
   LineController,
   LineElement,
   LinearScale,
   PointElement,
-  RadialLinearScale,
-  Ticks,
   Tooltip,
 } from 'chart.js';
 import { Observable, of } from 'rxjs';
+import { AddTransactionDialogComponent } from '../../features/add-transaction/add-transaction.component';
+import { ViewTransactionDialogComponent } from '../../features/view-transaction/view-transaction.component';
 
 export interface ShipData {
   assetId: string;
@@ -40,62 +41,74 @@ export const exampleShips: ShipData[] = [
     name: 'Tether',
     totalQuantity: 495,
     totalPrice: 500,
-  }, {
+  },
+  {
     assetId: 'tth',
     name: 'Tether',
     totalQuantity: 495,
     totalPrice: 500,
-  }, {
+  },
+  {
     assetId: 'tth',
     name: 'Tether',
     totalQuantity: 495,
     totalPrice: 500,
-  }, {
+  },
+  {
     assetId: 'tth',
     name: 'Tether',
     totalQuantity: 495,
     totalPrice: 500,
-  }, {
+  },
+  {
     assetId: 'tth',
     name: 'Tether',
     totalQuantity: 495,
     totalPrice: 500,
-  }, {
+  },
+  {
     assetId: 'tth',
     name: 'Tether',
     totalQuantity: 495,
     totalPrice: 500,
-  }, {
+  },
+  {
     assetId: 'tth',
     name: 'Tether',
     totalQuantity: 495,
     totalPrice: 500,
-  },{
+  },
+  {
     assetId: 'tth',
     name: 'Tether',
     totalQuantity: 495,
     totalPrice: 500,
-  }, {
+  },
+  {
     assetId: 'tth',
     name: 'Tether',
     totalQuantity: 495,
     totalPrice: 500,
-  }, {
+  },
+  {
     assetId: 'tth',
     name: 'Tether',
     totalQuantity: 495,
     totalPrice: 500,
-  },{
+  },
+  {
     assetId: 'tth',
     name: 'Tether',
     totalQuantity: 495,
     totalPrice: 500,
-  }, {
+  },
+  {
     assetId: 'tth',
     name: 'Tether',
     totalQuantity: 495,
     totalPrice: 500,
-  }, {
+  },
+  {
     assetId: 'tth',
     name: 'Tether',
     totalQuantity: 495,
@@ -132,7 +145,7 @@ export class AssetsListComponent {
   dataSource = ELEMENT_DATA;
   public chart: any;
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
     Chart.register(
       LinearScale,
       LineController,
@@ -140,9 +153,28 @@ export class AssetsListComponent {
       PointElement,
       LineElement,
       Tooltip,
-      Filler,
-      
+      Filler
     );
+  }
+
+  openViewTransactionDialog() {
+    const dialogRef = this.dialog.open(ViewTransactionDialogComponent, {
+
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openAddTransactionDialog() {
+    const dialogRef = this.dialog.open(AddTransactionDialogComponent, {
+
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   ngOnInit() {
@@ -152,81 +184,85 @@ export class AssetsListComponent {
     this.createChart();
   }
 
-public testChart(){
- let  options: { label: string, value: string }[] = [
-    {
-      label: 'Today',
-      value: 'today',
-    },
-    {
-      label: 'Last 7 Days',
-      value: '7days',
-    },
-    {
-      label: 'Last 30 Days',
-      value: '30days',
-    },
-    {
-      label: 'Last 6 Months',
-      value: '6months',
-    },
-    {
-      label: 'This Year',
-      value: 'year',
-    },
-  ];
+  public testChart() {
+    let options: { label: string; value: string }[] = [
+      {
+        label: 'Today',
+        value: 'today',
+      },
+      {
+        label: 'Last 7 Days',
+        value: '7days',
+      },
+      {
+        label: 'Last 30 Days',
+        value: '30days',
+      },
+      {
+        label: 'Last 6 Months',
+        value: '6months',
+      },
+      {
+        label: 'This Year',
+        value: 'year',
+      },
+    ];
 
-this.chart = new Chart("MyChart", {
-  type: "line",
-  data: {
-    labels: [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ],    datasets: [
-      {
-        label: "Income",
-        backgroundColor: "rgba(102, 126, 234, 0.25)",
-        borderColor: "rgba(102, 126, 234, 1)",
-        pointBackgroundColor: "rgba(102, 126, 234, 1)",
-        data: [13, 16, 21, 28, 32, 34, 32, 31, 30, 26, 20,100],
+    this.chart = new Chart('MyChart', {
+      type: 'line',
+      data: {
+        labels: [
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'May',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Dec',
+        ],
+        datasets: [
+          {
+            label: 'Income',
+            backgroundColor: 'rgba(102, 126, 234, 0.25)',
+            borderColor: 'rgba(102, 126, 234, 1)',
+            pointBackgroundColor: 'rgba(102, 126, 234, 1)',
+            data: [13, 16, 21, 28, 32, 34, 32, 31, 30, 26, 20, 100],
+          },
+          {
+            label: 'Expenses',
+            backgroundColor: 'rgba(237, 100, 166, 0.25)',
+            borderColor: 'rgba(237, 100, 166, 1)',
+            pointBackgroundColor: 'rgba(237, 100, 166, 1)',
+            data: [13, 16, 21, 28, 32, 34, 32, 31, 30, 26, 20, 100],
+          },
+        ],
       },
-      {
-        label: "Expenses",
-        backgroundColor: "rgba(237, 100, 166, 0.25)",
-        borderColor: "rgba(237, 100, 166, 1)",
-        pointBackgroundColor: "rgba(237, 100, 166, 1)",
-        data: [13, 16, 21, 28, 32, 34, 32, 31, 30, 26, 20,100],
-      },
-    ],
-  },
-  options: {
-    scales: {
-      y: {
-        grid: {
-          display: false
+      options: {
+        scales: {
+          y: {
+            grid: {
+              display: false,
+            },
+            ticks: {
+              callback(tickValue, index, ticks) {
+                let value = tickValue as number;
+                return value > 1000
+                  ? value < 1000000
+                    ? value / 1000 + 'K'
+                    : value / 1000000 + 'M'
+                  : value;
+              },
+            },
+          },
         },
-        ticks: {
-          callback(tickValue, index, ticks) {
-            let value  =tickValue as number;
-            return value > 1000 ? ((value < 1000000) ? value / 1000 + 'K' : value / 1000000 + 'M') : value;
-
-          }
-        }
-      }
-    }
+      },
+    });
   }
-});
-}
 
   createChart() {
     this.chart = new Chart('MyChart', {
@@ -249,42 +285,41 @@ this.chart = new Chart("MyChart", {
         datasets: [
           {
             label: 'Temperature(C) in Lahore',
-            data: [13, 16, 21, 28, 32, 34, 32, 31, 30, 26, 20,100],
-            backgroundColor: "rgba(102, 126, 234, 0.25)",
-            borderColor: "rgba(102, 126, 234, 1)",
-            pointBackgroundColor: "rgba(102, 126, 234, 1)",
+            data: [13, 16, 21, 28, 32, 34, 32, 31, 30, 26, 20, 100],
+            backgroundColor: 'rgba(102, 126, 234, 0.25)',
+            borderColor: 'rgba(102, 126, 234, 1)',
+            pointBackgroundColor: 'rgba(102, 126, 234, 1)',
             borderWidth: 2,
-            fill:"origin"
+            fill: 'origin',
           },
           {
             label: 'Cloud Coverage(%) in Lahore',
-            data: [26, 29, 31, 24, 10, 3, 14, 16, 4, 5, 23,50],
-            backgroundColor: "rgba(237, 100, 166, 0.25)",
-            borderColor: "rgba(237, 100, 166, 1)",
-            pointBackgroundColor: "rgba(237, 100, 166, 1)",
+            data: [26, 29, 31, 24, 10, 3, 14, 16, 4, 5, 23, 50],
+            backgroundColor: 'rgba(237, 100, 166, 0.25)',
+            borderColor: 'rgba(237, 100, 166, 1)',
+            pointBackgroundColor: 'rgba(237, 100, 166, 1)',
             borderWidth: 2,
           },
         ],
       },
       options: {
-        responsive:true,
+        responsive: true,
         aspectRatio: 2.5,
         scales: {
           y: {
             beginAtZero: true,
             grid: {
               color: 'rgba(225, 255, 255, 0.2)',
-              lineWidth:2,
+              lineWidth: 2,
             },
             border: {
-              dash: [1,10],
-          },
+              dash: [1, 10],
+            },
             ticks: { color: 'rgb(157,163,175)' },
           },
           x: {
             grid: {
               color: 'rgba(225, 255, 255, 0.02)',
-
             },
             ticks: { color: 'rgb(157,163,175)' },
           },
@@ -311,5 +346,4 @@ this.chart = new Chart("MyChart", {
       },
     });
   }
-
 }

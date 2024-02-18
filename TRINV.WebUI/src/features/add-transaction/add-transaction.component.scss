@@ -1,0 +1,34 @@
+@use "../../shared/assets/styles/colors";
+
+.add-transaction-dialog-border {
+  border: 3px solid colors.$color-black-70-percent;
+}
+
+
+.ellipsis {
+  display: inline-block;
+  vertical-align: middle;
+  bottom: 20px;
+}
+
+.mat-button-toggle{
+  background-color: colors.$color-black-30-percent;
+  color: colors.$color-white-main;
+}
+
+.mat-button-toggle:hover {
+  background-color: colors.$color-black-40-percent;
+  color: colors.$color-white-main;
+}
+
+.mat-button-toggle-checked {
+  background-color: colors.$color-gray-80-percent;
+  color: colors.$color-white-main;
+
+}
+
+.mat-button-toggle-checked:hover{
+  background-color: colors.$color-gray-80-percent;
+
+  color: colors.$color-white-main;
+}

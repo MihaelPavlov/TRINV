@@ -1,0 +1,109 @@
+<mat-dialog-content
+  class="app-main-background-color-darker-gray add-transaction-dialog-border"
+>
+  <div class="m-5">
+    <div class="flex justify-between pb-5 mt-5">
+      <div
+        class="flex justify-start p-3 text-yellow-500 bg-yellow-100 rounded-lg"
+      >
+        <img
+          src="../../../../shared/assets/images/bitcoin.png"
+          width="30"
+          height="30"
+        />
+      </div>
+
+      <div class="cursor-pointer" (click)="closeDialog()">
+        <svg
+          width="15"
+          height="15"
+          viewBox="0 0 15 15"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M14.7078 1.99496L13.2978 0.584961L7.70776 6.17496L2.11776 0.584961L0.707764 1.99496L6.29776 7.58496L0.707764 13.175L2.11776 14.585L7.70776 8.99496L13.2978 14.585L14.7078 13.175L9.11776 7.58496L14.7078 1.99496Z"
+            fill="#666666"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <h2 class="text-white">Add Transaction</h2>
+    <div class="grid grid-cols-1 place-items-center space-y-8">
+      <div class=" w-72 md:w-80 lg:w-96">
+
+        <mat-button-toggle-group appearance="legacy" name="fontStyle"
+        class=""
+        aria-label="type">
+          <mat-button-toggle value="sold" class="mr-2">Sold</mat-button-toggle>
+          <mat-button-toggle value="bought">Bought</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+
+      <div class=" w-72 md:w-80 lg:w-96">
+        <label
+          for="0"
+          class="block mb-2 text-sm font-medium text-gray-500"
+          >Select an Investment</label
+        >
+        <select
+          id="0"
+          class="app-main-color-white app-main-background-color-40-black peer h-10 w-full rounded-md bg-gray-50 px-4 font-thin outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-400"
+        >
+          <!-- add search to the select list -->
+          <option selected>Choose investment</option>
+          <option value="US">Bitcoin (btc)</option>
+          <option value="CA">Canada</option>
+          <option value="FR">France</option>
+          <option value="DE">Germany</option>
+        </select>
+      </div>
+
+      <div class=" w-72 md:w-80 lg:w-96">
+        <label
+          for="1"
+          class="block w-full pb-1 text-sm font-medium text-gray-500 transition-all duration-200 ease-in-out group-focus-within:text-blue-400"
+          >Quantity</label
+        >
+        <input
+          id="1"
+          type="number"
+          class="app-main-color-white app-main-background-color-40-black peer h-10 w-full rounded-md bg-gray-50 px-4 font-thin outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-400"
+        />
+      </div>
+
+      <div class=" w-72 md:w-80 lg:w-96">
+        <label
+          for="2"
+          class="block w-full pb-1 text-sm font-medium text-gray-500 transition-all duration-200 ease-in-out group-focus-within:text-blue-400"
+          >Purchase Price</label
+        >
+        <input
+          id="2"
+          type="number"
+          class="app-main-color-white app-main-background-color-40-black peer h-10 w-full rounded-md bg-gray-50 px-4 font-thin outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-400"
+        />
+      </div>
+
+      <div class=" w-72 md:w-80 lg:w-96">
+        <label
+          for="3"
+          class="block w-full pb-1 text-sm font-medium text-gray-500 transition-all duration-200 ease-in-out group-focus-within:text-blue-400"
+          >Purchase Price Per Unit</label
+        >
+        <input
+          id="3"
+          type="number"
+          class="app-main-color-white app-main-background-color-40-black peer h-10 w-full rounded-md bg-gray-50 px-4 font-thin outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-400"
+        />
+      </div>
+
+      <div class="relative cursor-pointer pb-3">
+        <button class="app-blue-btn center mr-4 rounded-lg py-3 px-6 font-bold">
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>

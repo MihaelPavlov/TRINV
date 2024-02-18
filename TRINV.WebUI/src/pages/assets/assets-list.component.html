@@ -1,16 +1,19 @@
 <!-- Example https://stackblitz.com/edit/table-like-mat-accordion?file=app%2Fapp.component.ts,app%2Fapp.component.html -->
 <!-- Chart example -> https://codepen.io/Ruddy/pen/yyqZqX -->
 <div class="flex w-full lg:h-screen 2xl:max-h-full">
-  <div class="w-2/5 background-color">
+  <!-- responsive left side -->
+  <div class="2xl:w-2/5 md:w-3/5 app-main-background-color app-main-color-white">
     <div class="p-5 pt-7 flex justify-between">
       <h2>ASSETS</h2>
-      <a href="#" class="mt-1 rounded-full">
-        <mat-icon class="plus-btn">add</mat-icon>
-      </a>
+      <button class="mb-5 rounded-full">
+        <mat-icon (click)="openAddTransactionDialog()" class="plus-btn">add</mat-icon>
+      </button>
     </div>
     <mat-accordion displayMode="flat" class="m-10">
       <div class="flex m-2">
-        <div class="flex rounded-lg bg-[#0d1829] px-2 card-background">
+        <div
+          class="flex rounded-lg bg-[#0d1829] px-2 app-main-background-color-darker-gray"
+        >
           <button
             matTooltip="Filters"
             matTooltipPosition="above"
@@ -87,7 +90,7 @@
         </div>
       </div>
 
-      <section matSort class="mat-elevation-z2 mat-header-row border">
+      <section matSort class="mat-elevation-z2 mat-header-row app-main-border">
         <span class="mat-header-cell">No</span>
         <span class="mat-header-cell" mat-sort-header="assetId">AssetId</span>
         <span class="mat-header-cell" mat-sort-header="name">Name</span>
@@ -100,7 +103,7 @@
       </section>
 
       <mat-expansion-panel
-        class="background-color border"
+        class="app-main-background-color app-main-color-white app-main-border"
         *ngFor="let item of displayedRows$ | async; index as i"
       >
         <mat-expansion-panel-header class="mat-row">
@@ -110,9 +113,196 @@
           <span class="mat-cell">{{ item.totalQuantity }}</span>
           <span class="mat-cell">{{ item.totalPrice }}</span>
         </mat-expansion-panel-header>
-        <div class="w-full mt-2">
-          <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-            <!-- Position Column -->
+        <div class="w-full mt-2 table-max-height">
+          <div
+          class="grid gap-4 mb-8 md:grid-cols-1 xl:grid-cols-1 2xl:grid-cols-1"
+          >
+            <div (click)="openViewTransactionDialog()" class="transaction-view px-3 cursor-pointer flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="p-3 rounded-xl p-3 bg-green-50">
+                  <img
+                    src="../../shared/assets/images/add.png"
+                    width="30"
+                    height="30"
+                  />
+                </div>
+
+                <div class="flex md:text-xs	 flex-col ml-3 space-y-2">
+                  <div class="mb-2 font-medium leading-none text-gray-100">
+                    Tesla
+                  </div>
+                  <p class="2xl:text-sm text-gray-500 leading-none">
+                    Bought <strong class="text-white">52.43 shared</strong> at
+                    <strong class="text-white">$1635.45 each</strong>
+                  </p>
+                </div>
+              </div>
+              <div class="flex relative mt-7">
+                <p class="absolute bottom-8 right-1 text-left text-white">
+                  $6577.18
+                </p>
+                <div class="text-sm text-green-500 leading-none">
+                  <p class="p-2 bg-green-100 rounded-lg">+ 42%</p>
+                </div>
+              </div>
+            </div>
+
+            <div (click)="openViewTransactionDialog()" class="transaction-view px-3 cursor-pointer flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="p-3 rounded-xl p-3 bg-green-50">
+                  <img
+                    src="../../shared/assets/images/add.png"
+                    width="30"
+                    height="30"
+                  />
+                </div>
+
+                <div class="flex md:text-xs	 flex-col ml-3 space-y-2">
+                  <div class="mb-2 font-medium leading-none text-gray-100">
+                    Tesla
+                  </div>
+                  <p class="2xl:text-sm text-gray-500 leading-none">
+                    Bought <strong class="text-white">52.43 shared</strong> at
+                    <strong class="text-white">$1635.45 each</strong>
+                  </p>
+                </div>
+              </div>
+              <div class="flex relative mt-7">
+                <p class="absolute bottom-8 right-1 text-left text-white">
+                  $6577.18
+                </p>
+                <div class="text-sm text-green-500 leading-none">
+                  <p class="p-2 bg-green-100 rounded-lg">+ 42%</p>
+                </div>
+              </div>
+            </div>
+
+            <div (click)="openViewTransactionDialog()" class="transaction-view px-3 cursor-pointer flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="p-3 rounded-xl bg-red-100">
+                  <img
+                    src="../../shared/assets/images/minus.png"
+                    width="30"
+                    height="30"
+                  />
+                </div>
+
+                <div class="flex md:text-xs flex-col ml-3 space-y-2">
+                  <div class="mb-2 font-medium leading-none text-gray-100">
+                    Tesla
+                  </div>
+                  <div class="2xl:text-sm text-gray-500 leading-none">
+                    Sold <strong class="text-white">5.43 shared</strong> at
+                    <strong class="text-white">$165.45 each</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex relative mt-7">
+                <p class="absolute bottom-8 right-1 text-left text-white">
+                  $35433221.33
+                </p>
+                <div class="text-sm text-red-500 leading-none">
+                  <p class="p-2 bg-red-100 rounded-lg">- 42%</p>
+                </div>
+              </div>
+            </div>
+
+            <div (click)="openViewTransactionDialog()" class="transaction-view px-3 cursor-pointer flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="p-3 rounded-xl bg-red-100">
+                  <img
+                    src="../../shared/assets/images/minus.png"
+                    width="30"
+                    height="30"
+                  />
+                </div>
+
+                <div class="flex md:text-xs flex-col ml-3 space-y-2">
+                  <div class="mb-2 font-medium leading-none text-gray-100">
+                    Tesla
+                  </div>
+                  <div class="2xl:text-sm text-gray-500 leading-none">
+                    Sold <strong class="text-white">5.43 shared</strong> at
+                    <strong class="text-white">$165.45 each</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex relative mt-7">
+                <p class="absolute bottom-8 right-1 text-left text-white">
+                  $35433221.33
+                </p>
+                <div class="text-sm text-red-500 leading-none">
+                  <p class="p-2 bg-red-100 rounded-lg">- 42%</p>
+                </div>
+              </div>
+            </div>
+            
+            <div (click)="openViewTransactionDialog()" class="transaction-view px-3 cursor-pointer flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="p-3 rounded-xl p-3 bg-green-50">
+                  <img
+                    src="../../shared/assets/images/add.png"
+                    width="30"
+                    height="30"
+                  />
+                </div>
+
+                <div class="flex md:text-xs	flex-col ml-3 space-y-2">
+                  <div class="mb-2 font-medium leading-none text-gray-100">
+                    Tesla
+                  </div>
+                  <p class="2xl:text-sm text-gray-500 leading-none">
+                    Bought <strong class="text-white">52.43 shared</strong> at
+                    <strong class="text-white">$1635.45 each</strong>
+                  </p>
+                </div>
+              </div>
+              <div class="flex relative mt-7">
+                <p class="absolute bottom-8 right-1 text-left text-white">
+                  $6577.18
+                </p>
+                <div class="text-sm text-green-500 leading-none">
+                  <p class="p-2 bg-green-100 rounded-lg">+ 42%</p>
+                </div>
+              </div>
+            </div>
+
+            <div (click)="openViewTransactionDialog()" class="transaction-view px-3 cursor-pointer flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="p-3 rounded-xl bg-red-100">
+                  <img
+                    src="../../shared/assets/images/minus.png"
+                    width="30"
+                    height="30"
+                  />
+                </div>
+
+                <div class="flex md:text-xs flex-col ml-3 space-y-2">
+                  <div class="mb-2 font-medium leading-none text-gray-100">
+                    Tesla
+                  </div>
+                  <div class="2xl:text-sm text-gray-500 leading-none">
+                    Sold <strong class="text-white">5.43 shared</strong> at
+                    <strong class="text-white">$165.45 each</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex relative mt-7">
+                <p class="absolute bottom-8 right-1 text-left text-white">
+                  $35433221.33
+                </p>
+                <div class="text-sm text-red-500 leading-none">
+                  <p class="p-2 bg-red-100 rounded-lg">- 42%</p>
+                </div>
+              </div>
+            </div>
+
+            
+          </div>
+          <!-- <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <ng-container matColumnDef="dateAdded">
               <mat-header-cell *matHeaderCellDef> DateAdded </mat-header-cell>
               <mat-cell *matCellDef="let element">
@@ -120,7 +310,6 @@
               </mat-cell>
             </ng-container>
 
-            <!-- Name Column -->
             <ng-container matColumnDef="quantity">
               <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
               <mat-cell *matCellDef="let element">
@@ -128,7 +317,6 @@
               </mat-cell>
             </ng-container>
 
-            <!-- Weight Column -->
             <ng-container matColumnDef="price">
               <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
               <mat-cell *matCellDef="let element">
@@ -139,17 +327,19 @@
             <ng-container matColumnDef="actions">
               <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
               <mat-cell *matCellDef="let element">
-                <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-icon">
+                <button
+                  mat-icon-button
+                  [matMenuTriggerFor]="menu"
+                  class="menu-icon"
+                >
                   <mat-icon>more_vert</mat-icon>
                 </button>
-                <!-- create separate component for menu -->
-                <!-- example : https://tailwindcomponents.com/component/dropdown-theme-with-tailwind-css -->
+             
                 <mat-menu #menu="matMenu" backdropClass="my-class">
-                  <div class="color-gray">
+                  <div class="app-m  ain-color-lighter-gray">
                     <button mat-menu-item>Details</button>
                     <button mat-menu-item>Edit</button>
                     <button mat-menu-item>Delete</button>
-
                   </div>
                 </mat-menu>
               </mat-cell>
@@ -159,32 +349,33 @@
               *matHeaderRowDef="displayedColumns"
             ></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-
-          </mat-table>
+          </mat-table> -->
         </div>
       </mat-expansion-panel>
     </mat-accordion>
   </div>
-
-  <div class="w-3/5 background-color">
+<!-- responsive right side -->
+  <div class="2xl:w-3/5 md:w-3/6 app-main-background-color app-main-color-white">
     <div class="m-6">
       <h2 class="font-bold">NET WORTH</h2>
       <h1 class="font-bold">$ 105.23K</h1>
     </div>
 
-    <div class="chart-container lg:h-full 2xl:h-screen m-5">
+    <div class="lg:h-full 2xl:h-screen m-5">
       <canvas id="MyChart">{{ chart }}</canvas>
       <div class="py-5">
         <main class="h-full">
           <div class="container mx-auto grid">
             <!-- Cards -->
-            <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-2">
+            <div
+              class="grid gap-8 mb-8 md:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-4"
+            >
               <!-- Card -->
               <div
-                class="flex items-center p-4 rounded-lg shadow-xs dark:bg-gray-800 card-background"
+                class="flex items-center p-4 rounded-lg app-main-background-color-darker-gray"
               >
                 <div
-                  class="p-3 mr-4 text-yellow-500 bg-yellow-100 rounded-full dark:text-yellow-100 dark:bg-yellow-500"
+                  class="p-3 mr-4 text-yellow-500 bg-yellow-100 rounded-full"
                 >
                   <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path
@@ -193,17 +384,19 @@
                   </svg>
                 </div>
                 <div>
-                  <p class="mb-2 text-sm font-medium color-gray">Total Sell</p>
+                  <p
+                    class="mb-2 text-sm font-medium app-main-color-lighter-gray"
+                  >
+                    Total Sell
+                  </p>
                   <p class="text-lg">402.2K</p>
                 </div>
               </div>
               <!-- Card -->
               <div
-                class="flex items-center p-4 rounded-lg shadow-xs dark:bg-gray-800 card-background"
+                class="flex items-center p-4 rounded-lg app-main-background-color-darker-gray"
               >
-                <div
-                  class="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500"
-                >
+                <div class="p-3 mr-4 text-green-500 bg-green-100 rounded-full">
                   <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path
                       fill-rule="evenodd"
@@ -213,7 +406,9 @@
                   </svg>
                 </div>
                 <div>
-                  <p class="mb-2 text-sm font-medium color-gray">
+                  <p
+                    class="mb-2 text-sm font-medium app-main-color-lighter-gray"
+                  >
                     Sales Profit
                   </p>
                   <p class="text-lg">204.32K</p>
@@ -221,11 +416,9 @@
               </div>
               <!-- Card -->
               <div
-                class="flex items-center p-4 rounded-lg shadow-xs dark:bg-gray-800 card-background"
+                class="flex items-center p-4 rounded-lg app-main-background-color-darker-gray"
               >
-                <div
-                  class="p-3 mr-4 text-red-500 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-500"
-                >
+                <div class="p-3 mr-4 text-red-500 bg-red-100 rounded-full">
                   <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path
                       fill-rule="evenodd"
@@ -235,17 +428,19 @@
                   </svg>
                 </div>
                 <div>
-                  <p class="mb-2 text-sm font-medium color-gray">My Goals</p>
-                  <p class="text-lg">Collect 500BTC</p>
+                  <p
+                    class="mb-2 text-sm font-medium app-main-color-lighter-gray"
+                  >
+                    My Goals
+                  </p>
+                  <p class="text-lg">Collect 500BTCd</p>
                 </div>
               </div>
               <!-- Card -->
               <div
-                class="flex items-center p-4 rounded-lg shadow-xs dark:bg-gray-800 card-background"
+                class="flex items-center p-4 rounded-lg app-main-background-color-darker-gray"
               >
-                <div
-                  class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500"
-                >
+                <div class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full">
                   <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path
                       d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
@@ -253,7 +448,9 @@
                   </svg>
                 </div>
                 <div>
-                  <p class="mb-2 text-sm font-medium color-gray">
+                  <p
+                    class="mb-2 text-sm font-medium app-main-color-lighter-gray"
+                  >
                     My Purchases
                   </p>
                   <p class="text-lg">35</p>
@@ -263,42 +460,6 @@
           </div>
         </main>
       </div>
-      <!-- <div class="flex m-5 justify-between">
-        <mat-card class="w-5/12 card-background">
-          <mat-card-header>
-            <mat-card-title-group>
-              <mat-card-title>Shiba Inu</mat-card-title>
-              <mat-card-subtitle>Small</mat-card-subtitle>
-              <img
-                mat-card-sm-image
-                src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-              />
-            </mat-card-title-group>
-          </mat-card-header>
-          <mat-card-content>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
-            similique odit velit beatae ducimus dolore tenetur facere deleniti,
-            cupiditate nesciunt.
-          </mat-card-content>
-        </mat-card>
-        <mat-card class="w-5/12 card-background">
-          <mat-card-header>
-            <mat-card-title-group>
-              <mat-card-title>Shiba Inu</mat-card-title>
-              <mat-card-subtitle>Small</mat-card-subtitle>
-              <img
-                mat-card-sm-image
-                src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-              />
-            </mat-card-title-group>
-          </mat-card-header>
-          <mat-card-content>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
-            similique odit velit beatae ducimus dolore tenetur facere deleniti,
-            cupiditate nesciunt.
-          </mat-card-content>
-        </mat-card>
-      </div> -->
     </div>
   </div>
 </div>

@@ -1,0 +1,141 @@
+<mat-dialog-content
+  class="app-main-background-color-darker-gray view-transaction-dialog w-full"
+>
+  <div class="flex">
+    <div class="m-5">
+      <div class="flex justify-between pb-5 mt-5">
+        <div
+          class="flex justify-start p-3 text-yellow-500 bg-yellow-100 rounded-lg"
+        >
+          <img
+            src="../../../../shared/assets/images/bitcoin.png"
+            width="30"
+            height="30"
+          />
+        </div>
+      </div>
+
+      <h2 class="text-white">Update Transaction</h2>
+      <div class="grid grid-cols-1 place-items-center space-y-8">
+        <div class="w-72 md:w-80 lg:w-96">
+          <label for="0" class="block mb-2 text-sm font-medium text-gray-500"
+            >Selected Investment</label
+          >
+          <input
+            id="1"
+            type="text"
+            value="Bitcoin (BTC)"
+            disabled
+            class="cursor-not-allowed app-main-color-white app-main-background-color-40-black peer h-10 w-full rounded-md bg-gray-50 px-4 font-thin outline-none"
+          />
+        </div>
+
+        <div class="w-72 md:w-80 lg:w-96">
+          <label
+            for="1"
+            class="block w-full pb-1 text-sm font-medium text-gray-500 transition-all duration-200 ease-in-out group-focus-within:text-blue-400"
+            >Quantity</label
+          >
+          <input
+            id="1"
+            type="number"
+            value="1.5"
+            class="app-main-color-white app-main-background-color-40-black peer h-10 w-full rounded-md bg-gray-50 px-4 font-thin outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+
+        <div class="w-72 md:w-80 lg:w-96">
+          <label
+            for="2"
+            class="block w-full pb-1 text-sm font-medium text-gray-500 transition-all duration-200 ease-in-out group-focus-within:text-blue-400"
+            >Purchase Price</label
+          >
+          <input
+            id="2"
+            value="202.31"
+            type="number"
+            class="app-main-color-white app-main-background-color-40-black peer h-10 w-full rounded-md bg-gray-50 px-4 font-thin outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+
+        <div class="w-72 md:w-80 lg:w-96">
+          <label
+            for="3"
+            class="block w-full pb-1 text-sm font-medium text-gray-500 transition-all duration-200 ease-in-out group-focus-within:text-blue-400"
+            >Purchase Price Per Unit</label
+          >
+          <input
+            id="3"
+            value="303.13"
+            type="number"
+            class="app-main-color-white app-main-background-color-40-black peer h-10 w-full rounded-md bg-gray-50 px-4 font-thin outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- right side -->
+    <div class="flex flex-col">
+      <div class="flex m-5 mt-28">
+        <div class="grid grid-cols-1 place-items-center space-y-5">
+          <h2 class="text-white">Additional Details</h2>
+
+          <div class="w-72 md:w-80 lg:w-96">
+            <span class="text-sm font-medium text-gray-600">Type: </span>
+            <span class="text-md font-medium text-white">Sold</span>
+          </div>
+
+          <div class="w-72 md:w-80 lg:w-96">
+            <span class="text-sm font-medium text-gray-600"
+              >Created Date:
+            </span>
+            <span class="text-md font-medium text-white">2022 02 02</span>
+          </div>
+          <div class="w-72 md:w-80 lg:w-96">
+            <span class="text-sm font-medium text-gray-600"
+              >Transactional Profit:
+            </span>
+            <span
+              class="text-sm leading-none p-2 text-green-500 bg-green-100 rounded-lg"
+              >+ 42%</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="p-5">
+        <canvas
+          style="position: relative; height: 15vh; width: 30vw"
+          id="chart"
+          >{{ chart }}</canvas
+        >
+      </div>
+    </div>
+
+    <!-- close dialog -->
+    <div class="flex justify-end pb-5 mt-5">
+      <div class="cursor-pointer" (click)="closeDialog()">
+        <svg
+          width="15"
+          height="15"
+          viewBox="0 0 15 15"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M14.7078 1.99496L13.2978 0.584961L7.70776 6.17496L2.11776 0.584961L0.707764 1.99496L6.29776 7.58496L0.707764 13.175L2.11776 14.585L7.70776 8.99496L13.2978 14.585L14.7078 13.175L9.11776 7.58496L14.7078 1.99496Z"
+            fill="#666666"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="flex cursor-pointer pb-3 mr-5 justify-end">
+    <button class="app-yellow-btn center mr-4 rounded-lg py-3 px-6 font-bold">
+      Update
+    </button>
+
+    <button class="app-red-btn center mr-4 rounded-lg py-3 px-6 font-bold">
+      Delete
+    </button>
+  </div>
+</mat-dialog-content>

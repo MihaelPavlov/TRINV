@@ -1,7 +1,33 @@
-.main-background{
-    background-color: colors.$black1;
+@use './colors';
+
+.app-main-background-color{
+    background-color: colors.$color-black-70-percent;
 }
 
-.main-text-color{
-    color: colors.$white1;
+.app-main-background-color-darker-gray{
+    background-color: colors.$color-black-50-percent;
+}
+
+.app-main-background-color-40-black{
+    background-color: colors.$color-black-40-percent;
+}
+
+.app-main-background-color-30-black{
+    background-color: colors.$color-black-30-percent;
+}
+
+.app-main-color-white{
+    color: colors.$color-white-main;
+}
+
+.app-main-color-darker-gray{
+    color: colors.$color-black-50-percent;
+}
+
+.app-main-color-lighter-gray{
+    color: colors.$color-gray-80-percent;
+}
+
+.app-main-border{
+    border: 2px solid colors.$color-black-50-percent;
 }

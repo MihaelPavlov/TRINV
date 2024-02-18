@@ -1,8 +1,34 @@
-
-.btn-dark {
-  color: colors.$white1;
+.app-main-color-btn {
+  color: colors.$color-white-main;
 }
 
-.btn-dark:hover {
-  background-color: colors.$blackOnHover;
+.app-main-color-btn:hover {
+  background-color: colors.$color-black-40-percent;
+}
+
+.app-blue-btn {
+  color: colors.$color-black-80-percent;
+  background-color: colors.$color-blue;
+}
+
+.app-blue-btn:hover {
+  background-color: rgba(colors.$color-blue, 0.7);
+}
+
+.app-red-btn {
+  color: colors.$color-black-80-percent;
+  background-color: colors.$color-red;
+}
+
+.app-red-btn:hover {
+  background-color: rgba(colors.$color-red, 0.7);
+}
+
+.app-yellow-btn {
+  color: colors.$color-black-80-percent;
+  background-color: colors.$color-yellow;
+}
+
+.app-yellow-btn:hover {
+  background-color: rgba(colors.$color-yellow, 0.7);
 }
