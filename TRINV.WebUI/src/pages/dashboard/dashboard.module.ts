@@ -6,6 +6,7 @@ import { DashboardInvestmentPerformanceModule } from '../../features/dashboard/c
 import { DashboardInvestmentsInPecentModule } from '../../features/dashboard/components/dashboard-investments-in-percent/dashboard-investments-in-percent.module';
 import { DashboardLastInvestmentsModule } from '../../features/dashboard/components/dashboard-last-investments/dashboard-last-investments.module';
 import { SharedModule } from '../../shared/shared.module';
+import { DashboardSumPriceChartModule } from '../../features/dashboard/components/dashboard-sum-price-chart/dashboard-sum-price-chart.module';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -14,6 +15,7 @@ import { SharedModule } from '../../shared/shared.module';
     DashboardInvestmentPerformanceModule,
     DashboardInvestmentsInPecentModule,
     DashboardLastInvestmentsModule,
+    DashboardSumPriceChartModule,
     MatTabsModule,
     SharedModule,
   ],

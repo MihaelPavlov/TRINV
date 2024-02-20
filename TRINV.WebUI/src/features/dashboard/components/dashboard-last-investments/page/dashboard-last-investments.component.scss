@@ -1,0 +1,9 @@
+@use "../../../../../shared/assets/styles/colors";
+
+.dashboard-last-investments-line {
+  border: 1px solid colors.$color-gray-80-percent;
+}
+
+.dashboard-last-investments-bottom-line {
+  border-bottom: 2px solid colors.$color-gray-80-percent;
+}

@@ -1,0 +1,11 @@
+@use "../../../../../shared/assets/styles/utils";
+@use "../../../../../shared/assets/styles/button";
+@use "../../../../../shared/assets/styles/colors";
+
+.dashboard-investment-in-percents-line {
+  border: 1px solid colors.$color-gray-80-percent;
+}
+
+.dashboard-investment-in-percents-bottom-line {
+  border-bottom: 2px solid colors.$color-gray-80-percent;
+}

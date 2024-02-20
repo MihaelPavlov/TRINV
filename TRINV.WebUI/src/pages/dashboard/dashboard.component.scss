@@ -12,3 +12,7 @@
 .mat-mdc-tab .mdc-tab-indicator__content--underline {
   border-color: colors.$color-white-main !important;
 }
+
+.dashboard-table-border {
+  border: 2px solid colors.$color-black-30-percent;
+}

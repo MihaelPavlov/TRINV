@@ -1,0 +1,16 @@
+@use "../../../../../shared/assets/styles/utils";
+@use "../../../../../shared/assets/styles/button";
+@use "../../../../../shared/assets/styles/colors";
+
+.index {
+    position: relative;
+    z-index: 0;
+  }
+
+.dashboard-investment-list-performance-line {
+  border: 1px solid colors.$color-gray-80-percent;
+}
+
+.dashboard-investment-list-performance-bottom-line {
+  border-bottom: 2px solid colors.$color-gray-80-percent;
+}

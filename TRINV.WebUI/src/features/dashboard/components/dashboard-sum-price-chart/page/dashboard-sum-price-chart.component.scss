@@ -1,0 +1,5 @@
+@use '../../../../../shared/assets/styles/colors';
+
+.dashboard-sum-price-chart-line {
+  border: 1px solid colors.$color-gray-80-percent;
+}
