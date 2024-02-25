@@ -8,8 +8,8 @@
       <ul class="flex flex-col py-4 space-y-1">
         <li>
           <a
-            href="#"
-            class="app-main-color-btn flex flex-row items-center h-11 border-l-4 border-transparent right pr-6"
+            (click)="this.openAccountDialog()"
+            class="app-main-color-btn cursor-pointer flex flex-row items-center h-11 border-l-4 border-transparent right pr-6"
           >
             <span class="inline-flex justify-center ml-4">
               <mat-icon class="w-5 h-5">folder_open</mat-icon>
@@ -19,7 +19,8 @@
         </li>
         <li>
           <a
-            href="#"
+          routerLinkActive="active"
+          routerLink="assets"
             class="app-main-color-btn flex flex-row items-center h-11 border-l-4 border-transparent highlight-button-left-side pr-6"
           >
             <span class="inline-flex justify-center ml-4">
@@ -38,7 +39,7 @@
         </li>
         <li>
           <a
-            routerLink="/dashboard"
+          routerLinkActive="active" routerLink="/dashboard"
             class="app-main-color-btn flex flex-row items-center h-11 border-l-4 border-transparent highlight-button-left-side pr-6"
           >
             <span class="inline-flex justify-center items-center ml-4">

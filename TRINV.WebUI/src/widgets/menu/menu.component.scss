@@ -8,3 +8,9 @@
 .right-divider{
 border-right: 3px solid colors.$color-black-50-percent;
 }
+
+.active {
+  border-color:  colors.$main-color-yellow;
+  background-color: colors.$color-black-40-percent;
+
+}
