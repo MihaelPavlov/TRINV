@@ -10,7 +10,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { AddAccountDialogModule } from '../../features/add-account/components/add-account-dialog/add-account-dialog.module';
+import { AddAccountDialogModule } from '../../features/add-account/components/add-account-dialog.module';
 import { AddTransactionDialogModule } from '../../features/add-transaction/add-transaction.module';
 import { ViewTransactionModule } from '../../features/view-transaction/view-transaction.module';
 
