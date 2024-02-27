@@ -1,77 +1,74 @@
 ﻿using TRINV.Domain.Common;
 
-namespace TRINV.Domain.Investments.Investment.Models
+namespace TRINV.Domain.Investments.Transaction.Models;
+
+public class Transaction : Entity<int>, IAggregateRoot
 {
-    public class Transaction : Entity<int> , IAggregateRoot
+    internal Transaction(
+        int accountId,
+        string assetId,
+        string name,
+        decimal quantity,
+        decimal purchasePrice,
+        decimal purchasePricePerUnit,
+        TransactionType transactionType,
+        DateTime createdOn,
+        bool isFromOutsideProvider)
     {
-        internal Transaction(
-            int userId,
-            string assetId,
-            string name,
-            decimal quantity,
-            decimal purchasePrice,
-            decimal purchasePricePerUnit,
-            InvestmentType investmentType,
-            DateTime createdOn,
-            bool isFromOutsideProvider)
-        {
+        AccountId = accountId;
+        AssetId = assetId;
+        Name = name;
+        Quantity = quantity;
+        PurchasePrice = purchasePrice;
+        PurchasePricePerUnit = purchasePricePerUnit;
+        TransactionType = transactionType;
+        CreatedOn = createdOn;
+        IsFromOutsideProvider = isFromOutsideProvider;
+    }
 
+    public int AccountId { get; private set; }
 
-            AccountId = userId;
-            AssetId = assetId;
-            Name = name;
-            Quantity = quantity;
-            PurchasePrice = purchasePrice;
-            PurchasePricePerUnit = purchasePricePerUnit;
-            InvestmentType = investmentType;
-            CreatedOn = createdOn;
-            IsFromOutsideProvider = isFromOutsideProvider;
-        }
+    public string AssetId { get; private set; }
 
-        public int AccountId { get; private set; }
+    public string Name { get; private set; }
 
-        public string AssetId { get; private set; }
+    public decimal Quantity { get; private set; }
 
-        public string Name { get; private set; }
+    public decimal PurchasePrice { get; private set; }
 
-        public decimal Quantity { get; private set; }
+    public decimal PurchasePricePerUnit { get; private set; }
 
-        public decimal PurchasePrice { get; private set; }
+    public TransactionType TransactionType { get; private set; }
 
-        public decimal PurchasePricePerUnit { get; private set; }
+    public DateTime CreatedOn { get; private set; }
 
-        public InvestmentType InvestmentType { get; private set; }
+    public bool IsFromOutsideProvider { get; private set; }
 
-        public DateTime CreatedOn { get; private set; }
+    public Transaction UpdateQuantity(decimal quantity)
+    {
+        // validate quantity
+        Quantity = quantity;
 
-        public bool IsFromOutsideProvider { get; private set; }
+        return this;
+    }
 
-        public Transaction UpdateQuantity(decimal quantity)
-        {
-            // validate quantity
-            Quantity = quantity;
+    public Transaction UpdatePurchasePrice(decimal purchasePrice)
+    {
+        // validate purchase price
+        PurchasePrice = purchasePrice;
+        return this;
+    }
 
-            return this;
-        }
-
-        public Transaction UpdatePurchasePrice(decimal purchasePrice)
-        {
-            // validate purchase price
-            PurchasePrice = purchasePrice;
-            return this;
-        }
-
-        public Transaction UpdatePurchasePricePerUnit(decimal purchasePricePerUnit)
-        {
-            // validate purchase price
-            PurchasePricePerUnit = purchasePricePerUnit;
-            return this;
-        }
+    public Transaction UpdatePurchasePricePerUnit(decimal purchasePricePerUnit)
+    {
+        // validate purchase price
+        PurchasePricePerUnit = purchasePricePerUnit;
+        return this;
     }
 }
 
-public enum InvestmentType
+public enum TransactionType
 {
-    crypto = 0,
-    stock = 1,
+    Bought = 0,
+    Sold = 1,
 }

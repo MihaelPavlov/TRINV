@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
-using TRINV.Domain.Investments.Investment.Models;
-using TRINV.Domain.Investments.Investment.Repositories;
+using TRINV.Domain.Investments.Transaction.Models;
+using TRINV.Domain.Investments.Transaction.Repositories;
 using TRINV.Infrastructure.Common.Repositories;
 
 namespace TRINV.Infrastructure.Investements.Repositories;

@@ -42,10 +42,10 @@ internal class InvestmentFactory : IInvestmentFactory
     public Investment Build()
     {
         return new Investment(
-            acountId,
-            assetId,
-            quantity,
-            purchasePrice,
-            purchasePricePerUnit);
+            this.acountId,
+            this.assetId,
+            this.quantity,
+            this.purchasePrice,
+            this.purchasePricePerUnit);
     }
 }
