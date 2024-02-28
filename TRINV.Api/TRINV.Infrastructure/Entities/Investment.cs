@@ -1,4 +1,6 @@
-﻿namespace TRINV.Infrastructure.Entities;
+﻿using TRINV.Domain.Investments.Transaction.Models;
+
+namespace TRINV.Infrastructure.Entities;
 
 public class Investment
 {
@@ -16,7 +18,7 @@ public class Investment
 
     public decimal PurchasePricePerUnit { get; set; }
 
-    public InvestmentType InvestmentType { get; set; }
+    public TransactionType TransactionType { get; set; }
 
     public DateTime CreatedOn { get; set; }
 

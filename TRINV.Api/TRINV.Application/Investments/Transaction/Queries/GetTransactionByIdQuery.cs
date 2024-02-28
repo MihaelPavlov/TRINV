@@ -1,33 +1,53 @@
 ﻿using MediatR;
-using TRINV.Domain.Investments.Transaction.Factories.Interfaces;
-using TRINV.Domain.Investments.Transaction.Models;
+using TRINV.Domain.Common.Mapping;
+using DomainModels = TRINV.Domain.Investments.Transaction.Models;
 using TRINV.Domain.Investments.Transaction.Repositories;
+using TRINV.Shared.Business.Exceptions;
+using TRINV.Shared.Business.Extension;
 using TRINV.Shared.Business.Utilities;
+using TRINV.Domain.Investments.Transaction.Models;
 
 namespace TRINV.Application.Investments.Transaction.Queries;
 
-public record GetTransactionByIdQuery(int TransactionId) : IRequest<OperationResult<IEnumerable<GetTransactionByIdQueryModel>>>;
+public record GetTransactionByIdQuery(int Id) : IRequest<OperationResult<GetTransactionByIdQueryModel>>;
 
-internal class GetTransactionByIdQueryHandler : IRequestHandler<GetTransactionByIdQuery, OperationResult<IEnumerable<GetTransactionByIdQueryModel>>>
+internal class GetTransactionByIdQueryHandler : IRequestHandler<GetTransactionByIdQuery, OperationResult<GetTransactionByIdQueryModel>>
 {
-    readonly ITransactionFactory transactionFactory;
     readonly ITransactionDomainRepository domainRepository;
 
-    public GetTransactionByIdQueryHandler(ITransactionFactory transactionFactory, ITransactionDomainRepository domainRepository)
+    public GetTransactionByIdQueryHandler(ITransactionDomainRepository domainRepository)
     {
-        this.transactionFactory = transactionFactory;
         this.domainRepository = domainRepository;
     }
 
-    public async Task<OperationResult<IEnumerable<GetTransactionByIdQueryModel>>> Handle(GetTransactionByIdQuery request, CancellationToken cancellationToken)
+    public async Task<OperationResult<GetTransactionByIdQueryModel>> Handle(GetTransactionByIdQuery request, CancellationToken cancellationToken)
     {
-        var transaction = await this.domainRepository.Find(request.TransactionId)
+        var operationResult = new OperationResult<GetTransactionByIdQueryModel>();
+        var transaction = await this.domainRepository.Find(request.Id, cancellationToken);
+
+        if (transaction is null)
+            return operationResult.ReturnWithErrorMessage(new NotFoundException($"Transaction with id {request.Id} was not found"));
+
+        operationResult.RelatedObject = new GetTransactionByIdQueryModel
+        {
+            Id = transaction.Id,
+            AssetId = transaction.AssetId,
+            Name = transaction.Name,
+            Quantity = transaction.Quantity,
+            PurchasePrice = transaction.PurchasePrice,
+            PurchasePricePerUnit = transaction.PurchasePricePerUnit,
+            TransactionType = transaction.TransactionType,
+            CreatedOn = transaction.CreatedOn,
+            TransactionalProfit = 40 // TODO: Calculate the current transaction profit based on the current price of the asset
+        };
+
+        return operationResult;
     }
 }
 
-public class GetTransactionByIdQueryModel
+public class GetTransactionByIdQueryModel : IMapFrom<DomainModels.Transaction>
 {
-    public int TransactionId { get; set; }
+    public int Id { get; set; }
     public string AssetId { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     public decimal Quantity { get; set; }

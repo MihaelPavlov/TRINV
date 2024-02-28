@@ -17,7 +17,7 @@ public class ExternalIntegrationResourceController : ControllerBase
         this.mediator = mediator;
     }
 
-    [HttpGet()]
+    [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OperationResult<IEnumerable<GetExternalIntegrationResourceListQuery>>))]
     public async Task<IActionResult> GetExternalIntegrationResourceList(CancellationToken cancellationToken)
     {
