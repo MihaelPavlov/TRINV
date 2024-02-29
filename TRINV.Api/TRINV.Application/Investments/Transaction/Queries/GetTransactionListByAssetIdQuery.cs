@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using TRINV.Domain.Investments.Transaction.Repositories;
+using TRINV.Application.Investments.Transaction.Repositories;
 using TRINV.Shared.Business.Utilities;
 
 namespace TRINV.Application.Investments.Transaction.Queries;
@@ -8,16 +8,16 @@ public record GetTransactionListByAssetIdQuery(string AssetId) : IRequest<Operat
 
 internal class GetTransactionListByAssetIdQueryHandler : IRequestHandler<GetTransactionListByAssetIdQuery, OperationResult<IEnumerable<GetTransactionListByAssetIdQueryModel>>>
 {
-    readonly ITransactionDomainRepository domainRepository;
+    readonly ITransactioQueryRepository queryRepository;
 
-    public GetTransactionListByAssetIdQueryHandler(ITransactionDomainRepository domainRepository)
+    public GetTransactionListByAssetIdQueryHandler(ITransactioQueryRepository queryRepository)
     {
-        this.domainRepository = domainRepository;
+        this.queryRepository = queryRepository;
     }
 
     public async Task<OperationResult<IEnumerable<GetTransactionListByAssetIdQueryModel>>> Handle(GetTransactionListByAssetIdQuery request, CancellationToken cancellationToken)
     {
-        var res = await this.domainRepository.FindAllByAssetId(request.AssetId,
+        var res = await this.queryRepository.FindAllByAssetId(request.AssetId,
             x => x.Select(transaction => new GetTransactionListByAssetIdQueryModel
             {
                 Id = transaction.Id,

@@ -6,7 +6,6 @@ namespace TRINV.Domain.Investments.Transaction.Repositories;
 public interface ITransactionDomainRepository : IDomainRepository<Models.Transaction>
 {
     Task<Models.Transaction?> Find(int id, CancellationToken cancellationToken);
-    Task<IEnumerable<TResult?>> FindAllByAssetId<TResult>(string assetId, Func<IQueryable<Models.Transaction>, IQueryable<TResult>> predicate, CancellationToken cancellationToken);
     Task<Models.Transaction> Delete(int id, CancellationToken cancellationToken);
     Task<IEnumerable<Models.Transaction>> GetAllByAccount(int accountId, CancellationToken cancellationToken);
 }
