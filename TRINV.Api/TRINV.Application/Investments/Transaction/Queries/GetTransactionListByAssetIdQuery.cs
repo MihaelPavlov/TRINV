@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using TRINV.Application.Investments.Transaction.Repositories;
+using TRINV.Domain.Investments.Transaction.Models;
 using TRINV.Shared.Business.Utilities;
 
 namespace TRINV.Application.Investments.Transaction.Queries;
@@ -22,6 +23,11 @@ internal class GetTransactionListByAssetIdQueryHandler : IRequestHandler<GetTran
             {
                 Id = transaction.Id,
                 AssetId = transaction.AssetId,
+                Name = transaction.Name,
+                Quantity = transaction.Quantity,
+                PurchasePrice = transaction.PurchasePrice,
+                PurchasePricePerUnit = transaction.PurchasePricePerUnit,
+                TransactionType = transaction.TransactionType,
                 TransactionProfit = transaction.PurchasePrice - transaction.PurchasePricePerUnit - 100
 
             }), cancellationToken);
@@ -34,5 +40,10 @@ public class GetTransactionListByAssetIdQueryModel
 {
     public int Id { get; set; }
     public string AssetId { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public decimal Quantity { get; set; }
+    public decimal PurchasePrice { get; set; }
+    public decimal PurchasePricePerUnit { get; set; }
+    public TransactionType TransactionType { get; set; }
     public decimal TransactionProfit { get; set; }
 }

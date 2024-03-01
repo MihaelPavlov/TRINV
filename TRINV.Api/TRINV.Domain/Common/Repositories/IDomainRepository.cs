@@ -1,6 +1,6 @@
 ﻿namespace TRINV.Domain.Common.Repositories;
 
-public interface IDomainRepository<in TDomain>
+public interface IDomainRepository<TDomain>
     where TDomain : class, IAggregateRoot
 {
     Task SaveChangesAsync(CancellationToken cancellationToken = default);

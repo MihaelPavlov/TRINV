@@ -18,7 +18,7 @@ public class TransactionController : ControllerBase
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OperationResult<IEnumerable<GetTransactionListByAssetIdQueryModel>>))]
-    public async Task<IActionResult> GetTransactionListByAssetId([FromBody] GetTransactionListByAssetIdQuery query, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetTransactionListByAssetId([FromBody] GetAssetListQuery query, CancellationToken cancellationToken)
     {
         var result = await this.mediator.Send(query, cancellationToken);
         return this.Ok(result);
