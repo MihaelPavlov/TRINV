@@ -6,15 +6,7 @@ using TRINV.Shared.Business.Utilities;
 
 namespace TRINV.Application.ExternalAssetIntegration.ExternalResources.Commands;
 
-public class DeleteRequestExternalResourceCommand : IRequest<OperationResult>
-{
-    public int Id { get; set; }
-
-    public DeleteRequestExternalResourceCommand(int id)
-    {
-        this.Id = id;
-    }
-}
+public record DeleteRequestExternalResourceCommand(int Id) : IRequest<OperationResult>;
 
 internal class DeleteRequestExternalResourceCommandHandler : IRequestHandler<DeleteRequestExternalResourceCommand, OperationResult>
 {
