@@ -1,6 +1,4 @@
-import {
-  Component,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import {
   CategoryScale,
@@ -15,6 +13,12 @@ import {
 import { Observable, of } from 'rxjs';
 import { AddTransactionDialogComponent } from '../../features/add-transaction/add-transaction.component';
 import { ViewTransactionDialogComponent } from '../../features/view-transaction/view-transaction.component';
+import { Store, select } from '@ngrx/store';
+import {
+  ExecuteExternalIntegrationResourceByCategory,
+  ExternalResourceCategory,
+} from '../../shared/store/external-integration-resource/external-integration-resource.actions';
+import { selectExternalIntegrationResourceResultList } from '../../shared/store/external-integration-resource/external-integration-resource.selectors';
 
 export interface ShipData {
   assetId: string;
@@ -135,7 +139,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: 'assets-list.component.html',
   styleUrl: 'assets-list.component.scss',
 })
-export class AssetsListComponent {
+export class AssetsListComponent implements OnInit {
   displayedRows$!: Observable<ShipData[]>;
   value = 'Clear me';
 
@@ -145,7 +149,7 @@ export class AssetsListComponent {
   dataSource = ELEMENT_DATA;
   public chart: any;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private readonly store: Store) {
     Chart.register(
       LinearScale,
       LineController,
@@ -158,9 +162,7 @@ export class AssetsListComponent {
   }
 
   openViewTransactionDialog() {
-    const dialogRef = this.dialog.open(ViewTransactionDialogComponent, {
-
-    });
+    const dialogRef = this.dialog.open(ViewTransactionDialogComponent, {});
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
@@ -168,9 +170,7 @@ export class AssetsListComponent {
   }
 
   openAddTransactionDialog() {
-    const dialogRef = this.dialog.open(AddTransactionDialogComponent, {
-
-    });
+    const dialogRef = this.dialog.open(AddTransactionDialogComponent, {});
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
@@ -178,6 +178,16 @@ export class AssetsListComponent {
   }
 
   ngOnInit() {
+    this.store.dispatch(
+      new ExecuteExternalIntegrationResourceByCategory( {category:
+        ExternalResourceCategory.Crypto}
+      )
+    );
+
+    // this.store.pipe(select(selectExternalIntegrationResourceResultList)).subscribe(x=>{
+    //   console.log(x)
+    // })
+
     const rows$ = of(exampleShips);
     this.displayedRows$ = rows$;
 

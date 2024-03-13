@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TRINV.Application.ExternalAssetIntegration.ExternalResources.Models;
 using TRINV.Application.ExternalAssetIntegration.ExternalResources.Queries;
+using TRINV.Domain.ExternalAssetIntegration.ExternalResources.Enums;
 using TRINV.Shared.Business.Utilities;
 
 namespace TRINV.StartUp.Controllers.ExternalAssetIntegration;
@@ -29,15 +30,16 @@ public class ExternalIntegrationResourceController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OperationResult<IEnumerable<ExternalIntegrationResourceResultModel>>))]
     public async Task<IActionResult> ExecuteAll(CancellationToken cancellationToken)
     {
-        var result = await this.mediator.Send(new GetExternalIntegrationResourceResultListQuery(), cancellationToken);
+        var result= await this.mediator.Send(new GetExternalIntegrationResourceResultListQuery(), cancellationToken);
         return this.Ok(result);
     }
 
     [HttpGet("execute-by-category/{category}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OperationResult<IEnumerable<ExternalIntegrationResourceResultModel>>))]
-    public async Task<IActionResult> ExecuteByCategory(CancellationToken cancellationToken)
+    public async Task<IActionResult> ExecuteByCategory(int category, CancellationToken cancellationToken)
     {
-        return this.Ok();
+        var result = await this.mediator.Send(new GetExternalIntegrationResourceResultListByCategoryQuery(category), cancellationToken);
+        return this.Ok(result);
     }
 
     [HttpGet("execute-by-user-id/{userId}")]

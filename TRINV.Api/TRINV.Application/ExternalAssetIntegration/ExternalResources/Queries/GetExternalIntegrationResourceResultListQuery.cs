@@ -5,9 +5,9 @@ using TRINV.Shared.Business.Utilities;
 
 namespace TRINV.Application.ExternalAssetIntegration.ExternalResources.Queries;
 
-public record GetExternalIntegrationResourceResultListQuery : IRequest<OperationResult<IEnumerable<ExternalIntegrationResourceResultModel>>>;
+public record GetExternalIntegrationResourceResultListQuery : IRequest<OperationResult>;
 
-internal class GetExternalIntegrationResourceResultListQueryHandler : IRequestHandler<GetExternalIntegrationResourceResultListQuery, OperationResult<IEnumerable<ExternalIntegrationResourceResultModel>>>
+internal class GetExternalIntegrationResourceResultListQueryHandler : IRequestHandler<GetExternalIntegrationResourceResultListQuery, OperationResult>
 {
     readonly IExternalIntegrationResourceService externalIntegrationResourceService;
 
@@ -16,8 +16,9 @@ internal class GetExternalIntegrationResourceResultListQueryHandler : IRequestHa
         this.externalIntegrationResourceService = externalIntegrationResourceService;
     }
 
-    public async Task<OperationResult<IEnumerable<ExternalIntegrationResourceResultModel>>> Handle(GetExternalIntegrationResourceResultListQuery request, CancellationToken cancellationToken)
+    public async Task<OperationResult> Handle(GetExternalIntegrationResourceResultListQuery request, CancellationToken cancellationToken)
     {
-        return await this.externalIntegrationResourceService.ExecuteAll(cancellationToken);
+         await this.externalIntegrationResourceService.ExecuteAll(cancellationToken);
+        return new OperationResult();
     }
 }
