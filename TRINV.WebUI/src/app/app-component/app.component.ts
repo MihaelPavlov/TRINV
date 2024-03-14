@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   constructor(private readonly store: Store) {}
 
   ngOnInit(): void {
+    console.log(this.store)
     this.store.dispatch(new ExecuteAllExternalIntegrationResources());
   }
 }

@@ -6,7 +6,7 @@ import {
 
 export const selectExternalIntegrationResourceState =
   createFeatureSelector<ExternalIntegrationResourceInitialState>(
-    'ExternalIntegrationResource'
+    'externalIntegrationResource'
   );
 
 export const selectExternalIntegrationResourceResultList = createSelector(

@@ -12,7 +12,7 @@ const customSelectId = (entity: IExternalIntegrationResourceResultModel) =>
 
 export const adapter =
   createEntityAdapter<IExternalIntegrationResourceResultModel>({
-     selectId: customSelectId,
+    selectId: customSelectId,
   });
 
 export const initialState: ExternalIntegrationResourceInitialState =
@@ -61,7 +61,6 @@ export function externalIntegrationResourceReducer(
     case actions.EXECUTE_EXTERNAL_INTEGRATION_RESOURCE_BY_CATEGORY:
       return { ...state, isLoading: true };
     case actions.EXECUTE_EXTERNAL_INTEGRATION_RESOURCE_BY_CATEGORY_SUCCESS:
-      console.log("reducer -> " , action.payload)
       return adapter.addMany(action.payload.externalResources, {
         ...state,
         isLoading: false,

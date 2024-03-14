@@ -1,9 +1,8 @@
-@use "../../shared/assets/styles/colors";
+@use "../../../../../shared/assets/styles/colors";
 
 .add-transaction-dialog-border {
   border: 3px solid colors.$color-black-70-percent;
 }
-
 
 .ellipsis {
   display: inline-block;

@@ -11,7 +11,7 @@ import {
   Tooltip,
 } from 'chart.js';
 import { Observable, of } from 'rxjs';
-import { AddTransactionDialogComponent } from '../../features/add-transaction/add-transaction.component';
+import { AddTransactionDialogComponent } from '../../features/assets/components/add-transaction/page/add-transaction.component';
 import { ViewTransactionDialogComponent } from '../../features/view-transaction/view-transaction.component';
 import { Store, select } from '@ngrx/store';
 import {
@@ -19,6 +19,7 @@ import {
   ExternalResourceCategory,
 } from '../../shared/store/external-integration-resource/external-integration-resource.actions';
 import { selectExternalIntegrationResourceResultList } from '../../shared/store/external-integration-resource/external-integration-resource.selectors';
+import { AppState } from '../../app/store/app-store.module';
 
 export interface ShipData {
   assetId: string;
@@ -149,7 +150,7 @@ export class AssetsListComponent implements OnInit {
   dataSource = ELEMENT_DATA;
   public chart: any;
 
-  constructor(public dialog: MatDialog, private readonly store: Store) {
+  constructor(public dialog: MatDialog) {
     Chart.register(
       LinearScale,
       LineController,
@@ -178,16 +179,6 @@ export class AssetsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(
-      new ExecuteExternalIntegrationResourceByCategory( {category:
-        ExternalResourceCategory.Crypto}
-      )
-    );
-
-    // this.store.pipe(select(selectExternalIntegrationResourceResultList)).subscribe(x=>{
-    //   console.log(x)
-    // })
-
     const rows$ = of(exampleShips);
     this.displayedRows$ = rows$;
 

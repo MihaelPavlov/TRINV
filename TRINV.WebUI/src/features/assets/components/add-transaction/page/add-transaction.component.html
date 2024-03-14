@@ -30,80 +30,95 @@
     </div>
 
     <h2 class="text-white">Add Transaction</h2>
-    <div class="grid grid-cols-1 place-items-center space-y-8">
-      <div class=" w-72 md:w-80 lg:w-96">
-
-        <mat-button-toggle-group appearance="legacy" name="fontStyle"
-        class=""
-        aria-label="type">
-          <mat-button-toggle value="sold" class="mr-2">Sold</mat-button-toggle>
-          <mat-button-toggle value="bought">Bought</mat-button-toggle>
+    <form [formGroup]="addUpdateForm" (ngSubmit)="onSubmit()" class="grid grid-cols-1 place-items-center space-y-8">
+      <div class="w-72 md:w-80 lg:w-96">
+        <mat-button-toggle-group
+          appearance="legacy"
+          aria-label="type"
+          formControlName="type"
+        >
+          <mat-button-toggle value="0" class="mr-2">Sold</mat-button-toggle>
+          <mat-button-toggle value="1">Bought</mat-button-toggle>
         </mat-button-toggle-group>
       </div>
 
-      <div class=" w-72 md:w-80 lg:w-96">
-        <label
-          for="0"
-          class="block mb-2 text-sm font-medium text-gray-500"
+      <div class="w-72 md:w-80 lg:w-96">
+        <label for="assetId" class="block mb-2 text-sm font-medium text-gray-500"
           >Select an Investment</label
         >
+        <input
+            class="mb-2 app-main-color-white app-main-background-color-40-black peer h-6 w-36 w-full rounded-md bg-gray-50 px-4 font-thin outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-400"
+              type="text"
+              placeholder="Filter by Name"
+              [ngModel]="searchTerm"
+              (input)="filterAssets()"
+            />
         <select
-          id="0"
+          id="assetId"
+          formControlName="assetId"
           class="app-main-color-white app-main-background-color-40-black peer h-10 w-full rounded-md bg-gray-50 px-4 font-thin outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-400"
         >
           <!-- add search to the select list -->
-          <option selected>Choose investment</option>
-          <option value="US">Bitcoin (btc)</option>
-          <option value="CA">Canada</option>
-          <option value="FR">France</option>
-          <option value="DE">Germany</option>
+          <option selected>
+            Choose investment ({{ this.filteredAssets.length }})
+          </option>
+          <option
+            *ngFor="let asset of this.filteredAssets"
+            [id]="asset.assetId"
+            [value]="asset.assetId"
+          >
+            {{ asset.name }} ({{ asset.assetId }})
+          </option>
         </select>
       </div>
 
-      <div class=" w-72 md:w-80 lg:w-96">
+      <div class="w-72 md:w-80 lg:w-96">
         <label
-          for="1"
+          for="quantity"
           class="block w-full pb-1 text-sm font-medium text-gray-500 transition-all duration-200 ease-in-out group-focus-within:text-blue-400"
           >Quantity</label
         >
         <input
-          id="1"
+          id="quantity"
           type="number"
+          formControlName="quantity"
           class="app-main-color-white app-main-background-color-40-black peer h-10 w-full rounded-md bg-gray-50 px-4 font-thin outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
-      <div class=" w-72 md:w-80 lg:w-96">
+      <div class="w-72 md:w-80 lg:w-96">
         <label
-          for="2"
+          for="purchasePrice"
           class="block w-full pb-1 text-sm font-medium text-gray-500 transition-all duration-200 ease-in-out group-focus-within:text-blue-400"
           >Purchase Price</label
         >
         <input
-          id="2"
+          id="purchasePrice"
           type="number"
+          formControlName="purchasePrice"
           class="app-main-color-white app-main-background-color-40-black peer h-10 w-full rounded-md bg-gray-50 px-4 font-thin outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
-      <div class=" w-72 md:w-80 lg:w-96">
+      <div class="w-72 md:w-80 lg:w-96">
         <label
-          for="3"
+          for="purchasePricePerUnit"
           class="block w-full pb-1 text-sm font-medium text-gray-500 transition-all duration-200 ease-in-out group-focus-within:text-blue-400"
           >Purchase Price Per Unit</label
         >
         <input
-          id="3"
+          id="purchasePricePerUnit"
           type="number"
+          formControlName="purchasePricePerUnit"
           class="app-main-color-white app-main-background-color-40-black peer h-10 w-full rounded-md bg-gray-50 px-4 font-thin outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
       <div class="relative cursor-pointer pb-3">
-        <button class="app-blue-btn center mr-4 rounded-lg py-3 px-6 font-bold">
+        <button class="app-blue-btn center mr-4 rounded-lg py-3 px-6 font-bold" type="submit">
           Submit
         </button>
       </div>
-    </div>
+    </form>
   </div>
 </mat-dialog-content>
