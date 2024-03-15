@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.Linq.Expressions;
+using TRINV.Application.Investments.Transaction.Queries;
 using TRINV.Application.Investments.Transaction.Repositories;
 using TRINV.Domain.Investments.Transaction.Models;
 using TRINV.Domain.Investments.Transaction.Repositories;
@@ -39,6 +42,17 @@ internal class TransactionRepository : DataRepository<IInvestmentDbContext, Enti
 
         return await query
             .ToListAsync(cancellationToken);
+    }
+
+    public async Task<IEnumerable<GetAssetListQueryModel>> GetAllAssets(string searchExpression, CancellationToken cancellationToken)
+    {
+        return await this.All().Where(x => x.AssetId.Contains(searchExpression)).GroupBy(x => new { AssetId = x.AssetId, Name = x.Name }).Select(x => new GetAssetListQueryModel
+        {
+            AssetId = x.Key.AssetId,
+            Name = x.Key.Name,
+            TotalQuantity = x.Sum(x => x.Quantity),
+            TotalBalance = x.Sum(x => x.PurchasePrice)
+        }).ToListAsync(cancellationToken);
     }
 }
 

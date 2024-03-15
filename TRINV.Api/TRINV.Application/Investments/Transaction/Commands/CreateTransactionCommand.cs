@@ -25,7 +25,7 @@ public class CreateTransactionCommand : IRequest<OperationResult>
     public decimal PurchasePricePerUnit { get; set; }
 
     [Required]
-    public TransactionType TransactionType { get; set; }
+    public int TransactionType { get; set; }
 
     public bool IsFromOutsideProvider { get; set; }
 }
@@ -51,7 +51,7 @@ internal class CreateTransactionCommandHandler : IRequestHandler<CreateTransacti
             .WithPurchasePrice(request.PurchasePrice)
             .WithPurchasePricePerUnit(request.PurchasePricePerUnit)
             .WithQuantity(request.Quantity)
-            .WithTransactionType(request.TransactionType)
+            .WithTransactionType((TransactionType)request.TransactionType)
             .Build();
 
         await this.domainRepository.AddAsync(transactionModel, cancellationToken);

@@ -25,7 +25,7 @@ public class TransactionController : ControllerBase
         return this.Ok(result);
     }
 
-    [HttpPost("list")]
+    [HttpPost("asset-transaction-list")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OperationResult<IEnumerable<GetTransactionListByAssetIdQueryModel>>))]
     public async Task<IActionResult> GetTransactionListByAssetId([FromBody] GetTransactionListByAssetIdQuery query, CancellationToken cancellationToken)
     {
@@ -34,7 +34,7 @@ public class TransactionController : ControllerBase
     }
 
     [HttpPost("asset-list")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OperationResult<IEnumerable<GetTransactionListByAssetIdQueryModel>>))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OperationResult<IEnumerable<GetAssetListQueryModel>>))]
     public async Task<IActionResult> GetAssetList([FromBody] GetAssetListQuery query, CancellationToken cancellationToken)
     {
         var result = await this.mediator.Send(query, cancellationToken);

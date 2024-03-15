@@ -46,4 +46,5 @@ public class GetTransactionListByAssetIdQueryModel
     public decimal PurchasePricePerUnit { get; set; }
     public TransactionType TransactionType { get; set; }
     public decimal TransactionProfit { get; set; }
+    public double TransactionProfitPercents { get; set; }
 }
