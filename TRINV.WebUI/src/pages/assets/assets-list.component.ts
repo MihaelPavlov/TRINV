@@ -13,13 +13,14 @@ import {
 import { Observable, of } from 'rxjs';
 import { AddTransactionDialogComponent } from '../../features/assets/components/add-transaction/page/add-transaction.component';
 import { ViewTransactionDialogComponent } from '../../features/view-transaction/view-transaction.component';
+import { IAsset } from './models/asset.model';
 import { Store, select } from '@ngrx/store';
+import { GetAssetList, GetAssetTransactionList } from './store/assets.actions';
 import {
-  ExecuteExternalIntegrationResourceByCategory,
-  ExternalResourceCategory,
-} from '../../shared/store/external-integration-resource/external-integration-resource.actions';
-import { selectExternalIntegrationResourceResultList } from '../../shared/store/external-integration-resource/external-integration-resource.selectors';
-import { AppState } from '../../app/store/app-store.module';
+  selectAssetTransactions,
+  selectAssetsList,
+} from './store/assets.selectors';
+import { IAssetTransaction } from './models/asset-transaction.model';
 
 export interface ShipData {
   assetId: string;
@@ -141,16 +142,22 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrl: 'assets-list.component.scss',
 })
 export class AssetsListComponent implements OnInit {
-  displayedRows$!: Observable<ShipData[]>;
-  value = 'Clear me';
+  // public displayedRows$!: Observable<ShipData[]>;
+  public displayedColumns: string[] = [
+    'dateAdded',
+    'quantity',
+    'price',
+    'actions',
+  ];
 
-  displayedColumns: string[] = ['dateAdded', 'quantity', 'price', 'actions'];
+  public dataSource = ELEMENT_DATA;
   public chartData: any | null = null;
-
-  dataSource = ELEMENT_DATA;
   public chart: any;
 
-  constructor(public dialog: MatDialog) {
+  public assets$!: Observable<IAsset[]>;
+  public assetTransactions$!: Observable<IAssetTransaction[]>;
+
+  constructor(public dialog: MatDialog, private readonly store: Store) {
     Chart.register(
       LinearScale,
       LineController,
@@ -161,7 +168,18 @@ export class AssetsListComponent implements OnInit {
       Filler
     );
   }
+  public ngOnInit(): void {
+    this.store.dispatch(new GetAssetList({ searchExpression: null }));
+    this.assets$ = this.store.pipe(select(selectAssetsList));
 
+    this.createChart();
+  }
+
+  public onOpenAssetPanel(assetId: string): void {
+    console.log('opend');
+    this.store.dispatch(new GetAssetTransactionList({ assetId }));
+    this.assetTransactions$ = this.store.pipe(select(selectAssetTransactions));
+  }
   openViewTransactionDialog() {
     const dialogRef = this.dialog.open(ViewTransactionDialogComponent, {});
 
@@ -169,20 +187,15 @@ export class AssetsListComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
-
+  convertToPositive(num: number): number {
+    return Math.abs(num);
+  }
   openAddTransactionDialog() {
     const dialogRef = this.dialog.open(AddTransactionDialogComponent, {});
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
-  }
-
-  ngOnInit() {
-    const rows$ = of(exampleShips);
-    this.displayedRows$ = rows$;
-
-    this.createChart();
   }
 
   public testChart() {

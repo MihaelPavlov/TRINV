@@ -51,7 +51,7 @@ internal class TransactionRepository : DataRepository<IInvestmentDbContext, Enti
             AssetId = x.Key.AssetId,
             Name = x.Key.Name,
             TotalQuantity = x.Sum(x => x.Quantity),
-            TotalBalance = x.Sum(x => x.PurchasePrice)
+            TotalBalance = x.Sum(x => x.TotalPrice)
         }).ToListAsync(cancellationToken);
     }
 }

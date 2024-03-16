@@ -9,8 +9,8 @@ internal class TransactionFactory : ITransactionFactory
     private string assetId = default!;
     private string name = default!;
     private decimal quantity = default!;
-    private decimal purchasePrice = default!;
-    private decimal purchasePricePerUnit = default!;
+    private decimal totalPrice = default!;
+    private decimal pricePerUnit = default!;
     private bool isFromOutsideProvider = default!;
     private TransactionType transactionType = default!;
 
@@ -38,15 +38,15 @@ internal class TransactionFactory : ITransactionFactory
         return this;
     }
 
-    public ITransactionFactory WithPurchasePrice(decimal purchasePrice)
+    public ITransactionFactory WithTotalPrice(decimal totalPrice)
     {
-        this.purchasePrice = purchasePrice;
+        this.totalPrice = totalPrice;
         return this;
     }
 
-    public ITransactionFactory WithPurchasePricePerUnit(decimal purchasePricePerUnit)
+    public ITransactionFactory WithPricePerUnit(decimal pricePerUnit)
     {
-        this.purchasePricePerUnit = purchasePricePerUnit;
+        this.pricePerUnit = pricePerUnit;
         return this;
     }
 
@@ -69,8 +69,8 @@ internal class TransactionFactory : ITransactionFactory
             this.assetId,
             this.name,
             this.quantity,
-            this.purchasePrice,
-            this.purchasePricePerUnit,
+            this.totalPrice,
+            this.pricePerUnit,
             this.transactionType,
             DateTime.UtcNow,
             this.isFromOutsideProvider);

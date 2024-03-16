@@ -18,6 +18,8 @@ internal class GetTransactionListByAssetIdQueryHandler : IRequestHandler<GetTran
 
     public async Task<OperationResult<IEnumerable<GetTransactionListByAssetIdQueryModel>>> Handle(GetTransactionListByAssetIdQuery request, CancellationToken cancellationToken)
     {
+        Random r = new Random();
+
         var res = await this.queryRepository.FindAllByAssetId(request.AssetId,
             x => x.Select(transaction => new GetTransactionListByAssetIdQueryModel
             {
@@ -25,10 +27,11 @@ internal class GetTransactionListByAssetIdQueryHandler : IRequestHandler<GetTran
                 AssetId = transaction.AssetId,
                 Name = transaction.Name,
                 Quantity = transaction.Quantity,
-                PurchasePrice = transaction.PurchasePrice,
-                PurchasePricePerUnit = transaction.PurchasePricePerUnit,
+                TotalPrice = transaction.TotalPrice,
+                PricePerUnit = transaction.PricePerUnit,
                 TransactionType = transaction.TransactionType,
-                TransactionProfit = transaction.PurchasePrice - transaction.PurchasePricePerUnit - 100
+                TransactionProfit = transaction.TotalPrice - transaction.PricePerUnit - 100,
+                TransactionProfitPercents = r.Next(-30, 30)
 
             }), cancellationToken);
 
@@ -42,8 +45,8 @@ public class GetTransactionListByAssetIdQueryModel
     public string AssetId { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     public decimal Quantity { get; set; }
-    public decimal PurchasePrice { get; set; }
-    public decimal PurchasePricePerUnit { get; set; }
+    public decimal TotalPrice { get; set; }
+    public decimal PricePerUnit { get; set; }
     public TransactionType TransactionType { get; set; }
     public decimal TransactionProfit { get; set; }
     public double TransactionProfitPercents { get; set; }

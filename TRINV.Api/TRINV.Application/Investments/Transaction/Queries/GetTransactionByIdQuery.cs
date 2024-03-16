@@ -34,8 +34,8 @@ internal class GetTransactionByIdQueryHandler : IRequestHandler<GetTransactionBy
             AssetId = transaction.AssetId,
             Name = transaction.Name,
             Quantity = transaction.Quantity,
-            PurchasePrice = transaction.PurchasePrice,
-            PurchasePricePerUnit = transaction.PurchasePricePerUnit,
+            TotalPrice = transaction.TotalPrice,
+            PricePerUnit = transaction.PricePerUnit,
             TransactionType = transaction.TransactionType,
             CreatedOn = transaction.CreatedOn,
             TransactionalProfit = 40 // TODO: Calculate the current transaction profit based on the current price of the asset
@@ -51,8 +51,8 @@ public class GetTransactionByIdQueryModel : IMapFrom<DomainModels.Transaction>
     public string AssetId { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     public decimal Quantity { get; set; }
-    public decimal PurchasePrice { get; set; }
-    public decimal PurchasePricePerUnit { get; set; }
+    public decimal TotalPrice { get; set; }
+    public decimal PricePerUnit { get; set; }
     public TransactionType TransactionType { get; set; }
     public DateTime CreatedOn { get; set; }
     public decimal TransactionalProfit { get; set; }

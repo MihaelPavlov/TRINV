@@ -13,6 +13,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { AddAccountDialogModule } from '../../features/add-account/components/add-account-dialog.module';
 import { AddTransactionDialogModule } from '../../features/assets/components/add-transaction/add-transaction.module';
 import { ViewTransactionModule } from '../../features/view-transaction/view-transaction.module';
+import { StoreModule } from '@ngrx/store';
+import { assetsListReducer } from './store/assets.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AssetsEffects } from './store/assets.effects';
 
 @NgModule({
   declarations: [AssetsListComponent],
@@ -29,7 +33,9 @@ import { ViewTransactionModule } from '../../features/view-transaction/view-tran
     SharedModule,
     AddAccountDialogModule,
     AddTransactionDialogModule,
-    ViewTransactionModule
+    ViewTransactionModule,
+    StoreModule.forFeature('assets', assetsListReducer),
+    EffectsModule.forFeature([AssetsEffects]),
   ],
   exports: [],
   providers: [],

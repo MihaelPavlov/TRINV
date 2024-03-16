@@ -9,8 +9,8 @@ public class Transaction : Entity<int>, IAggregateRoot
         string assetId,
         string name,
         decimal quantity,
-        decimal purchasePrice,
-        decimal purchasePricePerUnit,
+        decimal totalPrice,
+        decimal pricePerUnit,
         TransactionType transactionType,
         DateTime createdOn,
         bool isFromOutsideProvider)
@@ -19,8 +19,8 @@ public class Transaction : Entity<int>, IAggregateRoot
         AssetId = assetId;
         Name = name;
         Quantity = quantity;
-        PurchasePrice = purchasePrice;
-        PurchasePricePerUnit = purchasePricePerUnit;
+        TotalPrice = totalPrice;
+        PricePerUnit = pricePerUnit;
         TransactionType = transactionType;
         CreatedOn = createdOn;
         IsFromOutsideProvider = isFromOutsideProvider;
@@ -34,9 +34,9 @@ public class Transaction : Entity<int>, IAggregateRoot
 
     public decimal Quantity { get; private set; }
 
-    public decimal PurchasePrice { get; private set; }
+    public decimal TotalPrice { get; private set; }
 
-    public decimal PurchasePricePerUnit { get; private set; }
+    public decimal PricePerUnit { get; private set; }
 
     public TransactionType TransactionType { get; private set; }
 
@@ -52,17 +52,17 @@ public class Transaction : Entity<int>, IAggregateRoot
         return this;
     }
 
-    public Transaction UpdatePurchasePrice(decimal purchasePrice)
+    public Transaction UpdateTotalPrice(decimal totalPrice)
     {
         // validate purchase price
-        PurchasePrice = purchasePrice;
+        TotalPrice = totalPrice;
         return this;
     }
 
-    public Transaction UpdatePurchasePricePerUnit(decimal purchasePricePerUnit)
+    public Transaction UpdatePricePerUnit(decimal pricePerUnit)
     {
         // validate purchase price
-        PurchasePricePerUnit = purchasePricePerUnit;
+        PricePerUnit = pricePerUnit;
         return this;
     }
 }

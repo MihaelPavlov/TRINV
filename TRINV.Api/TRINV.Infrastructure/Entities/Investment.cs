@@ -14,9 +14,9 @@ public class Investment
 
     public decimal Quantity { get; set; }
 
-    public decimal PurchasePrice { get; set; }
+    public decimal TotalPrice { get; set; }
 
-    public decimal PurchasePricePerUnit { get; set; }
+    public decimal PricePerUnit { get; set; }
 
     public TransactionType TransactionType { get; set; }
 

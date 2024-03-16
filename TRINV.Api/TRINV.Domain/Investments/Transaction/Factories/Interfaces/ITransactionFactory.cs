@@ -9,8 +9,8 @@ public interface ITransactionFactory : IFactory<Models.Transaction>
     ITransactionFactory WithAssetId(string assetId);
     ITransactionFactory WithName(string name);
     ITransactionFactory WithQuantity(decimal quantity);
-    ITransactionFactory WithPurchasePrice(decimal purchasePrice);
-    ITransactionFactory WithPurchasePricePerUnit(decimal purchasePricePerUnit);
+    ITransactionFactory WithTotalPrice(decimal totalPrice);
+    ITransactionFactory WithPricePerUnit(decimal pricePerUnit);
     ITransactionFactory WithTransactionType(TransactionType transactionType);
     ITransactionFactory WithIsFromOutsideProvider(bool isFromOutsideProvider);
 }

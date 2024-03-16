@@ -48,8 +48,8 @@ internal class CreateTransactionCommandHandler : IRequestHandler<CreateTransacti
             .WithAssetId(request.AssetId)
             .WithIsFromOutsideProvider(request.IsFromOutsideProvider)
             .WithName(request.Name)
-            .WithPurchasePrice(request.PurchasePrice)
-            .WithPurchasePricePerUnit(request.PurchasePricePerUnit)
+            .WithTotalPrice(request.PurchasePrice)
+            .WithPricePerUnit(request.PurchasePricePerUnit)
             .WithQuantity(request.Quantity)
             .WithTransactionType((TransactionType)request.TransactionType)
             .Build();

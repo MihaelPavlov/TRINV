@@ -19,10 +19,10 @@ public class UpdateTransactionCommand : IRequest<OperationResult>
     public decimal Quantity { get; set; }
 
     [Required]
-    public decimal PurchasePrice { get; set; }
+    public decimal TotalPrice { get; set; }
 
     [Required]
-    public decimal PurchasePricePerUnit { get; set; }
+    public decimal PricePerUnit { get; set; }
 }
 
 internal class UpdateTransactionCommandHandler : IRequestHandler<UpdateTransactionCommand, OperationResult>
@@ -41,8 +41,8 @@ internal class UpdateTransactionCommandHandler : IRequestHandler<UpdateTransacti
 
         transaction
             .UpdateQuantity(request.Quantity)
-            .UpdatePurchasePrice(request.PurchasePrice)
-            .UpdatePurchasePricePerUnit(request.PurchasePricePerUnit);
+            .UpdateTotalPrice(request.TotalPrice)
+            .UpdatePricePerUnit(request.PricePerUnit);
 
         this.domainRepository.Update(transaction);
         await this.domainRepository.SaveChangesAsync(cancellationToken);

@@ -2,11 +2,15 @@
 <!-- Chart example -> https://codepen.io/Ruddy/pen/yyqZqX -->
 <div class="flex w-full lg:h-screen 2xl:max-h-full">
   <!-- responsive left side -->
-  <div class="2xl:w-2/5 md:w-3/5 app-main-background-color app-main-color-white">
+  <div
+    class="2xl:w-2/5 md:w-3/5 app-main-background-color app-main-color-white"
+  >
     <div class="p-5 pt-7 flex justify-between">
       <h2>ASSETS</h2>
       <button class="mb-5 rounded-full">
-        <mat-icon (click)="openAddTransactionDialog()" class="plus-btn">add</mat-icon>
+        <mat-icon (click)="openAddTransactionDialog()" class="plus-btn"
+          >add</mat-icon
+        >
       </button>
     </div>
     <mat-accordion displayMode="flat" class="m-10">
@@ -103,81 +107,99 @@
       </section>
 
       <mat-expansion-panel
+        (opened)="onOpenAssetPanel(asset.assetId)"
         class="app-main-background-color app-main-color-white app-main-border"
-        *ngFor="let item of displayedRows$ | async; index as i"
+        *ngFor="let asset of this.assets$ | async; let i = index"
       >
         <mat-expansion-panel-header class="mat-row">
           <span class="mat-cell">{{ i }}</span>
-          <span class="mat-cell">{{ item.assetId }}</span>
-          <span class="mat-cell">{{ item.name }}</span>
-          <span class="mat-cell">{{ item.totalQuantity }}</span>
-          <span class="mat-cell">{{ item.totalPrice }}</span>
+          <span class="mat-cell">{{ asset.assetId }}</span>
+          <span class="mat-cell">{{ asset.name }}</span>
+          <span class="mat-cell">{{ asset.totalQuantity }}</span>
+          <span class="mat-cell">{{ asset.totalBalance }}</span>
         </mat-expansion-panel-header>
         <div class="w-full mt-2 table-max-height">
           <div
-          class="grid gap-4 mb-8 md:grid-cols-1 xl:grid-cols-1 2xl:grid-cols-1"
+            class="grid gap-4 mb-8 md:grid-cols-1 xl:grid-cols-1 2xl:grid-cols-1"
           >
-            <div (click)="openViewTransactionDialog()" class="transaction-view px-3 cursor-pointer flex items-center justify-between">
+            <div
+              *ngFor="let transaction of this.assetTransactions$ | async"
+              (click)="openViewTransactionDialog()"
+              class="transaction-view px-3 cursor-pointer flex items-center justify-between"
+            >
               <div class="flex items-center">
-                <div class="p-3 rounded-xl p-3 bg-green-50">
+                <div
+                  class="p-3 rounded-xl p-3"
+                  [class]="
+                    transaction.transactionType == 1
+                      ? 'bg-red-50'
+                      : 'bg-green-50'
+                  "
+                >
                   <img
-                    src="../../shared/assets/images/add.png"
+                    [src]="
+                      transaction.transactionType == 1
+                        ? '../../shared/assets/images/minus.png'
+                        : '../../shared/assets/images/add.png'
+                    "
                     width="30"
                     height="30"
                   />
                 </div>
 
-                <div class="flex md:text-xs	 flex-col ml-3 space-y-2">
+                <div class="flex md:text-xs flex-col ml-3 space-y-2">
                   <div class="mb-2 font-medium leading-none text-gray-100">
-                    Tesla
+                    {{ transaction.name }}
                   </div>
                   <p class="2xl:text-sm text-gray-500 leading-none">
-                    Bought <strong class="text-white">52.43 shared</strong> at
-                    <strong class="text-white">$1635.45 each</strong>
+                    {{ transaction.transactionType === 0 ? "Bought" : "Sold" }}
+                    <strong class="text-white"
+                      >{{ transaction.quantity }} shared</strong
+                    >
+                    at
+                    <strong class="text-white"
+                      >${{ transaction.pricePerUnit }} each</strong
+                    >
                   </p>
                 </div>
               </div>
               <div class="flex relative mt-7">
                 <p class="absolute bottom-8 right-1 text-left text-white">
-                  $6577.18
+                  ${{ transaction.totalPrice }}
                 </p>
-                <div class="text-sm text-green-500 leading-none">
-                  <p class="p-2 bg-green-100 rounded-lg">+ 42%</p>
-                </div>
-              </div>
-            </div>
-
-            <div (click)="openViewTransactionDialog()" class="transaction-view px-3 cursor-pointer flex items-center justify-between">
-              <div class="flex items-center">
-                <div class="p-3 rounded-xl p-3 bg-green-50">
-                  <img
-                    src="../../shared/assets/images/add.png"
-                    width="30"
-                    height="30"
-                  />
-                </div>
-
-                <div class="flex md:text-xs	 flex-col ml-3 space-y-2">
-                  <div class="mb-2 font-medium leading-none text-gray-100">
-                    Tesla
-                  </div>
-                  <p class="2xl:text-sm text-gray-500 leading-none">
-                    Bought <strong class="text-white">52.43 shared</strong> at
-                    <strong class="text-white">$1635.45 each</strong>
+                <div
+                  class="text-sm leading-none"
+                  [class]="
+                    transaction.transactionProfitPercents < 0
+                      ? 'text-red-500'
+                      : 'text-green-500'
+                  "
+                >
+                  <p
+                    class="p-2 rounded-lg"
+                    [class]="
+                      transaction.transactionProfitPercents < 0
+                        ? 'bg-red-100'
+                        : 'bg-green-100'
+                    "
+                  >
+                    {{ transaction.transactionProfitPercents < 0 ? "-" : "+" }}
+                    {{
+                      transaction.transactionProfitPercents < 0
+                        ? convertToPositive(
+                            transaction.transactionProfitPercents
+                          )
+                        : transaction.transactionProfitPercents
+                    }}%
                   </p>
                 </div>
               </div>
-              <div class="flex relative mt-7">
-                <p class="absolute bottom-8 right-1 text-left text-white">
-                  $6577.18
-                </p>
-                <div class="text-sm text-green-500 leading-none">
-                  <p class="p-2 bg-green-100 rounded-lg">+ 42%</p>
-                </div>
-              </div>
             </div>
 
-            <div (click)="openViewTransactionDialog()" class="transaction-view px-3 cursor-pointer flex items-center justify-between">
+            <div
+              (click)="openViewTransactionDialog()"
+              class="transaction-view px-3 cursor-pointer flex items-center justify-between"
+            >
               <div class="flex items-center">
                 <div class="p-3 rounded-xl bg-red-100">
                   <img
@@ -207,100 +229,6 @@
                 </div>
               </div>
             </div>
-
-            <div (click)="openViewTransactionDialog()" class="transaction-view px-3 cursor-pointer flex items-center justify-between">
-              <div class="flex items-center">
-                <div class="p-3 rounded-xl bg-red-100">
-                  <img
-                    src="../../shared/assets/images/minus.png"
-                    width="30"
-                    height="30"
-                  />
-                </div>
-
-                <div class="flex md:text-xs flex-col ml-3 space-y-2">
-                  <div class="mb-2 font-medium leading-none text-gray-100">
-                    Tesla
-                  </div>
-                  <div class="2xl:text-sm text-gray-500 leading-none">
-                    Sold <strong class="text-white">5.43 shared</strong> at
-                    <strong class="text-white">$165.45 each</strong>
-                  </div>
-                </div>
-              </div>
-
-              <div class="flex relative mt-7">
-                <p class="absolute bottom-8 right-1 text-left text-white">
-                  $35433221.33
-                </p>
-                <div class="text-sm text-red-500 leading-none">
-                  <p class="p-2 bg-red-100 rounded-lg">- 42%</p>
-                </div>
-              </div>
-            </div>
-            
-            <div (click)="openViewTransactionDialog()" class="transaction-view px-3 cursor-pointer flex items-center justify-between">
-              <div class="flex items-center">
-                <div class="p-3 rounded-xl p-3 bg-green-50">
-                  <img
-                    src="../../shared/assets/images/add.png"
-                    width="30"
-                    height="30"
-                  />
-                </div>
-
-                <div class="flex md:text-xs	flex-col ml-3 space-y-2">
-                  <div class="mb-2 font-medium leading-none text-gray-100">
-                    Tesla
-                  </div>
-                  <p class="2xl:text-sm text-gray-500 leading-none">
-                    Bought <strong class="text-white">52.43 shared</strong> at
-                    <strong class="text-white">$1635.45 each</strong>
-                  </p>
-                </div>
-              </div>
-              <div class="flex relative mt-7">
-                <p class="absolute bottom-8 right-1 text-left text-white">
-                  $6577.18
-                </p>
-                <div class="text-sm text-green-500 leading-none">
-                  <p class="p-2 bg-green-100 rounded-lg">+ 42%</p>
-                </div>
-              </div>
-            </div>
-
-            <div (click)="openViewTransactionDialog()" class="transaction-view px-3 cursor-pointer flex items-center justify-between">
-              <div class="flex items-center">
-                <div class="p-3 rounded-xl bg-red-100">
-                  <img
-                    src="../../shared/assets/images/minus.png"
-                    width="30"
-                    height="30"
-                  />
-                </div>
-
-                <div class="flex md:text-xs flex-col ml-3 space-y-2">
-                  <div class="mb-2 font-medium leading-none text-gray-100">
-                    Tesla
-                  </div>
-                  <div class="2xl:text-sm text-gray-500 leading-none">
-                    Sold <strong class="text-white">5.43 shared</strong> at
-                    <strong class="text-white">$165.45 each</strong>
-                  </div>
-                </div>
-              </div>
-
-              <div class="flex relative mt-7">
-                <p class="absolute bottom-8 right-1 text-left text-white">
-                  $35433221.33
-                </p>
-                <div class="text-sm text-red-500 leading-none">
-                  <p class="p-2 bg-red-100 rounded-lg">- 42%</p>
-                </div>
-              </div>
-            </div>
-
-            
           </div>
           <!-- <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <ng-container matColumnDef="dateAdded">
@@ -354,8 +282,10 @@
       </mat-expansion-panel>
     </mat-accordion>
   </div>
-<!-- responsive right side -->
-  <div class="2xl:w-3/5 md:w-3/6 app-main-background-color app-main-color-white">
+  <!-- responsive right side -->
+  <div
+    class="2xl:w-3/5 md:w-3/6 app-main-background-color app-main-color-white"
+  >
     <div class="m-6">
       <h2 class="font-bold">NET WORTH</h2>
       <h1 class="font-bold">$ 105.23K</h1>

@@ -4,7 +4,7 @@ using TRINV.Shared.Business.Utilities;
 
 namespace TRINV.Application.Investments.Transaction.Queries;
 
-public record GetAssetListQuery(string SearchExpression) : IRequest<OperationResult<IEnumerable<GetAssetListQueryModel>>>;
+public record GetAssetListQuery(string? SearchExpression) : IRequest<OperationResult<IEnumerable<GetAssetListQueryModel>>>;
 
 internal class GetAssetListQueryHandler : IRequestHandler<GetAssetListQuery, OperationResult<IEnumerable<GetAssetListQueryModel>>>
 {
@@ -17,7 +17,7 @@ internal class GetAssetListQueryHandler : IRequestHandler<GetAssetListQuery, Ope
 
     public async Task<OperationResult<IEnumerable<GetAssetListQueryModel>>> Handle(GetAssetListQuery request, CancellationToken cancellationToken)
     {
-        var result = await this.queryRepository.GetAllAssets(request.SearchExpression, cancellationToken);
+        var result = await this.queryRepository.GetAllAssets(request.SearchExpression ?? string.Empty, cancellationToken);
 
         return new OperationResult<IEnumerable<GetAssetListQueryModel>>(result);
     }
