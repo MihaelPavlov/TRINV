@@ -31,7 +31,7 @@
 
     <h2 class="text-white">Add Transaction</h2>
     <form
-      [formGroup]="addUpdateForm"
+      [formGroup]="createForm"
       (ngSubmit)="onSubmit()"
       class="grid grid-cols-1 place-items-center space-y-8"
     >
@@ -89,28 +89,28 @@
 
       <div class="w-72 md:w-80 lg:w-96">
         <label
-          for="purchasePrice"
+          for="totalPrice"
           class="block w-full pb-1 text-sm font-medium text-gray-500 transition-all duration-200 ease-in-out group-focus-within:text-blue-400"
-          >Purchase Price</label
+          >Total Price</label
         >
         <input
-          id="purchasePrice"
+          id="totalPrice"
           type="number"
-          formControlName="purchasePrice"
+          formControlName="totalPrice"
           class="app-main-color-white app-main-background-color-40-black peer h-10 w-full rounded-md bg-gray-50 px-4 font-thin outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-400"
         />
       </div>
 
       <div class="w-72 md:w-80 lg:w-96">
         <label
-          for="purchasePricePerUnit"
+          for="pricePerUnit"
           class="block w-full pb-1 text-sm font-medium text-gray-500 transition-all duration-200 ease-in-out group-focus-within:text-blue-400"
-          >Purchase Price Per Unit</label
+          >Price Per Unit</label
         >
         <input
-          id="purchasePricePerUnit"
+          id="pricePerUnit"
           type="number"
-          formControlName="purchasePricePerUnit"
+          formControlName="pricePerUnit"
           class="app-main-color-white app-main-background-color-40-black peer h-10 w-full rounded-md bg-gray-50 px-4 font-thin outline-none drop-shadow-sm transition-all duration-200 ease-in-out focus:ring-2 focus:ring-blue-400"
         />
       </div>

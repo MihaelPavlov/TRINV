@@ -1,4 +1,8 @@
-<div>
+<div
+  [ngClass]="{
+    'animate-pulse': (this.isLoadingInvestmentPerformanceList$ | async)
+  }"
+>
   <div class="flex">
     <h2 class="app-main-color-white text-lg pb-1">
       Best Performers In Your Portfolio
@@ -7,8 +11,10 @@
       class="relative w-full px-2 py-2 max-w-full flex-grow flex-1 text-right"
     >
       <button
+        *ngIf="!(this.isLoadingInvestmentPerformanceList$ | async)"
         type="button"
         class="app-blue-btn text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none ease-linear transition-all duration-150"
+        (click)="this.openDialog()"
       >
         See all
       </button>
@@ -47,53 +53,43 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container>
-          <tr class="app-main-color-white">
+        <ng-container
+          *ngIf="!(this.isLoadingInvestmentPerformanceList$ | async)"
+        >
+          <tr
+            class="app-main-color-white"
+            *ngFor="
+              let investment of this.investmentPerformanceList.slice(0, 10)
+            "
+          >
             <th
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap text-left"
             >
-              Bitcoin(btc)
+              ({{ investment.assetId }}) {{ investment.name }}
             </th>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap"
             >
-              202K
+              {{ investment.totalInitialInvestment | formatNumber }} $
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap"
             >
-              2012
+              {{ investment.totalCurrentInvestment | formatNumber }} $
             </td>
             <td
               class="flex px-6 align-middle text-xs whitespace-nowrap p-2"
+              [ngClass]="
+                !(this.isLoadingInvestmentPerformanceList$ | async)
+                  ? (investment.rate | numberFormatForCandle)
+                  : ''
+              "
             >
-            <div class="text-sm text-green-500 leading-none">
-              <p class="p-2 bg-green-100 rounded-lg">+ 42%</p>
-            </div>
-            </td>
-          </tr>
-          <tr class="app-main-color-white">
-            <th
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap text-left"
-            >
-              Bitcoin(btc)
-            </th>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap"
-            >
-              202K
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap"
-            >
-              2012
-            </td>
-            <td
-              class="flex px-6 align-middle text-xs whitespace-nowrap p-2"
-            >
-            <div class="text-sm text-red-500 leading-none">
-              <p class="p-2 bg-red-100 rounded-lg">+ 42%</p>
-            </div>
+              {{
+                (investment.rate > 0 ? "+" : "") +
+                  (investment.rate | number : "1.2-2") +
+                  "%"
+              }}
             </td>
           </tr>
         </ng-container>

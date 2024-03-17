@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System.ComponentModel.DataAnnotations;
+using TRINV.Domain.Common.Enums;
 using TRINV.Domain.Investments.Transaction.Factories.Interfaces;
-using TRINV.Domain.Investments.Transaction.Models;
 using TRINV.Domain.Investments.Transaction.Repositories;
 using TRINV.Shared.Business.Utilities;
 
@@ -19,10 +19,10 @@ public class CreateTransactionCommand : IRequest<OperationResult>
     public decimal Quantity { get; set; }
 
     [Required]
-    public decimal PurchasePrice { get; set; }
+    public decimal TotalPrice { get; set; }
 
     [Required]
-    public decimal PurchasePricePerUnit { get; set; }
+    public decimal PricePerUnit { get; set; }
 
     [Required]
     public int TransactionType { get; set; }
@@ -48,8 +48,8 @@ internal class CreateTransactionCommandHandler : IRequestHandler<CreateTransacti
             .WithAssetId(request.AssetId)
             .WithIsFromOutsideProvider(request.IsFromOutsideProvider)
             .WithName(request.Name)
-            .WithTotalPrice(request.PurchasePrice)
-            .WithPricePerUnit(request.PurchasePricePerUnit)
+            .WithTotalPrice(request.TotalPrice)
+            .WithPricePerUnit(request.PricePerUnit)
             .WithQuantity(request.Quantity)
             .WithTransactionType((TransactionType)request.TransactionType)
             .Build();

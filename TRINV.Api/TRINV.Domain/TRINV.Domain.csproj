@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="ExternalAssetIntegration\Dashboard\Exceptions\" />
-    <Folder Include="ExternalAssetIntegration\Dashboard\Enums\" />
     <Folder Include="ExternalAssetIntegration\ExternalResources\Services\" />
   </ItemGroup>
 

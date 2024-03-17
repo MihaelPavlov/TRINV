@@ -40,9 +40,6 @@ namespace TRINV.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("InvestmentType")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsFromOutsideProvider")
                         .HasColumnType("bit");
 
@@ -50,14 +47,17 @@ namespace TRINV.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("PurchasePrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("PurchasePricePerUnit")
+                    b.Property<decimal>("PricePerUnit")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("TransactionType")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

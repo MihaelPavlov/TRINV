@@ -1,8 +1,5 @@
 ﻿using MediatR;
 using System.ComponentModel.DataAnnotations;
-using TRINV.Domain.ExternalAssetIntegration.ExternalResources.Models;
-using TRINV.Domain.Investments.Transaction.Factories.Interfaces;
-using TRINV.Domain.Investments.Transaction.Models;
 using TRINV.Domain.Investments.Transaction.Repositories;
 using TRINV.Shared.Business.Exceptions;
 using TRINV.Shared.Business.Extension;
@@ -10,7 +7,7 @@ using TRINV.Shared.Business.Utilities;
 
 namespace TRINV.Application.Investments.Transaction.Commands;
 
-public class UpdateTransactionCommand : IRequest<OperationResult>
+public class UpdateTransactionCommand : IRequest<OperationResult<string>>
 {
     [Required]
     public int Id { get; set; }
@@ -25,7 +22,7 @@ public class UpdateTransactionCommand : IRequest<OperationResult>
     public decimal PricePerUnit { get; set; }
 }
 
-internal class UpdateTransactionCommandHandler : IRequestHandler<UpdateTransactionCommand, OperationResult>
+internal class UpdateTransactionCommandHandler : IRequestHandler<UpdateTransactionCommand, OperationResult<string>>
 {
     readonly ITransactionDomainRepository domainRepository;
 
@@ -33,11 +30,11 @@ internal class UpdateTransactionCommandHandler : IRequestHandler<UpdateTransacti
     {
         this.domainRepository = domainRepository;
     }
-    public async Task<OperationResult> Handle(UpdateTransactionCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult<string>> Handle(UpdateTransactionCommand request, CancellationToken cancellationToken)
     {
         var transaction = await this.domainRepository.Find(request.Id, cancellationToken);
         if (transaction is null)
-            return new OperationResult().ReturnWithErrorMessage(new NotFoundException($"{nameof(transaction)} with id {request.Id} was not found"));
+            return new OperationResult<string>().ReturnWithErrorMessage(new NotFoundException($"{nameof(transaction)} with id {request.Id} was not found"));
 
         transaction
             .UpdateQuantity(request.Quantity)
@@ -47,6 +44,6 @@ internal class UpdateTransactionCommandHandler : IRequestHandler<UpdateTransacti
         this.domainRepository.Update(transaction);
         await this.domainRepository.SaveChangesAsync(cancellationToken);
 
-        return new OperationResult();
+        return new OperationResult<string>(transaction.AssetId);
     }
 }

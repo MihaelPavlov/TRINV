@@ -25,14 +25,6 @@ public class TransactionController : ControllerBase
         return this.Ok(result);
     }
 
-    [HttpPost("asset-transaction-list")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OperationResult<IEnumerable<GetTransactionListByAssetIdQueryModel>>))]
-    public async Task<IActionResult> GetTransactionListByAssetId([FromBody] GetTransactionListByAssetIdQuery query, CancellationToken cancellationToken)
-    {
-        var result = await this.mediator.Send(query, cancellationToken);
-        return this.Ok(result);
-    }
-
     [HttpPost("asset-list")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OperationResult<IEnumerable<GetAssetListQueryModel>>))]
     public async Task<IActionResult> GetAssetList([FromBody] GetAssetListQuery query, CancellationToken cancellationToken)
@@ -50,7 +42,7 @@ public class TransactionController : ControllerBase
     }
 
     [HttpPut]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OperationResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OperationResult<string>))]
     public async Task<IActionResult> UpdateTransaction([FromBody] UpdateTransactionCommand command, CancellationToken cancellationToken)
     {
         var result = await this.mediator.Send(command, cancellationToken);
@@ -58,7 +50,7 @@ public class TransactionController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OperationResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OperationResult<string>))]
     public async Task<IActionResult> DeleteTransaction(int id, CancellationToken cancellationToken)
     {
         var result = await this.mediator.Send(new DeleteTransactionCommand(id), cancellationToken);

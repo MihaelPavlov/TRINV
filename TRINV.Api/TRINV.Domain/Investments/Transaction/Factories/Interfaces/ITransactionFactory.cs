@@ -1,5 +1,5 @@
 ﻿using TRINV.Domain.Common;
-using TRINV.Domain.Investments.Transaction.Models;
+using TRINV.Domain.Common.Enums;
 
 namespace TRINV.Domain.Investments.Transaction.Factories.Interfaces;
 

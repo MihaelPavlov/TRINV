@@ -1,4 +1,5 @@
 ﻿using TRINV.Domain.Common;
+using TRINV.Domain.Common.Enums;
 
 namespace TRINV.Domain.Investments.Transaction.Models;
 
@@ -65,10 +66,4 @@ public class Transaction : Entity<int>, IAggregateRoot
         PricePerUnit = pricePerUnit;
         return this;
     }
-}
-
-public enum TransactionType
-{
-    Bought = 0,
-    Sold = 1,
 }

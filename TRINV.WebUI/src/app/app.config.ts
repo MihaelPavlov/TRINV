@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from '../pages/dashboard/dashboard.component';
-import { AssetsListComponent } from '../pages/assets/assets-list.component';
+import { DashboardComponent } from '../pages/dashboard/page/dashboard.component';
+import { AssetsComponent } from '../pages/assets/page/assets.component';
 
 const routes: Routes = [
   {
@@ -14,10 +14,10 @@ const routes: Routes = [
   },
   {
     path: 'assets',
-    component: AssetsListComponent,
+    component: AssetsComponent,
     loadChildren: () =>
-      import('../pages/assets/assets-list.module').then(
-        (m) => m.AssetsListModule
+      import('../pages/assets/assets.module').then(
+        (m) => m.AssetsModule
       ),
   },
 ];

@@ -12,10 +12,10 @@ public record GetDashboardInvestmentsInfoQuery(int AccountId) : IRequest<Operati
 
 internal class GetDashboardInvestmentsInfoQueryHandler : IRequestHandler<GetDashboardInvestmentsInfoQuery, OperationResult<GetDashboardInvestmentsInfoQueryModel>>
 {
-    readonly IInvestmentDomainRepository investmentDomainRepository;
+    readonly IDashboardDomainRepository investmentDomainRepository;
     readonly IExternalIntegrationResourceService externalIntegrationResourceService;
 
-    public GetDashboardInvestmentsInfoQueryHandler(IInvestmentDomainRepository investmentDomainRepository, IExternalIntegrationResourceService externalIntegrationResourceService)
+    public GetDashboardInvestmentsInfoQueryHandler(IDashboardDomainRepository investmentDomainRepository, IExternalIntegrationResourceService externalIntegrationResourceService)
     {
         this.investmentDomainRepository = investmentDomainRepository;
         this.externalIntegrationResourceService = externalIntegrationResourceService;
@@ -23,7 +23,7 @@ internal class GetDashboardInvestmentsInfoQueryHandler : IRequestHandler<GetDash
 
     public async Task<OperationResult<GetDashboardInvestmentsInfoQueryModel>> Handle(GetDashboardInvestmentsInfoQuery request, CancellationToken cancellationToken)
     {
-        var investments = await this.investmentDomainRepository.GetAllByAccount(request.AccountId, cancellationToken);
+        var investments = await this.investmentDomainRepository.GetAll(cancellationToken);
         // var account = accountRepo.Find(request.AccountId) account information 
 
         var operationResult = new OperationResult<GetDashboardInvestmentsInfoQueryModel>();
@@ -51,7 +51,7 @@ internal class GetDashboardInvestmentsInfoQueryHandler : IRequestHandler<GetDash
                 totalCurrentValue += investment.Quantity * asset.Price;
 
                 // Calculate the initial investment
-                totalInitialInvestment += investment.Quantity * investment.PurchasePricePerUnit;
+                totalInitialInvestment += investment.Quantity * investment.PricePerUnit;
             }
             //// Handle the case where the corresponding coin data is not found
             //else
@@ -64,7 +64,7 @@ internal class GetDashboardInvestmentsInfoQueryHandler : IRequestHandler<GetDash
         decimal totalPercentReturn = (totalCurrentValue - totalInitialInvestment) / totalInitialInvestment * 100;
 
         operationResult.RelatedObject = new GetDashboardInvestmentsInfoQueryModel(
-            investments.Sum(x => x.PurchasePrice),
+            investments.Sum(x => x.TotalPrice),
             investments.Count(),
             totalPercentReturn);
 

@@ -3,7 +3,7 @@
 public abstract class Entity<TId> : IEntity
     where TId : struct
 {
-    public TId Id { get; set; } = default;
+    public TId Id { get; private set; } = default;
     public override bool Equals(object? obj)
     {
         if (!(obj is Entity<TId> other))

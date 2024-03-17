@@ -7,4 +7,5 @@ namespace TRINV.Infrastructure.ExternalAssetIntegration;
 internal interface IExternalAssetIntegrationDbContext : IDbContext
 {
     DbSet<RequestExternalResource> RequestExternalResources { get; }
+    DbSet<Investment> Investments { get; }
 }

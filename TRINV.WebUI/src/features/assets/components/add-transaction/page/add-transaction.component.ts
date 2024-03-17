@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import { selectExternalIntegrationResourceResultList } from '../../../../../shared/store/external-integration-resource/external-integration-resource.selectors';
 import { AppState } from '../../../../../app/store/app-store.module';
 import { FormControl, FormGroup } from '@angular/forms';
-import { CreateTransaction } from '../../../../../pages/assets/store/assets.actions';
+import { CreateTransaction } from '../../../../../entities/assets/store/assets.actions';
 
 @Component({
   selector: 'app-add-transaction-dialog',
@@ -22,13 +22,13 @@ export class AddTransactionDialogComponent implements OnInit {
   public filteredAssets!: IExternalIntegrationResourceResultModel[];
   public searchTerm!: string;
 
-  public addUpdateForm = new FormGroup({
+  public createForm = new FormGroup({
     type: new FormControl(),
     assetId: new FormControl(),
     name: new FormControl(),
     quantity: new FormControl(),
-    purchasePrice: new FormControl(),
-    purchasePricePerUnit: new FormControl(),
+    totalPrice: new FormControl(),
+    pricePerUnit: new FormControl(),
   });
 
   constructor(
@@ -49,7 +49,7 @@ export class AddTransactionDialogComponent implements OnInit {
 
     this.assets$.subscribe((x) => (this.filteredAssets = x));
 
-    this.addUpdateForm
+    this.createForm
       .get('assetId')
       ?.valueChanges.subscribe((selectedAssetId) => {
         this.assets$.subscribe((assetList) => {
@@ -58,7 +58,7 @@ export class AddTransactionDialogComponent implements OnInit {
           );
 
           if (selectedAsset) {
-            this.addUpdateForm.get('name')?.setValue(selectedAsset.name);
+            this.createForm.get('name')?.setValue(selectedAsset.name);
           }
         });
       });
@@ -86,12 +86,12 @@ export class AddTransactionDialogComponent implements OnInit {
     this.store.dispatch(
       new CreateTransaction({
         transaction: {
-          assetId: this.addUpdateForm.controls.assetId.value,
-          name: this.addUpdateForm.controls.name.value,
-          quantity: this.addUpdateForm.controls.quantity.value,
-          purchasePrice: this.addUpdateForm.controls.purchasePrice.value,
-          purchasePricePerUnit: this.addUpdateForm.controls.purchasePricePerUnit.value,
-          transactionType: this.addUpdateForm.controls.type.value as TransactionType,
+          assetId: this.createForm.controls.assetId.value,
+          name: this.createForm.controls.name.value,
+          quantity: this.createForm.controls.quantity.value,
+          totalPrice: this.createForm.controls.totalPrice.value,
+          pricePerUnit: this.createForm.controls.pricePerUnit.value,
+          transactionType: this.createForm.controls.type.value as TransactionType,
           isFromOutsideProvider: true
         },
       })

@@ -5,7 +5,7 @@ using TRINV.Domain.Investments.Transaction.Repositories;
 using TRINV.Shared.Business.Exceptions;
 using TRINV.Shared.Business.Extension;
 using TRINV.Shared.Business.Utilities;
-using TRINV.Domain.Investments.Transaction.Models;
+using TRINV.Domain.Common.Enums;
 
 namespace TRINV.Application.Investments.Transaction.Queries;
 
@@ -38,7 +38,10 @@ internal class GetTransactionByIdQueryHandler : IRequestHandler<GetTransactionBy
             PricePerUnit = transaction.PricePerUnit,
             TransactionType = transaction.TransactionType,
             CreatedOn = transaction.CreatedOn,
-            TransactionalProfit = 40 // TODO: Calculate the current transaction profit based on the current price of the asset
+            TransactionalProfit = 40 
+            // TODO: Calculate the current transaction profit based on the current price of the asset
+            // IMPORTANT-> This transactionalProfit should be calculate out of the investments scope. Write new endpoint in ExternalAssetIntegration Dashboard
+            // GetInvestmentStatsById -> Because we will return and information for chart
         };
 
         return operationResult;
