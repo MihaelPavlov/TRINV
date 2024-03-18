@@ -48,13 +48,13 @@ namespace TRINV.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("PricePerUnit")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,8)");
 
                     b.Property<decimal>("Quantity")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,8)");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,8)");
 
                     b.Property<int>("TransactionType")
                         .HasColumnType("int");
