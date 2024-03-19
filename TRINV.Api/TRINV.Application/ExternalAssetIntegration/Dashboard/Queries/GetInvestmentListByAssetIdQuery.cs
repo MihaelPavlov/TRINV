@@ -40,8 +40,8 @@ internal class GetInvestmentListByAssetIdQueryHandler : IRequestHandler<GetInves
                 AssetId = transaction.AssetId,
                 Name = transaction.Name,
                 Quantity = transaction.Quantity,
-                TotalPrice = transaction.TotalPrice,
-                PricePerUnit = transaction.PricePerUnit,
+                TotalPrice =transaction.TotalPrice,
+                PricePerUnit =transaction.PricePerUnit,
                 TransactionType = transaction.TransactionType,
 
             }), cancellationToken);

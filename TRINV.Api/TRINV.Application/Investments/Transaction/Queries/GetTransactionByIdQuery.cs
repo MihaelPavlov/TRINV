@@ -6,6 +6,8 @@ using TRINV.Shared.Business.Exceptions;
 using TRINV.Shared.Business.Extension;
 using TRINV.Shared.Business.Utilities;
 using TRINV.Domain.Common.Enums;
+using TRINV.Application.ExternalAssetIntegration.ExternalResources.Queries;
+using TRINV.Domain.ExternalAssetIntegration.ExternalResources.Enums;
 
 namespace TRINV.Application.Investments.Transaction.Queries;
 
@@ -14,14 +16,18 @@ public record GetTransactionByIdQuery(int Id) : IRequest<OperationResult<GetTran
 internal class GetTransactionByIdQueryHandler : IRequestHandler<GetTransactionByIdQuery, OperationResult<GetTransactionByIdQueryModel>>
 {
     readonly ITransactionDomainRepository domainRepository;
+    readonly IMediator mediator;
 
-    public GetTransactionByIdQueryHandler(ITransactionDomainRepository domainRepository)
+    public GetTransactionByIdQueryHandler(ITransactionDomainRepository domainRepository, IMediator mediator)
     {
         this.domainRepository = domainRepository;
+        this.mediator = mediator;
     }
 
     public async Task<OperationResult<GetTransactionByIdQueryModel>> Handle(GetTransactionByIdQuery request, CancellationToken cancellationToken)
-    {
+   {
+        var result = await this.mediator.Send(new GetExternalIntegrationResourceResultListByCategoryQuery((int)ExternalResourceCategory.Crypto), cancellationToken);
+
         var operationResult = new OperationResult<GetTransactionByIdQueryModel>();
         var transaction = await this.domainRepository.Find(request.Id, cancellationToken);
 

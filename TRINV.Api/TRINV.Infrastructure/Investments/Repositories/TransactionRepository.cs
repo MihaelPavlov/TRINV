@@ -26,9 +26,11 @@ internal class TransactionRepository : DataRepository<IInvestmentDbContext, Enti
     }
 
     public async Task<Transaction?> Find(int id, CancellationToken cancellationToken)
-     => await this
-            .All().ProjectTo<Transaction>(this.mapper.ConfigurationProvider)
-            .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+    {
+        var result = await this.All().AsNoTracking().FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+
+        return this.mapper.Map<Transaction>(result);
+    }
 
     public async Task<IEnumerable<Transaction>> GetAllByAccount(int accountId, CancellationToken cancellationToken)
         => await this.All().Where(x => x.AccountId == accountId).ProjectTo<Transaction>(this.mapper.ConfigurationProvider).ToListAsync(cancellationToken);
@@ -44,15 +46,10 @@ internal class TransactionRepository : DataRepository<IInvestmentDbContext, Enti
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<IEnumerable<GetAssetListQueryModel>> GetAllAssets(string searchExpression, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Transaction>> GetAllAssets(string searchExpression, CancellationToken cancellationToken)
     {
-        return await this.All().Where(x => x.AssetId.Contains(searchExpression)).GroupBy(x => new { AssetId = x.AssetId, Name = x.Name }).Select(x => new GetAssetListQueryModel
-        {
-            AssetId = x.Key.AssetId,
-            Name = x.Key.Name,
-            TotalQuantity = x.Sum(x => x.Quantity),
-            TotalBalance = x.Sum(x => x.TotalPrice)
-        }).ToListAsync(cancellationToken);
+        var res = await this.All().Where(x => x.AssetId.Contains(searchExpression)).ToListAsync(cancellationToken);
+        return this.mapper.Map<IEnumerable<Transaction>>(res);
     }
 }
 

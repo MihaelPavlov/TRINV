@@ -19,7 +19,15 @@ internal class GetAssetListQueryHandler : IRequestHandler<GetAssetListQuery, Ope
     {
         var result = await this.queryRepository.GetAllAssets(request.SearchExpression ?? string.Empty, cancellationToken);
 
-        return new OperationResult<IEnumerable<GetAssetListQueryModel>>(result);
+        var groupedAssets = result.GroupBy(x => new { AssetId = x.AssetId, Name = x.Name }).Select(x => new GetAssetListQueryModel
+        {
+            AssetId = x.Key.AssetId,
+            Name = x.Key.Name,
+            TotalQuantity = x.Sum(x => x.Quantity),
+            TotalBalance = x.Sum(x => x.TotalPrice)
+        }).ToList();
+
+        return new OperationResult<IEnumerable<GetAssetListQueryModel>>(groupedAssets);
     }
 }
 

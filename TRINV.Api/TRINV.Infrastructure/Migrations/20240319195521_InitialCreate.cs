@@ -18,9 +18,9 @@ namespace TRINV.Infrastructure.Migrations
                     AccountId = table.Column<int>(type: "int", nullable: false),
                     AssetId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Quantity = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
-                    PricePerUnit = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
+                    Quantity = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TotalPrice = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PricePerUnit = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TransactionType = table.Column<int>(type: "int", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsFromOutsideProvider = table.Column<bool>(type: "bit", nullable: false)

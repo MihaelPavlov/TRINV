@@ -10,11 +10,11 @@ public class Investment
 
     public string Name { get; set; } = string.Empty;
 
-    public decimal Quantity { get; set; }
+    public string Quantity { get; set; } = string.Empty;
 
-    public decimal TotalPrice { get; set; }
+    public string TotalPrice { get; set; } = string.Empty;
 
-    public decimal PricePerUnit { get; set; }
+    public string PricePerUnit { get; set; } = string.Empty;
 
     public int TransactionType { get; set; }
 
