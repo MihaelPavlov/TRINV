@@ -134,7 +134,7 @@ export class UpdateTransactionById implements Action {
 export class UpdateTransactionByIdSuccess implements Action {
   readonly type = UPDATE_TRANSACTION_BY_ID_SUCCESS;
 
-  constructor(public payload: { assetId: string }) {}
+  constructor() {}
 }
 
 export class UpdateTransactionByIdError implements Action {
@@ -156,7 +156,7 @@ export class DeleteTransactionById implements Action {
 export class DeleteTransactionByIdSuccess implements Action {
   readonly type = DELETE_TRANSACTION_BY_ID_SUCCESS;
 
-  constructor(public payload: { assetId: string }) {}
+  constructor() {}
 }
 
 export class DeleteTransactionByIdError implements Action {

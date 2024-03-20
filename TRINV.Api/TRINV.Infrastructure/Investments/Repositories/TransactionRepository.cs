@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
 using System.Linq.Expressions;
-using TRINV.Application.Investments.Transaction.Queries;
 using TRINV.Application.Investments.Transaction.Repositories;
 using TRINV.Domain.Investments.Transaction.Models;
 using TRINV.Domain.Investments.Transaction.Repositories;

@@ -109,10 +109,8 @@ export class AssetsEffects {
         this.assetsService.updateTransactionById(data.payload.transaction)
       ),
       map((operationResult: ExtendedOperationResult<string> | null) => {
-        if (operationResult?.relatedObject) {
-          return new actions.UpdateTransactionByIdSuccess({
-            assetId: operationResult?.relatedObject,
-          });
+        if (operationResult?.success) {
+          return new actions.UpdateTransactionByIdSuccess();
         }
 
         return new actions.UpdateTransactionByIdError({ operationResult });
@@ -123,54 +121,42 @@ export class AssetsEffects {
   updateTransactionByIdSuccess$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actions.UPDATE_TRANSACTION_BY_ID_SUCCESS),
-      switchMap((data: actions.UpdateTransactionByIdSuccess) =>
-        this.dashboardService.getAssetInvestmentList(data.payload.assetId)
-      ),
-      map(
-        (
-          operationResult: ExtendedOperationResult<IAssetTransaction[]> | null
-        ) => {
-          return new actions.GetAssetTransactionListSuccess({
-            assetTransactions: operationResult?.relatedObject ?? [],
-          });
-        }
-      )
+      switchMap((_) => this.assetsService.getAssets(null)),
+      map((operationResult: ExtendedOperationResult<IAsset[]> | null) => {
+        return new actions.GetAssetListSuccess({
+          assets: operationResult?.relatedObject ?? [],
+        });
+      })
     )
   );
 
   deleteTransactionById$ = createEffect(() =>
-  this.actions$.pipe(
-    ofType(actions.DELETE_TRANSACTION_BY_ID),
-    switchMap((data: actions.DeleteTransactionById) =>
-      this.assetsService.deleteTransactionById(data.payload.id)
-    ),
-    map((operationResult: ExtendedOperationResult<string> | null) => {
-      if (operationResult?.relatedObject) {
-        return new actions.UpdateTransactionByIdSuccess({
-          assetId: operationResult?.relatedObject,
-        });
-      }
+    this.actions$.pipe(
+      ofType(actions.DELETE_TRANSACTION_BY_ID),
+      switchMap((data: actions.DeleteTransactionById) =>
+        this.assetsService.deleteTransactionById(data.payload.id)
+      ),
+      map((operationResult: ExtendedOperationResult<string> | null) => {
+        if (operationResult?.success) {
+          return new actions.DeleteTransactionByIdSuccess();
+        }
 
-      return new actions.UpdateTransactionByIdError({ operationResult });
-    })
-  )
-);
+        return new actions.UpdateTransactionByIdError({ operationResult });
+      })
+    )
+  );
 
   deleteTransactionByIdSuccess$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actions.DELETE_TRANSACTION_BY_ID_SUCCESS),
       switchMap((data: actions.DeleteTransactionByIdSuccess) =>
-        this.dashboardService.getAssetInvestmentList(data.payload.assetId)
+        this.assetsService.getAssets(null)
       ),
-      map(
-        (
-          operationResult: ExtendedOperationResult<IAssetTransaction[]> | null
-        ) => {
-          return new actions.GetAssetTransactionListSuccess({
-            assetTransactions: operationResult?.relatedObject ?? [],
-          });
-        }
-      )
+      map((operationResult: ExtendedOperationResult<IAsset[]> | null) => {
+        return new actions.GetAssetListSuccess({
+          assets: operationResult?.relatedObject ?? [],
+        });
+      })
     )
   );
 

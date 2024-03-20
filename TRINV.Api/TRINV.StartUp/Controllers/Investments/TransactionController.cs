@@ -42,7 +42,7 @@ public class TransactionController : ControllerBase
     }
 
     [HttpPut]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OperationResult<string>))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OperationResult))]
     public async Task<IActionResult> UpdateTransaction([FromBody] UpdateTransactionCommand command, CancellationToken cancellationToken)
     {
         var result = await this.mediator.Send(command, cancellationToken);
@@ -50,7 +50,7 @@ public class TransactionController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OperationResult<string>))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OperationResult))]
     public async Task<IActionResult> DeleteTransaction(int id, CancellationToken cancellationToken)
     {
         var result = await this.mediator.Send(new DeleteTransactionCommand(id), cancellationToken);
