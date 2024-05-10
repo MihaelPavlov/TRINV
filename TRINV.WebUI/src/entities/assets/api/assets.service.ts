@@ -17,6 +17,16 @@ import { IUpdateTransaction } from '../models/update-transaction.mode';
 export class AssetsService {
   constructor(private restApiService: RestApiService) {}
 
+  UpSertTransaction(
+    combineTransactions(
+    transaction: IAddTransaction
+  ): Observable<OperationResult | null> {
+    return this.restApiService.post<OperationResult>(
+      '/transaction',
+      transaction
+    );
+  }
+  
   combineTransactions(
     transaction: IAddTransaction
   ): Observable<OperationResult | null> {
